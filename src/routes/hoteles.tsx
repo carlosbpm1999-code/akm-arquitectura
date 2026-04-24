@@ -1,24 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import logo from "@/assets/akm-logo.png";
-
-const hotelCases = [
-  { name: "Hotel Catalonia Plaza España", img: "https://www.akmarquitectura.com/wp-content/uploads/2025/10/01-1024x682.webp" },
-  { name: "Hotel Catalonia Puerta del Mar", img: "https://www.akmarquitectura.com/wp-content/uploads/2025/10/1-1024x682.jpg" },
-  { name: "Hotel Catalonia Mirador des Port", img: "https://www.akmarquitectura.com/wp-content/uploads/2024/03/00-1024x1024.jpg" },
-  { name: "Restaurante Espolín", img: "https://www.akmarquitectura.com/wp-content/uploads/2025/10/1-1024x682.webp" },
-  { name: "Hotel Catalonia Ramblas", img: "https://www.akmarquitectura.com/wp-content/uploads/2023/06/hoteles2-732x1024.jpg" },
-  { name: "Hotel Catalonia Reina Victoria", img: "https://www.akmarquitectura.com/wp-content/uploads/2023/06/comerical2-1-1024x819.jpg" },
-  { name: "Hotel Catalonia Plaza Mayor", img: "https://www.akmarquitectura.com/wp-content/uploads/2024/03/00-portada-1024x1024.jpg" },
-  { name: "Hotel Catalonia Gran Via Bilbao", img: "https://www.akmarquitectura.com/wp-content/uploads/2024/03/00-portada-1-1024x1024.jpg" },
-  { name: "Hotel Catalonia Atocha", img: "https://www.akmarquitectura.com/wp-content/uploads/2024/03/00_portada-1024x1024.jpg" },
-  { name: "Hotel Catalonia Santa Justa", img: "https://www.akmarquitectura.com/wp-content/uploads/2024/03/00_portada-copia-1024x1024.jpg" },
-  { name: "Hotel Catalonia Goya", img: "https://www.akmarquitectura.com/wp-content/uploads/2024/03/00-PORTADA-2-1024x1024.jpg" },
-  { name: "Hotel Catalonia Las Cortes", img: "https://www.akmarquitectura.com/wp-content/uploads/2024/03/00-4-1024x1024.jpg" },
-  { name: "Hotel Catalonia Donosti", img: "https://www.akmarquitectura.com/wp-content/uploads/2024/03/000-1-1024x1024.jpg" },
-  { name: "Hotel Catalonia Puerta del Sol", img: "https://www.akmarquitectura.com/wp-content/uploads/2024/03/00-5-1024x1024.jpg" },
-  { name: "Hotel Catalonia Ronda", img: "https://www.akmarquitectura.com/wp-content/uploads/2024/03/000-1024x1024.jpg" },
-];
+import { hotelProjects } from "@/data/hotelProjects";
 
 export const Route = createFileRoute("/hoteles")({
   component: HotelesPage,
@@ -116,15 +99,15 @@ function HotelesPage() {
             </h2>
           </div>
           <div className="hotels-list">
-            {hotelCases.map((project, index) => (
-              <article className="hotel-case rv" key={project.name}>
+            {hotelProjects.map((project, index) => (
+              <Link className="hotel-case rv" to="/hoteles/$slug" params={{ slug: project.slug }} key={project.name}>
                 <div className="hotel-case-media">
-                  <img src={project.img} alt={project.name} loading="lazy" />
+                  <img src={project.images[0]} alt={project.name} loading="lazy" />
                 </div>
                 <span className="hotel-case-number">{String(index + 1).padStart(2, "0")}</span>
                 <h3>{project.name}</h3>
                 <span className="hotel-case-type">Caso de éxito</span>
-              </article>
+              </Link>
             ))}
           </div>
         </section>
