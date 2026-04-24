@@ -9,19 +9,23 @@ export const Route = createFileRoute("/hoteles/$slug")({
     if (!project) throw notFound();
     return project;
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: `${loaderData.name} — AKM Arquitectura` },
+  head: ({ loaderData }) => {
+    const project = loaderData ?? hotelProjects[0];
+
+    return {
+      meta: [
+        { title: `${project.name} — AKM Arquitectura` },
       {
         name: "description",
-        content: loaderData.summary.slice(0, 155),
+        content: project.summary.slice(0, 155),
       },
-      { property: "og:title", content: `${loaderData.name} — AKM Arquitectura` },
-      { property: "og:description", content: loaderData.summary.slice(0, 155) },
-      { property: "og:image", content: loaderData.images[0] },
-      { name: "twitter:image", content: loaderData.images[0] },
-    ],
-  }),
+        { property: "og:title", content: `${project.name} — AKM Arquitectura` },
+        { property: "og:description", content: project.summary.slice(0, 155) },
+        { property: "og:image", content: project.images[0] },
+        { name: "twitter:image", content: project.images[0] },
+      ],
+    };
+  },
   component: HotelDetailPage,
   notFoundComponent: () => (
     <main className="hotels-page project-not-found">
