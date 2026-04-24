@@ -3,15 +3,15 @@ import { useEffect, useRef } from "react";
 import logo from "@/assets/akm-logo.png";
 
 const residentialCases = [
-  "Ausiàs March 35",
-  "Reforma Interior C104",
-  "Ronda Universitat 35",
-  "Vallcorba 6",
-  "Casa Cristo",
-  "Casa Olmeda",
-  "Casa CC2A",
-  "Granja del Pas",
-  "Casa Ocaña",
+  { name: "Ausiàs March 35", img: "https://www.akmarquitectura.com/wp-content/uploads/2023/07/Barcelona-2004-Superficie-3.410m2-1024x1024.jpg" },
+  { name: "Reforma Interior C104", img: "https://www.akmarquitectura.com/wp-content/uploads/2023/07/C-104-1024x1024.jpg" },
+  { name: "Ronda Universitat 35", img: "https://www.akmarquitectura.com/wp-content/uploads/2023/07/RU-35-1024x1024.jpg" },
+  { name: "Vallcorba 6", img: "https://www.akmarquitectura.com/wp-content/uploads/2023/06/08_Vallcorba-6-3.jpg" },
+  { name: "Casa Cristo", img: "https://www.akmarquitectura.com/wp-content/uploads/2023/06/04_Casa-Cristo-1-1024x1024.jpg" },
+  { name: "Casa Olmeda", img: "https://www.akmarquitectura.com/wp-content/uploads/2023/07/00-PORTADA-8-1024x1024.jpg" },
+  { name: "Casa CC2A", img: "https://www.akmarquitectura.com/wp-content/uploads/2026/01/CC2A_1-1024x689.webp" },
+  { name: "Granja del Pas", img: "https://www.akmarquitectura.com/wp-content/uploads/2023/07/04-16-1024x746.jpg" },
+  { name: "Casa Ocaña", img: "https://www.akmarquitectura.com/wp-content/uploads/2023/07/00-PORTADA-11-1024x1024.jpg" },
 ];
 
 export const Route = createFileRoute("/residencial")({
@@ -110,10 +110,13 @@ function ResidencialPage() {
             </h2>
           </div>
           <div className="hotels-list">
-            {residentialCases.map((name, index) => (
-              <article className="hotel-case rv" key={name}>
+            {residentialCases.map((project, index) => (
+              <article className="hotel-case rv" key={project.name}>
+                <div className="hotel-case-media">
+                  <img src={project.img} alt={project.name} loading="lazy" />
+                </div>
                 <span className="hotel-case-number">{String(index + 1).padStart(2, "0")}</span>
-                <h3>{name}</h3>
+                <h3>{project.name}</h3>
                 <span className="hotel-case-type">Caso de éxito</span>
               </article>
             ))}
