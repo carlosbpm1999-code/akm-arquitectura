@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import logo from "@/assets/akm-logo.png";
 import { getHotelProject, hotelProjects } from "@/data/hotelProjects";
 
-export const Route = createFileRoute("/hoteles/")({
+export const Route = createFileRoute("/hoteles/$slug")({
   loader: ({ params }) => {
     const project = getHotelProject(params.slug);
     if (!project) throw notFound();
