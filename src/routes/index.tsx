@@ -207,6 +207,7 @@ function Index() {
           <li><a href="#estudio">Estudio</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><Link to="/hoteles">Hoteles</Link></li>
+          <li><Link to="/residencial">Residencial</Link></li>
           <li><a href="#equipo">Equipo</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
@@ -461,6 +462,7 @@ function Index() {
               <a href="#estudio">Estudio</a>
               <a href="#portfolio">Portfolio</a>
               <Link to="/hoteles">Hoteles</Link>
+              <Link to="/residencial">Residencial</Link>
               <a href="#equipo">Equipo</a>
               <a href="#contacto">Contacto</a>
             </nav>

@@ -2,52 +2,46 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import logo from "@/assets/akm-logo.png";
 
-const hotelCases = [
-  "Hotel Catalonia Plaza España",
-  "Hotel Catalonia Puerta del Mar",
-  "Hotel Catalonia Mirador des Port",
-  "Restaurante Espolín",
-  "Hotel Catalonia Ramblas",
-  "Hotel Catalonia Reina Victoria",
-  "Hotel Catalonia Plaza Mayor",
-  "Hotel Catalonia Gran Via Bilbao",
-  "Hotel Catalonia Atocha",
-  "Hotel Catalonia Santa Justa",
-  "Hotel Catalonia Goya",
-  "Hotel Catalonia Las Cortes",
-  "Hotel Catalonia Donosti",
-  "Hotel Catalonia Puerta del Sol",
-  "Hotel Catalonia Ronda",
+const residentialCases = [
+  "Ausiàs March 35",
+  "Reforma Interior C104",
+  "Ronda Universitat 35",
+  "Vallcorba 6",
+  "Casa Cristo",
+  "Casa Olmeda",
+  "Casa CC2A",
+  "Granja del Pas",
+  "Casa Ocaña",
 ];
 
-export const Route = createFileRoute("/hoteles")({
-  component: HotelesPage,
+export const Route = createFileRoute("/residencial")({
+  component: ResidencialPage,
   head: () => ({
     meta: [
-      { title: "Hoteles — AKM Kassem & Molinero Arquitectura" },
+      { title: "Residencial — AKM Kassem & Molinero Arquitectura" },
       {
         name: "description",
         content:
-          "Casos de éxito de AKM Arquitectura en hoteles, restauración y rehabilitación hotelera para Catalonia Hotels y otros espacios singulares.",
+          "Casos de éxito residenciales de AKM Arquitectura: rehabilitación, reforma interior, obra nueva y viviendas singulares.",
       },
-      { property: "og:title", content: "Hoteles — AKM Arquitectura" },
+      { property: "og:title", content: "Residencial — AKM Arquitectura" },
       {
         property: "og:description",
-        content: "Selección de casos de éxito hoteleros desarrollados por AKM Arquitectura.",
+        content: "Selección de proyectos residenciales desarrollados por AKM Arquitectura.",
       },
       {
         property: "og:image",
-        content: "https://www.akmarquitectura.com/wp-content/uploads/2025/10/01.webp",
+        content: "https://www.akmarquitectura.com/wp-content/uploads/2023/07/Barcelona-2004-Superficie-3.410m2.jpg",
       },
       {
         name: "twitter:image",
-        content: "https://www.akmarquitectura.com/wp-content/uploads/2025/10/01.webp",
+        content: "https://www.akmarquitectura.com/wp-content/uploads/2023/07/Barcelona-2004-Superficie-3.410m2.jpg",
       },
     ],
   }),
 });
 
-function HotelesPage() {
+function ResidencialPage() {
   const navRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -95,28 +89,28 @@ function HotelesPage() {
         <section className="hotels-hero">
           <div className="hotels-hero-copy">
             <span className="eyebrow rv">Casos de éxito</span>
-            <h1 className="hotels-title rv">Hoteles</h1>
+            <h1 className="hotels-title rv">Residencial</h1>
             <p className="hotels-intro rv">
-              Experiencia consolidada en rehabilitación, reforma interior y transformación de activos hoteleros con intervención sobre edificios históricos, espacios gastronómicos y entornos urbanos singulares.
+              Proyectos de rehabilitación, reforma interior y vivienda singular donde precisión técnica, habitabilidad y contexto urbano definen cada intervención.
             </p>
           </div>
           <div className="hotels-hero-media rv">
             <img
-              src="https://www.akmarquitectura.com/wp-content/uploads/2025/10/01.webp"
-              alt="Hotel Catalonia Plaza España"
+              src="https://www.akmarquitectura.com/wp-content/uploads/2023/07/Barcelona-2004-Superficie-3.410m2.jpg"
+              alt="Ausiàs March 35"
             />
           </div>
         </section>
 
-        <section className="hotels-cases" aria-labelledby="hoteles-casos">
+        <section className="hotels-cases" aria-labelledby="residencial-casos">
           <div className="hotels-cases-head">
-            <span className="eyebrow rv">Portfolio hotelero</span>
-            <h2 className="heading rv" id="hoteles-casos">
+            <span className="eyebrow rv">Portfolio residencial</span>
+            <h2 className="heading rv" id="residencial-casos">
               Selección de <em>proyectos</em>
             </h2>
           </div>
           <div className="hotels-list">
-            {hotelCases.map((name, index) => (
+            {residentialCases.map((name, index) => (
               <article className="hotel-case rv" key={name}>
                 <span className="hotel-case-number">{String(index + 1).padStart(2, "0")}</span>
                 <h3>{name}</h3>
