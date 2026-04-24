@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import logo from "@/assets/akm-logo.png";
 import team1 from "@/assets/team-1.jpg";
@@ -206,6 +206,7 @@ function Index() {
         <ul className="nav-links">
           <li><a href="#estudio">Estudio</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
+          <li><Link to="/hoteles">Hoteles</Link></li>
           <li><a href="#equipo">Equipo</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
@@ -459,6 +460,7 @@ function Index() {
             <nav className="f-nav">
               <a href="#estudio">Estudio</a>
               <a href="#portfolio">Portfolio</a>
+              <Link to="/hoteles">Hoteles</Link>
               <a href="#equipo">Equipo</a>
               <a href="#contacto">Contacto</a>
             </nav>
