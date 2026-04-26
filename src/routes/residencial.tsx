@@ -110,14 +110,12 @@ function ResidencialPage() {
             </h2>
           </div>
           <div className="hotels-list">
-            {residentialCases.map((project, index) => (
+            {residentialCases.map((project) => (
               <article className="hotel-case rv" key={project.name}>
                 <div className="hotel-case-media">
                   <img src={project.img} alt={project.name} loading="lazy" />
                 </div>
-                <span className="hotel-case-number">{String(index + 1).padStart(2, "0")}</span>
                 <h3>{project.name}</h3>
-                <span className="hotel-case-type">Caso de éxito</span>
               </article>
             ))}
           </div>
