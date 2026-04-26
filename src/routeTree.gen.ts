@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ResidencialRouteImport } from './routes/residencial'
+import { Route as HotelesRouteImport } from './routes/hoteles'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ResidencialIndexRouteImport } from './routes/residencial.index'
@@ -16,6 +18,16 @@ import { Route as HotelesIndexRouteImport } from './routes/hoteles.index'
 import { Route as ResidencialSlugRouteImport } from './routes/residencial.$slug'
 import { Route as HotelesSlugRouteImport } from './routes/hoteles.$slug'
 
+const ResidencialRoute = ResidencialRouteImport.update({
+  id: '/residencial',
+  path: '/residencial',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HotelesRoute = HotelesRouteImport.update({
+  id: '/hoteles',
+  path: '/hoteles',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CookiesRoute = CookiesRouteImport.update({
   id: '/cookies',
   path: '/cookies',
@@ -27,14 +39,14 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResidencialIndexRoute = ResidencialIndexRouteImport.update({
-  id: '/residencial/',
-  path: '/residencial/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => ResidencialRoute,
 } as any)
 const HotelesIndexRoute = HotelesIndexRouteImport.update({
-  id: '/hoteles/',
-  path: '/hoteles/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => HotelesRoute,
 } as any)
 const ResidencialSlugRoute = ResidencialSlugRouteImport.update({
   id: '/$slug',
@@ -50,6 +62,8 @@ const HotelesSlugRoute = HotelesSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cookies': typeof CookiesRoute
+  '/hoteles': typeof HotelesRouteWithChildren
+  '/residencial': typeof ResidencialRouteWithChildren
   '/hoteles/$slug': typeof HotelesSlugRoute
   '/residencial/$slug': typeof ResidencialSlugRoute
   '/hoteles/': typeof HotelesIndexRoute
@@ -67,6 +81,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cookies': typeof CookiesRoute
+  '/hoteles': typeof HotelesRouteWithChildren
+  '/residencial': typeof ResidencialRouteWithChildren
   '/hoteles/$slug': typeof HotelesSlugRoute
   '/residencial/$slug': typeof ResidencialSlugRoute
   '/hoteles/': typeof HotelesIndexRoute
@@ -77,6 +93,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/cookies'
+    | '/hoteles'
+    | '/residencial'
     | '/hoteles/$slug'
     | '/residencial/$slug'
     | '/hoteles/'
@@ -93,6 +111,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/cookies'
+    | '/hoteles'
+    | '/residencial'
     | '/hoteles/$slug'
     | '/residencial/$slug'
     | '/hoteles/'
@@ -102,12 +122,26 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CookiesRoute: typeof CookiesRoute
-  HotelesIndexRoute: typeof HotelesIndexRoute
-  ResidencialIndexRoute: typeof ResidencialIndexRoute
+  HotelesRoute: typeof HotelesRouteWithChildren
+  ResidencialRoute: typeof ResidencialRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/residencial': {
+      id: '/residencial'
+      path: '/residencial'
+      fullPath: '/residencial'
+      preLoaderRoute: typeof ResidencialRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hoteles': {
+      id: '/hoteles'
+      path: '/hoteles'
+      fullPath: '/hoteles'
+      preLoaderRoute: typeof HotelesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cookies': {
       id: '/cookies'
       path: '/cookies'
@@ -124,17 +158,17 @@ declare module '@tanstack/react-router' {
     }
     '/residencial/': {
       id: '/residencial/'
-      path: '/residencial'
+      path: '/'
       fullPath: '/residencial/'
       preLoaderRoute: typeof ResidencialIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ResidencialRoute
     }
     '/hoteles/': {
       id: '/hoteles/'
-      path: '/hoteles'
+      path: '/'
       fullPath: '/hoteles/'
       preLoaderRoute: typeof HotelesIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof HotelesRoute
     }
     '/residencial/$slug': {
       id: '/residencial/$slug'
@@ -153,11 +187,38 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface HotelesRouteChildren {
+  HotelesSlugRoute: typeof HotelesSlugRoute
+  HotelesIndexRoute: typeof HotelesIndexRoute
+}
+
+const HotelesRouteChildren: HotelesRouteChildren = {
+  HotelesSlugRoute: HotelesSlugRoute,
+  HotelesIndexRoute: HotelesIndexRoute,
+}
+
+const HotelesRouteWithChildren =
+  HotelesRoute._addFileChildren(HotelesRouteChildren)
+
+interface ResidencialRouteChildren {
+  ResidencialSlugRoute: typeof ResidencialSlugRoute
+  ResidencialIndexRoute: typeof ResidencialIndexRoute
+}
+
+const ResidencialRouteChildren: ResidencialRouteChildren = {
+  ResidencialSlugRoute: ResidencialSlugRoute,
+  ResidencialIndexRoute: ResidencialIndexRoute,
+}
+
+const ResidencialRouteWithChildren = ResidencialRoute._addFileChildren(
+  ResidencialRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CookiesRoute: CookiesRoute,
-  HotelesIndexRoute: HotelesIndexRoute,
-  ResidencialIndexRoute: ResidencialIndexRoute,
+  HotelesRoute: HotelesRouteWithChildren,
+  ResidencialRoute: ResidencialRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
