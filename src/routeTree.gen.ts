@@ -13,6 +13,8 @@ import { Route as ResidencialRouteImport } from './routes/residencial'
 import { Route as HotelesRouteImport } from './routes/hoteles'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ResidencialIndexRouteImport } from './routes/residencial.index'
+import { Route as HotelesIndexRouteImport } from './routes/hoteles.index'
 import { Route as ResidencialSlugRouteImport } from './routes/residencial.$slug'
 import { Route as HotelesSlugRouteImport } from './routes/hoteles.$slug'
 
@@ -36,6 +38,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResidencialIndexRoute = ResidencialIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ResidencialRoute,
+} as any)
+const HotelesIndexRoute = HotelesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => HotelesRoute,
+} as any)
 const ResidencialSlugRoute = ResidencialSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -54,14 +66,16 @@ export interface FileRoutesByFullPath {
   '/residencial': typeof ResidencialRouteWithChildren
   '/hoteles/$slug': typeof HotelesSlugRoute
   '/residencial/$slug': typeof ResidencialSlugRoute
+  '/hoteles/': typeof HotelesIndexRoute
+  '/residencial/': typeof ResidencialIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cookies': typeof CookiesRoute
-  '/hoteles': typeof HotelesRouteWithChildren
-  '/residencial': typeof ResidencialRouteWithChildren
   '/hoteles/$slug': typeof HotelesSlugRoute
   '/residencial/$slug': typeof ResidencialSlugRoute
+  '/hoteles': typeof HotelesIndexRoute
+  '/residencial': typeof ResidencialIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +85,8 @@ export interface FileRoutesById {
   '/residencial': typeof ResidencialRouteWithChildren
   '/hoteles/$slug': typeof HotelesSlugRoute
   '/residencial/$slug': typeof ResidencialSlugRoute
+  '/hoteles/': typeof HotelesIndexRoute
+  '/residencial/': typeof ResidencialIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,14 +97,16 @@ export interface FileRouteTypes {
     | '/residencial'
     | '/hoteles/$slug'
     | '/residencial/$slug'
+    | '/hoteles/'
+    | '/residencial/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/cookies'
-    | '/hoteles'
-    | '/residencial'
     | '/hoteles/$slug'
     | '/residencial/$slug'
+    | '/hoteles'
+    | '/residencial'
   id:
     | '__root__'
     | '/'
@@ -97,6 +115,8 @@ export interface FileRouteTypes {
     | '/residencial'
     | '/hoteles/$slug'
     | '/residencial/$slug'
+    | '/hoteles/'
+    | '/residencial/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -136,6 +156,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/residencial/': {
+      id: '/residencial/'
+      path: '/'
+      fullPath: '/residencial/'
+      preLoaderRoute: typeof ResidencialIndexRouteImport
+      parentRoute: typeof ResidencialRoute
+    }
+    '/hoteles/': {
+      id: '/hoteles/'
+      path: '/'
+      fullPath: '/hoteles/'
+      preLoaderRoute: typeof HotelesIndexRouteImport
+      parentRoute: typeof HotelesRoute
+    }
     '/residencial/$slug': {
       id: '/residencial/$slug'
       path: '/$slug'
@@ -155,10 +189,12 @@ declare module '@tanstack/react-router' {
 
 interface HotelesRouteChildren {
   HotelesSlugRoute: typeof HotelesSlugRoute
+  HotelesIndexRoute: typeof HotelesIndexRoute
 }
 
 const HotelesRouteChildren: HotelesRouteChildren = {
   HotelesSlugRoute: HotelesSlugRoute,
+  HotelesIndexRoute: HotelesIndexRoute,
 }
 
 const HotelesRouteWithChildren =
@@ -166,10 +202,12 @@ const HotelesRouteWithChildren =
 
 interface ResidencialRouteChildren {
   ResidencialSlugRoute: typeof ResidencialSlugRoute
+  ResidencialIndexRoute: typeof ResidencialIndexRoute
 }
 
 const ResidencialRouteChildren: ResidencialRouteChildren = {
   ResidencialSlugRoute: ResidencialSlugRoute,
+  ResidencialIndexRoute: ResidencialIndexRoute,
 }
 
 const ResidencialRouteWithChildren = ResidencialRoute._addFileChildren(
