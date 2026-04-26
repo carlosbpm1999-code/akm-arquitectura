@@ -99,14 +99,12 @@ function HotelesPage() {
             </h2>
           </div>
           <div className="hotels-list">
-            {hotelProjects.map((project, index) => (
+            {hotelProjects.map((project) => (
               <Link className="hotel-case rv" to="/hoteles/$slug" params={{ slug: project.slug }} key={project.name}>
                 <div className="hotel-case-media">
                   <img src={project.images[0]} alt={project.name} loading="lazy" />
                 </div>
-                <span className="hotel-case-number">{String(index + 1).padStart(2, "0")}</span>
                 <h3>{project.name}</h3>
-                <span className="hotel-case-type">Caso de éxito</span>
               </Link>
             ))}
           </div>
@@ -126,6 +124,7 @@ function HotelesPage() {
               <Link to="/residencial">Residencial</Link>
               <a href="/#equipo">Equipo</a>
               <a href="/#contacto">Contacto</a>
+              <Link to="/cookies">Cookies</Link>
             </nav>
           </div>
           <div className="f-right">

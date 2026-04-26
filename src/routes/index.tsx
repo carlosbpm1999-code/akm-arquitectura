@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Estudio de arquitectura en Barcelona. Más de cuatro décadas en rehabilitación, obra nueva, hoteles y patrimonio. +1000 proyectos completados.",
+          "Estudio de arquitectura en Barcelona. Más de cuatro décadas en rehabilitación, obra nueva, hoteles y patrimonio. +1500 proyectos completados.",
       },
       {
         property: "og:title",
@@ -134,8 +134,8 @@ const team = [
 
 const stats = [
   { val: 44, label: "Años de experiencia" },
-  { val: 1000, label: "Proyectos completados", pre: "+" },
-  { val: 5, label: "Socios arquitectos" },
+  { val: 1500, label: "Proyectos completados", pre: "+" },
+  { val: 150, label: "Hoteles intervenidos", pre: "+" },
   { val: 1980, label: "Año de fundación" },
 ];
 
@@ -216,7 +216,7 @@ function Index() {
       {/* HERO */}
       <section className="hero" id="inicio">
         <div className="hero-l">
-          <span className="hero-label">Barcelona · Est. 1980 · +1000 Proyectos</span>
+          <span className="hero-label">Barcelona · Est. 1980 · +1500 Proyectos</span>
           <h1 className="hero-h1">
             Arquitectura<br />que <em>perdura</em>
           </h1>
@@ -465,6 +465,7 @@ function Index() {
               <Link to="/residencial">Residencial</Link>
               <a href="#equipo">Equipo</a>
               <a href="#contacto">Contacto</a>
+              <Link to="/cookies">Cookies</Link>
             </nav>
           </div>
           <div className="f-right">

@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResidencialRouteImport } from './routes/residencial'
 import { Route as HotelesRouteImport } from './routes/hoteles'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HotelesSlugRouteImport } from './routes/hoteles.$slug'
 
@@ -22,6 +23,11 @@ const ResidencialRoute = ResidencialRouteImport.update({
 const HotelesRoute = HotelesRouteImport.update({
   id: '/hoteles',
   path: '/hoteles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,12 +43,14 @@ const HotelesSlugRoute = HotelesSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cookies': typeof CookiesRoute
   '/hoteles': typeof HotelesRouteWithChildren
   '/residencial': typeof ResidencialRoute
   '/hoteles/$slug': typeof HotelesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cookies': typeof CookiesRoute
   '/hoteles': typeof HotelesRouteWithChildren
   '/residencial': typeof ResidencialRoute
   '/hoteles/$slug': typeof HotelesSlugRoute
@@ -50,20 +58,28 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cookies': typeof CookiesRoute
   '/hoteles': typeof HotelesRouteWithChildren
   '/residencial': typeof ResidencialRoute
   '/hoteles/$slug': typeof HotelesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/hoteles' | '/residencial' | '/hoteles/$slug'
+  fullPaths: '/' | '/cookies' | '/hoteles' | '/residencial' | '/hoteles/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/hoteles' | '/residencial' | '/hoteles/$slug'
-  id: '__root__' | '/' | '/hoteles' | '/residencial' | '/hoteles/$slug'
+  to: '/' | '/cookies' | '/hoteles' | '/residencial' | '/hoteles/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/cookies'
+    | '/hoteles'
+    | '/residencial'
+    | '/hoteles/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CookiesRoute: typeof CookiesRoute
   HotelesRoute: typeof HotelesRouteWithChildren
   ResidencialRoute: typeof ResidencialRoute
 }
@@ -82,6 +98,13 @@ declare module '@tanstack/react-router' {
       path: '/hoteles'
       fullPath: '/hoteles'
       preLoaderRoute: typeof HotelesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -114,6 +137,7 @@ const HotelesRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CookiesRoute: CookiesRoute,
   HotelesRoute: HotelesRouteWithChildren,
   ResidencialRoute: ResidencialRoute,
 }
