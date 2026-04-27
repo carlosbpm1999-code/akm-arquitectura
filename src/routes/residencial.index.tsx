@@ -2,6 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import logo from "@/assets/akm-logo.png";
 import { residentialProjects } from "@/data/residentialProjects";
+import { MobileNavToggle } from "@/components/MobileNavToggle";
 
 export const Route = createFileRoute("/residencial/")({
   component: ResidencialPage,
@@ -72,6 +73,7 @@ function ResidencialPage() {
           <li><a href="/#equipo">Equipo</a></li>
           <li><a href="/#contacto">Contacto</a></li>
         </ul>
+        <MobileNavToggle />
       </nav>
 
       <main className="hotels-page">
