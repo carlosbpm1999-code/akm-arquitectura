@@ -728,6 +728,7 @@
 .cookies-block a { color: var(--gold); }
 .cookies-block .cookie-btn {
   margin: 22px auto 0;
+  display: inline-block;
   color: var(--ink);
   border-color: var(--ink);
   background: transparent;
