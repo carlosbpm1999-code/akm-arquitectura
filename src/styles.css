@@ -675,36 +675,56 @@
 .cookie-btn-primary:hover { background: var(--gold); border-color: var(--gold); color: var(--white); }
 
 /* COOKIES PAGE */
-.cookies-page { padding-top: 103px; }
-.cookies-hero {
-  padding: 100px 72px 60px;
-  border-bottom: 1px solid var(--rule);
-  max-width: 1100px;
+.cookies-page {
+  padding-top: 103px;
+  background: var(--bg);
 }
+.cookies-hero {
+  padding: 120px 24px 40px;
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+.cookies-hero .eyebrow { display: inline-block; }
 .cookies-body {
-  padding: 80px 72px 120px;
+  padding: 40px 24px 140px;
   display: grid;
-  gap: 48px;
-  max-width: 880px;
-  background: var(--white);
+  gap: 64px;
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  background: transparent;
 }
 .cookies-block h2 {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(22px, 2vw, 30px);
+  font-size: clamp(20px, 1.8vw, 26px);
   color: var(--ink);
-  margin-bottom: 16px;
+  margin-bottom: 18px;
+  letter-spacing: 0.01em;
 }
 .cookies-block p, .cookies-block li {
-  font-size: 15px;
-  line-height: 1.9;
+  font-size: 14px;
+  line-height: 1.85;
   color: var(--mid);
   font-weight: 300;
 }
-.cookies-block ul { padding-left: 20px; display: grid; gap: 12px; }
+.cookies-block ul {
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 16px;
+  margin: 0 auto;
+  max-width: 540px;
+}
 .cookies-block strong { color: var(--ink); font-weight: 500; }
 .cookies-block a { color: var(--gold); }
-.cookies-block .cookie-btn { margin-top: 18px; color: var(--ink); border-color: var(--ink); background: transparent; }
+.cookies-block .cookie-btn {
+  margin: 22px auto 0;
+  color: var(--ink);
+  border-color: var(--ink);
+  background: transparent;
+}
 .cookies-block .cookie-btn-primary:hover { background: var(--ink); color: var(--white); }
 
 /* REVEAL */
