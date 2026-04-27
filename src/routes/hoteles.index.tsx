@@ -124,7 +124,9 @@ function HotelesPage() {
               <Link to="/residencial">Residencial</Link>
               <a href="/#equipo">Equipo</a>
               <a href="/#contacto">Contacto</a>
+              <Link to="/privacidad">Privacidad</Link>
               <Link to="/cookies">Cookies</Link>
+              <Link to="/aviso-legal">Aviso Legal</Link>
             </nav>
           </div>
           <div className="f-right">
