@@ -38,6 +38,10 @@ export const Route = createFileRoute("/hoteles/$slug")({
 function HotelDetailPage() {
   const project = Route.useLoaderData();
   const navRef = useRef<HTMLElement | null>(null);
+  const currentIndex = hotelProjects.findIndex((item) => item.slug === project.slug);
+  const total = hotelProjects.length;
+  const prevProject = hotelProjects[(currentIndex - 1 + total) % total];
+  const nextProject = hotelProjects[(currentIndex + 1) % total];
   const related = hotelProjects.filter((item) => item.slug !== project.slug).slice(0, 3);
 
   useEffect(() => {
@@ -113,6 +117,32 @@ function HotelDetailPage() {
             </figure>
           ))}
         </section>
+
+        <nav className="project-pager rv" aria-label="Navegación entre proyectos">
+          <Link
+            to="/hoteles/$slug"
+            params={{ slug: prevProject.slug }}
+            className="project-pager-link prev"
+          >
+            <span className="project-pager-arrow">←</span>
+            <span className="project-pager-meta">
+              <span className="project-pager-label">Anterior</span>
+              <span className="project-pager-name">{prevProject.name}</span>
+            </span>
+          </Link>
+          <Link to="/hoteles" className="project-pager-all">Ver todos</Link>
+          <Link
+            to="/hoteles/$slug"
+            params={{ slug: nextProject.slug }}
+            className="project-pager-link next"
+          >
+            <span className="project-pager-meta">
+              <span className="project-pager-label">Siguiente</span>
+              <span className="project-pager-name">{nextProject.name}</span>
+            </span>
+            <span className="project-pager-arrow">→</span>
+          </Link>
+        </nav>
 
         <section className="project-related">
           <div className="hotels-cases-head">
