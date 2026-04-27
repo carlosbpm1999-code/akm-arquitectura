@@ -260,6 +260,7 @@ function Index() {
           <li><a href="#equipo">Equipo</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
+        <MobileNavToggle />
       </nav>
 
       {/* HERO */}
