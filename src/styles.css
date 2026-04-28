@@ -376,7 +376,7 @@
   transition: opacity .35s;
 }
 .pc:hover .pc-label { opacity:0; }
-.pc-cat { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:6px; font-weight:500; }
+.pc-cat { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:oklch(0.42 0.09 60); margin-bottom:6px; font-weight:600; }
 .pc-name { font-family:var(--font-display); font-weight:400; font-size:clamp(15px,1.4vw,20px); color:var(--ink); line-height:1.2; }
 
 .pc-over {
