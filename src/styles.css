@@ -954,3 +954,11 @@
   .cookies-hero { padding: 100px 20px 32px; }
   .cookies-body { padding: 32px 20px 100px; gap: 48px; }
 }
+
+/* Team grid — explicit tablet (3 cols) and mobile (2 cols) overrides */
+@media (max-width: 1024px) {
+  .tgrid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 720px) {
+  .tgrid { grid-template-columns: repeat(2, 1fr); }
+}
