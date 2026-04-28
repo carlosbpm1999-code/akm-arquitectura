@@ -2,7 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/akm-logo.png";
 import { MobileNavToggle } from "@/components/MobileNavToggle";
-import { team } from "@/data/team";
+import { teamMembers as team } from "@/data/team";
 
 export const Route = createFileRoute("/")({
   component: Index,

@@ -12,7 +12,7 @@ export type TeamMember = {
   bio?: string;
 };
 
-export const team: TeamMember[] = [
+export const teamMembers: TeamMember[] = [
   {
     img: team1,
     name: "Clara Español",
