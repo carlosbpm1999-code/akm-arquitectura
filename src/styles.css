@@ -736,6 +736,92 @@
 }
 .cookies-block .cookie-btn-primary:hover { background: var(--ink); color: var(--white); }
 
+/* TEAM PAGE */
+.team-page { padding-top: 103px; background: var(--white); }
+.team-hero {
+  padding: 100px 72px 60px;
+  border-bottom: 1px solid var(--rule);
+  text-align: center;
+  max-width: 880px;
+  margin: 0 auto;
+}
+.team-hero .eyebrow { display: inline-block; }
+.team-hero .hotels-title { margin-top: 18px; }
+.team-hero .hotels-intro { margin: 32px auto 0; max-width: 620px; }
+.team-grid-section { padding: 0; border-bottom: 1px solid var(--rule); }
+.team-grid-section .tgrid { margin-top: 0; }
+.team-bios {
+  padding: 100px 72px 140px;
+  display: grid;
+  gap: 96px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.team-bio {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.team-bio:nth-child(even) { grid-template-columns: 1fr 280px; }
+.team-bio:nth-child(even) .team-bio-media { order: 2; }
+.team-bio-media {
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: var(--bg);
+}
+.team-bio-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.team-bio-copy { padding-top: 6px; }
+.team-bio-role {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+.team-bio-name {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.team-bio-spec {
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  color: var(--mid);
+  line-height: 1.7;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 22px;
+}
+.team-bio-text {
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: var(--mid);
+  font-weight: 300;
+  max-width: 580px;
+}
+@media (max-width: 900px) {
+  .team-page { padding-top: 79px; }
+  .team-hero { padding: 72px 28px 48px; }
+  .team-bios { padding: 72px 28px 100px; gap: 64px; }
+  .team-bio,
+  .team-bio:nth-child(even) {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .team-bio:nth-child(even) .team-bio-media { order: 0; }
+  .team-bio-media { max-width: 320px; aspect-ratio: 4/5; }
+}
+@media (max-width: 560px) {
+  .team-hero { padding: 56px 22px 40px; }
+  .team-bios { padding: 56px 22px 80px; gap: 56px; }
+}
+
 /* LEGAL LONG-FORM (Privacidad / Aviso Legal) — readability tweaks */
 .legal-long .cookies-hero {
   padding: 132px 24px 28px;

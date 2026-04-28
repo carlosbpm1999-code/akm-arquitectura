@@ -44,7 +44,7 @@ function LegalPage() {
           <li><a href="/#portfolio">Portfolio</a></li>
           <li><Link to="/hoteles">Hoteles</Link></li>
           <li><Link to="/residencial">Residencial</Link></li>
-          <li><a href="/#equipo">Equipo</a></li>
+          <li><Link to="/equipo">Equipo</Link></li>
           <li><a href="/#contacto">Contacto</a></li>
         </ul>
         <MobileNavToggle />
@@ -153,7 +153,7 @@ function LegalPage() {
               <a href="/#portfolio">Portfolio</a>
               <Link to="/hoteles">Hoteles</Link>
               <Link to="/residencial">Residencial</Link>
-              <a href="/#equipo">Equipo</a>
+              <Link to="/equipo">Equipo</Link>
               <a href="/#contacto">Contacto</a>
               <Link to="/privacidad">Privacidad</Link>
               <Link to="/cookies">Cookies</Link>
