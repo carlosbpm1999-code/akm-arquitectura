@@ -739,15 +739,19 @@
 /* TEAM PAGE */
 .team-page { padding-top: 103px; background: var(--white); }
 .team-hero {
-  padding: 100px 72px 60px;
-  border-bottom: 1px solid var(--rule);
+  padding: 120px 24px 72px;
   text-align: center;
-  max-width: 880px;
+  max-width: 720px;
   margin: 0 auto;
 }
 .team-hero .eyebrow { display: inline-block; }
-.team-hero .hotels-title { margin-top: 18px; }
-.team-hero .hotels-intro { margin: 32px auto 0; max-width: 620px; }
+.team-hero .hotels-title {
+  margin-top: 20px;
+  font-size: clamp(40px, 5.6vw, 72px);
+  line-height: 1;
+}
+.team-hero .hotels-intro { margin: 28px auto 0; max-width: 560px; font-size: 14px; }
+.team-grid-section { padding-bottom: 120px; border-bottom: none; }
 .team-grid-section { padding: 0; border-bottom: 1px solid var(--rule); }
 .team-grid-section .tgrid { margin-top: 0; }
 .team-bios {
