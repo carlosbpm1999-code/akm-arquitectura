@@ -111,24 +111,6 @@ const projects = [
   },
 ];
 
-const team = [
-  { img: team1, name: "Clara Español", role: "Socia", spec: "Arquitecta · UPC" },
-  {
-    img: team2,
-    name: "Ali Kassem",
-    role: "Socio",
-    spec: "Arquitecto · UPC\nEspecialista en estructuras",
-  },
-  { img: team3, name: "Jacinto Arqués", role: "Socio Fundador", spec: "Arquitecto · UPC" },
-  {
-    img: team4,
-    name: "Alberto Sarmiento",
-    role: "Socio",
-    spec: "Arquitecto · UPC\nPostgrado en Rehabilitación",
-  },
-  { img: team5, name: "Julián Molinero", role: "Socio Fundador", spec: "Arquitecto · UPC" },
-];
-
 const stats = [
   { val: 44, label: "Años de experiencia" },
   { val: 1500, label: "Proyectos completados", pre: "+" },
