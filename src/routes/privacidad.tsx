@@ -50,7 +50,7 @@ function PrivacyPage() {
         <MobileNavToggle />
       </nav>
 
-      <main className="cookies-page">
+      <main className="cookies-page legal-long">
         <section className="cookies-hero">
           <span className="eyebrow">Información legal</span>
           <h1 className="hotels-title">Política de Privacidad</h1>

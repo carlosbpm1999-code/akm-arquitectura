@@ -736,6 +736,59 @@
 }
 .cookies-block .cookie-btn-primary:hover { background: var(--ink); color: var(--white); }
 
+/* LEGAL LONG-FORM (Privacidad / Aviso Legal) — readability tweaks */
+.legal-long .cookies-hero {
+  padding: 132px 24px 28px;
+}
+.legal-long .cookies-hero .hotels-title {
+  font-size: clamp(40px, 5.6vw, 72px);
+  line-height: 1;
+}
+.legal-long .cookies-hero .hotels-intro {
+  margin-top: 22px;
+  font-size: 14px;
+  line-height: 1.8;
+  max-width: 560px;
+}
+.legal-long .cookies-body {
+  max-width: 720px;
+  padding: 56px 28px 140px;
+  gap: 56px;
+  text-align: left;
+}
+.legal-long .cookies-block {
+  display: grid;
+  gap: 14px;
+}
+.legal-long .cookies-block h2 {
+  font-size: clamp(18px, 1.6vw, 22px);
+  margin-bottom: 4px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+  letter-spacing: 0.02em;
+}
+.legal-long .cookies-block p,
+.legal-long .cookies-block li {
+  font-size: 14.5px;
+  line-height: 1.9;
+  text-align: left;
+}
+.legal-long .cookies-block ul {
+  margin: 4px 0 0;
+  max-width: none;
+  padding-left: 18px;
+  list-style: disc;
+  gap: 8px;
+}
+.legal-long .cookies-block li::marker {
+  color: var(--gold);
+}
+@media (max-width: 720px) {
+  .legal-long .cookies-body { padding: 44px 22px 100px; gap: 44px; }
+  .legal-long .cookies-block p,
+  .legal-long .cookies-block li { font-size: 14px; line-height: 1.8; }
+}
+
 /* REVEAL */
 .rv { opacity:0; transform:translateY(24px); transition:opacity .9s ease, transform .9s ease; }
 .rv.on { opacity:1; transform:translateY(0); }
