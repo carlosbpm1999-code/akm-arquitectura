@@ -2,11 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/akm-logo.png";
 import { MobileNavToggle } from "@/components/MobileNavToggle";
-import team1 from "@/assets/team-1.jpg";
-import team2 from "@/assets/team-2.jpg";
-import team3 from "@/assets/team-3.jpg";
-import team4 from "@/assets/team-4.jpg";
-import team5 from "@/assets/team-5.jpg";
+import { team } from "@/data/team";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -258,7 +254,7 @@ function Index() {
           <li><a href="#portfolio">Portfolio</a></li>
           <li><Link to="/hoteles">Hoteles</Link></li>
           <li><Link to="/residencial">Residencial</Link></li>
-          <li><a href="#equipo">Equipo</a></li>
+          <li><Link to="/equipo">Equipo</Link></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
         <MobileNavToggle />
@@ -560,7 +556,7 @@ function Index() {
               <a href="#portfolio">Portfolio</a>
               <Link to="/hoteles">Hoteles</Link>
               <Link to="/residencial">Residencial</Link>
-              <a href="#equipo">Equipo</a>
+              <Link to="/equipo">Equipo</Link>
               <a href="#contacto">Contacto</a>
               <Link to="/privacidad">Privacidad</Link>
               <Link to="/cookies">Cookies</Link>
