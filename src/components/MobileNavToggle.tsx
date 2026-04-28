@@ -10,7 +10,7 @@ const LINKS: LinkItem[] = [
   { type: "anchor", href: "/#portfolio", label: "Portfolio" },
   { type: "route", to: "/hoteles", label: "Hoteles" },
   { type: "route", to: "/residencial", label: "Residencial" },
-  { type: "anchor", href: "/#equipo", label: "Equipo" },
+  { type: "route", to: "/equipo", label: "Equipo" },
   { type: "anchor", href: "/#contacto", label: "Contacto" },
 ];
 
