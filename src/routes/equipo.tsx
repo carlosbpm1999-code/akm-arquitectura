@@ -85,24 +85,6 @@ function TeamPage() {
             ))}
           </div>
         </section>
-
-        <section className="team-bios">
-          {teamMembers.map((m) => (
-            <article className="team-bio" key={m.name}>
-              <div className="team-bio-media">
-                <img src={m.img} alt={m.name} loading="lazy" />
-              </div>
-              <div className="team-bio-copy">
-                <span className="team-bio-role">{m.role}</span>
-                <h2 className="team-bio-name">{m.name}</h2>
-                <p className="team-bio-spec" style={{ whiteSpace: "pre-line" }}>
-                  {m.spec}
-                </p>
-                {m.bio && <p className="team-bio-text">{m.bio}</p>}
-              </div>
-            </article>
-          ))}
-        </section>
       </main>
 
       <footer className="akm-footer">
