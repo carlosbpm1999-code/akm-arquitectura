@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResidencialRouteImport } from './routes/residencial'
 import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as HotelesRouteImport } from './routes/hoteles'
+import { Route as EquipoRouteImport } from './routes/equipo'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as IndexRouteImport } from './routes/index'
@@ -33,6 +34,11 @@ const PrivacidadRoute = PrivacidadRouteImport.update({
 const HotelesRoute = HotelesRouteImport.update({
   id: '/hoteles',
   path: '/hoteles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipoRoute = EquipoRouteImport.update({
+  id: '/equipo',
+  path: '/equipo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CookiesRoute = CookiesRouteImport.update({
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/cookies': typeof CookiesRoute
+  '/equipo': typeof EquipoRoute
   '/hoteles': typeof HotelesRouteWithChildren
   '/privacidad': typeof PrivacidadRoute
   '/residencial': typeof ResidencialRouteWithChildren
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/cookies': typeof CookiesRoute
+  '/equipo': typeof EquipoRoute
   '/privacidad': typeof PrivacidadRoute
   '/hoteles/$slug': typeof HotelesSlugRoute
   '/residencial/$slug': typeof ResidencialSlugRoute
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/cookies': typeof CookiesRoute
+  '/equipo': typeof EquipoRoute
   '/hoteles': typeof HotelesRouteWithChildren
   '/privacidad': typeof PrivacidadRoute
   '/residencial': typeof ResidencialRouteWithChildren
@@ -112,6 +121,7 @@ export interface FileRouteTypes {
     | '/'
     | '/aviso-legal'
     | '/cookies'
+    | '/equipo'
     | '/hoteles'
     | '/privacidad'
     | '/residencial'
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
     | '/'
     | '/aviso-legal'
     | '/cookies'
+    | '/equipo'
     | '/privacidad'
     | '/hoteles/$slug'
     | '/residencial/$slug'
@@ -134,6 +145,7 @@ export interface FileRouteTypes {
     | '/'
     | '/aviso-legal'
     | '/cookies'
+    | '/equipo'
     | '/hoteles'
     | '/privacidad'
     | '/residencial'
@@ -147,6 +159,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AvisoLegalRoute: typeof AvisoLegalRoute
   CookiesRoute: typeof CookiesRoute
+  EquipoRoute: typeof EquipoRoute
   HotelesRoute: typeof HotelesRouteWithChildren
   PrivacidadRoute: typeof PrivacidadRoute
   ResidencialRoute: typeof ResidencialRouteWithChildren
@@ -173,6 +186,13 @@ declare module '@tanstack/react-router' {
       path: '/hoteles'
       fullPath: '/hoteles'
       preLoaderRoute: typeof HotelesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipo': {
+      id: '/equipo'
+      path: '/equipo'
+      fullPath: '/equipo'
+      preLoaderRoute: typeof EquipoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cookies': {
@@ -258,6 +278,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AvisoLegalRoute: AvisoLegalRoute,
   CookiesRoute: CookiesRoute,
+  EquipoRoute: EquipoRoute,
   HotelesRoute: HotelesRouteWithChildren,
   PrivacidadRoute: PrivacidadRoute,
   ResidencialRoute: ResidencialRouteWithChildren,
