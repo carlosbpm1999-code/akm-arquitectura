@@ -2,7 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import logo from "@/assets/akm-logo.png";
 import { MobileNavToggle } from "@/components/MobileNavToggle";
-import { team } from "@/data/team";
+import { teamMembers } from "@/data/team";
 
 export const Route = createFileRoute("/equipo")({
   component: TeamPage,
@@ -67,7 +67,7 @@ function TeamPage() {
 
         <section className="team-grid-section">
           <div className="tgrid">
-            {team.map((m) => (
+            {teamMembers.map((m) => (
               <div className="tm" key={m.name}>
                 <img src={m.img} alt={m.name} loading="lazy" />
                 <div className="tm-label">
@@ -87,7 +87,7 @@ function TeamPage() {
         </section>
 
         <section className="team-bios">
-          {team.map((m) => (
+          {teamMembers.map((m) => (
             <article className="team-bio" key={m.name}>
               <div className="team-bio-media">
                 <img src={m.img} alt={m.name} loading="lazy" />
