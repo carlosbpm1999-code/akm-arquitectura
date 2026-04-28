@@ -417,6 +417,10 @@
 /* TEAM */
 .team { padding:110px 72px 80px; border-top:1px solid var(--rule); }
 .tgrid { margin-top:52px; display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--rule); }
+/* Prevent layout jump on hover: tile dimensions are fixed (aspect-ratio on .tm),
+   overlay is absolutely positioned, so transitions never reflow neighbours. */
+.tm { transform: translateZ(0); will-change: opacity; }
+.tm-label, .tm-over { backface-visibility: hidden; }
 .tm { position:relative; overflow:hidden; aspect-ratio:2/3; background:var(--bg); }
 .tm img {
   width:100%; height:100%; object-fit:cover; object-position:top center; display:block;
@@ -949,4 +953,12 @@
   .cookie-banner-actions { justify-content: flex-end; }
   .cookies-hero { padding: 100px 20px 32px; }
   .cookies-body { padding: 32px 20px 100px; gap: 48px; }
+}
+
+/* Team grid — explicit tablet (3 cols) and mobile (2 cols) overrides */
+@media (max-width: 1024px) {
+  .tgrid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 720px) {
+  .tgrid { grid-template-columns: repeat(2, 1fr); }
 }
