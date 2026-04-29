@@ -1,8 +1,8 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/akm-logo.png";
 import { MobileNavToggle } from "@/components/MobileNavToggle";
-import { teamMembers } from "@/data/team";
+import { teamMembers, type TeamMember } from "@/data/team";
 
 export const Route = createFileRoute("/equipo")({
   component: TeamPage,
@@ -26,6 +26,8 @@ export const Route = createFileRoute("/equipo")({
 
 function TeamPage() {
   const navRef = useRef<HTMLElement | null>(null);
+  const [active, setActive] = useState<TeamMember | null>(null);
+  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -34,6 +36,22 @@ function TeamPage() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!active) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActive(null);
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    // focus close button for keyboard users
+    requestAnimationFrame(() => closeBtnRef.current?.focus());
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [active]);
 
   return (
     <>
@@ -68,7 +86,13 @@ function TeamPage() {
         <section className="team-grid-section">
           <div className="tgrid">
             {teamMembers.map((m) => (
-              <div className="tm" key={m.name}>
+              <button
+                type="button"
+                className="tm tm-button"
+                key={m.name}
+                onClick={() => setActive(m)}
+                aria-label={`Ver biografía de ${m.name}`}
+              >
                 <img
                   src={m.img}
                   srcSet={m.srcSet}
@@ -91,11 +115,57 @@ function TeamPage() {
                     {m.spec}
                   </p>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </section>
       </main>
+
+      {active && (
+        <div
+          className="tm-modal-backdrop"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="tm-modal-name"
+          onClick={() => setActive(null)}
+        >
+          <div
+            className="tm-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              ref={closeBtnRef}
+              type="button"
+              className="tm-modal-close"
+              onClick={() => setActive(null)}
+              aria-label="Cerrar"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+            <div className="tm-modal-media">
+              <img
+                src={active.img}
+                srcSet={active.srcSet}
+                sizes="(max-width: 720px) 100vw, 480px"
+                alt={active.name}
+                width={640}
+                height={960}
+                decoding="async"
+              />
+            </div>
+            <div className="tm-modal-body">
+              <span className="eyebrow">{active.role}</span>
+              <h2 id="tm-modal-name" className="tm-modal-name">{active.name}</h2>
+              <p className="tm-modal-spec" style={{ whiteSpace: "pre-line" }}>
+                {active.spec}
+              </p>
+              {active.bio && (
+                <p className="tm-modal-bio">{active.bio}</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <footer className="akm-footer">
         <div className="f-top">
