@@ -4,8 +4,18 @@ import team3 from "@/assets/team-3.jpg";
 import team4 from "@/assets/team-4.jpg";
 import team5 from "@/assets/team-5.jpg";
 
+// Responsive sources generated at build time by vite-imagetools.
+// Widths cover ~2-col mobile (≈360px CSS), 3-col tablet (≈340px CSS) and
+// 5-col desktop (≈260px CSS) at 1x/2x DPR.
+import team1Set from "@/assets/team-1.jpg?w=320;480;640;960&format=webp&as=srcset";
+import team2Set from "@/assets/team-2.jpg?w=320;480;640;960&format=webp&as=srcset";
+import team3Set from "@/assets/team-3.jpg?w=320;480;640;960&format=webp&as=srcset";
+import team4Set from "@/assets/team-4.jpg?w=320;480;640;960&format=webp&as=srcset";
+import team5Set from "@/assets/team-5.jpg?w=320;480;640;960&format=webp&as=srcset";
+
 export type TeamMember = {
   img: string;
+  srcSet: string;
   name: string;
   role: string;
   spec: string;
@@ -15,6 +25,7 @@ export type TeamMember = {
 export const teamMembers: TeamMember[] = [
   {
     img: team1,
+    srcSet: team1Set,
     name: "Clara Español",
     role: "Socia",
     spec: "Arquitecta · UPC",
@@ -22,6 +33,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     img: team2,
+    srcSet: team2Set,
     name: "Ali Kassem",
     role: "Socio",
     spec: "Arquitecto · UPC\nEspecialista en estructuras",
@@ -29,6 +41,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     img: team3,
+    srcSet: team3Set,
     name: "Jacinto Arqués",
     role: "Socio Fundador",
     spec: "Arquitecto · UPC",
@@ -36,6 +49,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     img: team4,
+    srcSet: team4Set,
     name: "Alberto Sarmiento",
     role: "Socio",
     spec: "Arquitecto · UPC\nPostgrado en Rehabilitación",
@@ -43,6 +57,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     img: team5,
+    srcSet: team5Set,
     name: "Julián Molinero",
     role: "Socio Fundador",
     spec: "Arquitecto · UPC",
