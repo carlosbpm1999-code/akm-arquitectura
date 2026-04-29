@@ -970,6 +970,11 @@
   .quote-strip { grid-template-columns:1fr; gap:48px; padding:80px 36px; }
   .quote-r { border-left:none; padding-left:0; border-top:1px solid var(--rule); padding-top:48px; }
   .tgrid { grid-template-columns:repeat(3,1fr); }
+  /* 5 miembros en 3 cols: 4º + 5º quedan solos en la última fila.
+     Centramos los dos últimos ocupando 1.5 columnas cada uno con un
+     desplazamiento, para que la fila no quede descompensada. */
+  .tgrid .tm:nth-last-child(2):nth-child(3n+1) { grid-column: 1 / span 2; }
+  .tgrid .tm:last-child:nth-child(3n+2)        { grid-column: 2 / span 2; }
   .contact { padding:80px 36px; }
   .contact-grid { grid-template-columns:1fr; gap:52px; }
   .hotels-page { padding-top:79px; }
@@ -994,6 +999,10 @@
   .nav-links { display:none; }
   .nav-burger { display: block; }
   .tgrid { grid-template-columns:repeat(2,1fr); }
+  /* 5 miembros en 2 cols: el último quedaría huérfano a la izquierda.
+     Lo hacemos ocupar las dos columnas para cerrar la fila con elegancia. */
+  .tgrid .tm:last-child:nth-child(odd) { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+  .tgrid .tm:last-child:nth-child(odd) img { object-position: center 25%; }
   .pc:nth-child(3),.pc:nth-child(4),.pc:nth-child(5){ grid-column:span 12; }
   .pc:nth-child(8),.pc:nth-child(9){ grid-column:span 12; }
   .hotels-hero-copy { padding:64px 24px; }
