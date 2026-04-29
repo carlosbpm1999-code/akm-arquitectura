@@ -69,7 +69,16 @@ function TeamPage() {
           <div className="tgrid">
             {teamMembers.map((m) => (
               <div className="tm" key={m.name}>
-                <img src={m.img} alt={m.name} loading="lazy" />
+                <img
+                  src={m.img}
+                  srcSet={m.srcSet}
+                  sizes="(max-width: 720px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                  alt={m.name}
+                  width={640}
+                  height={960}
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div className="tm-label">
                   <span className="tm-label-name">{m.name}</span>
                 </div>
