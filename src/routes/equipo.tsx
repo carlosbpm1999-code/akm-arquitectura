@@ -81,6 +81,7 @@ function TeamPage() {
                 />
                 <div className="tm-label">
                   <span className="tm-label-name">{m.name}</span>
+                  <span className="tm-label-role">{m.role}</span>
                 </div>
                 <div className="tm-over">
                   <div className="tm-over-bar"></div>
