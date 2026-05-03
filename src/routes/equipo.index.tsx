@@ -4,7 +4,7 @@ import logo from "@/assets/akm-logo.png";
 import { MobileNavToggle } from "@/components/MobileNavToggle";
 import { teamMembers, type TeamMember } from "@/data/team";
 
-export const Route = createFileRoute("/equipo")({
+export const Route = createFileRoute("/equipo/")({
   component: TeamPage,
   head: () => ({
     meta: [
