@@ -76,6 +76,14 @@ function TeamPage() {
 
   useEffect(() => {
     if (!active) return;
+    // Shallow URL sync so the modal state is shareable / back-button friendly
+    const prevUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    const targetUrl = `/equipo/${active.slug}`;
+    if (prevUrl !== targetUrl) {
+      window.history.pushState({ tmModal: active.slug }, "", targetUrl);
+    }
+    const onPop = () => setActive(null);
+    window.addEventListener("popstate", onPop);
     const previouslyFocused = document.activeElement as HTMLElement | null;
 
     const getFocusable = (): HTMLElement[] => {
@@ -134,6 +142,11 @@ function TeamPage() {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
       previouslyFocused?.focus?.();
+      window.removeEventListener("popstate", onPop);
+      // Restore URL if we still own the pushed entry
+      if (window.history.state?.tmModal) {
+        window.history.back();
+      }
     };
   }, [active]);
 
@@ -258,6 +271,15 @@ function TeamPage() {
               {active.bio && (
                 <p id="tm-modal-bio" className="tm-modal-bio">{active.bio}</p>
               )}
+              <div className="tm-modal-actions">
+                <Link
+                  to="/equipo/$slug"
+                  params={{ slug: active.slug }}
+                  className="tm-modal-cta"
+                >
+                  Ver página completa
+                </Link>
+              </div>
             </div>
           </div>
         </div>
