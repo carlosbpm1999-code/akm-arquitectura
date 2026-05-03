@@ -28,6 +28,7 @@ function TeamPage() {
   const navRef = useRef<HTMLElement | null>(null);
   const [active, setActive] = useState<TeamMember | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -39,8 +40,44 @@ function TeamPage() {
 
   useEffect(() => {
     if (!active) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+
+    const getFocusable = (): HTMLElement[] => {
+      const root = modalRef.current;
+      if (!root) return [];
+      const selector =
+        'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
+      return Array.from(root.querySelectorAll<HTMLElement>(selector)).filter(
+        (el) => !el.hasAttribute("disabled") && el.offsetParent !== null,
+      );
+    };
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setActive(null);
+      if (e.key === "Tab") {
+        const focusable = getFocusable();
+        if (focusable.length === 0) {
+          e.preventDefault();
+          closeBtnRef.current?.focus();
+          return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const activeEl = document.activeElement as HTMLElement | null;
+        const inModal = modalRef.current?.contains(activeEl ?? null);
+        if (!inModal) {
+          e.preventDefault();
+          first.focus();
+          return;
+        }
+        if (e.shiftKey && activeEl === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && activeEl === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     document.addEventListener("keydown", onKey);
     const prevOverflow = document.body.style.overflow;
@@ -50,6 +87,7 @@ function TeamPage() {
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
+      previouslyFocused?.focus?.();
     };
   }, [active]);
 
@@ -131,6 +169,7 @@ function TeamPage() {
         >
           <div
             className="tm-modal"
+            ref={modalRef}
             onClick={(e) => e.stopPropagation()}
           >
             <button
