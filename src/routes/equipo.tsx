@@ -54,6 +54,16 @@ function TeamPage() {
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setActive(null);
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        const idx = teamMembers.findIndex((x) => x.name === active.name);
+        if (idx === -1) return;
+        const delta = e.key === "ArrowRight" ? 1 : -1;
+        const next = teamMembers[(idx + delta + teamMembers.length) % teamMembers.length];
+        e.preventDefault();
+        setActive(next);
+        requestAnimationFrame(() => closeBtnRef.current?.focus());
+        return;
+      }
       if (e.key === "Tab") {
         const focusable = getFocusable();
         if (focusable.length === 0) {
