@@ -14,6 +14,7 @@ import team4Set from "@/assets/team-4.jpg?w=320;480;640;960&format=webp&as=srcse
 import team5Set from "@/assets/team-5.jpg?w=320;480;640;960&format=webp&as=srcset";
 
 export type TeamMember = {
+  slug: string;
   img: string;
   srcSet: string;
   name: string;
@@ -24,6 +25,7 @@ export type TeamMember = {
 
 export const teamMembers: TeamMember[] = [
   {
+    slug: "clara-espanol",
     img: team1,
     srcSet: team1Set,
     name: "Clara Español",
@@ -32,6 +34,7 @@ export const teamMembers: TeamMember[] = [
     bio: "Aporta una mirada sensible al detalle constructivo y a la integración del proyecto en su contexto, con especial dedicación a la rehabilitación residencial.",
   },
   {
+    slug: "ali-kassem",
     img: team2,
     srcSet: team2Set,
     name: "Ali Kassem",
@@ -40,6 +43,7 @@ export const teamMembers: TeamMember[] = [
     bio: "Lidera el área técnica y estructural del estudio, garantizando soluciones eficientes en proyectos de obra nueva y rehabilitación de gran complejidad.",
   },
   {
+    slug: "jacinto-arques",
     img: team3,
     srcSet: team3Set,
     name: "Jacinto Arqués",
@@ -48,6 +52,7 @@ export const teamMembers: TeamMember[] = [
     bio: "Cofundador del estudio en 1980, ha dirigido durante más de cuatro décadas proyectos de patrimonio, hoteles y obra residencial en Barcelona.",
   },
   {
+    slug: "alberto-sarmiento",
     img: team4,
     srcSet: team4Set,
     name: "Alberto Sarmiento",
@@ -56,6 +61,7 @@ export const teamMembers: TeamMember[] = [
     bio: "Especializado en rehabilitación de edificios catalogados, combina rigor técnico con respeto por la memoria material de cada intervención.",
   },
   {
+    slug: "julian-molinero",
     img: team5,
     srcSet: team5Set,
     name: "Julián Molinero",
@@ -64,3 +70,6 @@ export const teamMembers: TeamMember[] = [
     bio: "Cofundador del estudio, su trayectoria une la práctica arquitectónica con una visión cultural del oficio, presente en cada proyecto del despacho.",
   },
 ];
+
+export const getTeamMember = (slug: string) =>
+  teamMembers.find((m) => m.slug === slug);
