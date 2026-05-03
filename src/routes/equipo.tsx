@@ -29,6 +29,42 @@ function TeamPage() {
   const [active, setActive] = useState<TeamMember | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
   const modalRef = useRef<HTMLDivElement | null>(null);
+  const dragStartY = useRef<number | null>(null);
+  const dragDeltaY = useRef<number>(0);
+
+  const isTouchDevice = () =>
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(hover: none), (pointer: coarse)").matches;
+
+  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length !== 1) return;
+    dragStartY.current = e.touches[0].clientY;
+    dragDeltaY.current = 0;
+  };
+  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (dragStartY.current == null) return;
+    const dy = e.touches[0].clientY - dragStartY.current;
+    dragDeltaY.current = dy;
+    if (dy > 0 && modalRef.current) {
+      modalRef.current.style.transform = `translateY(${dy}px)`;
+      modalRef.current.style.transition = "none";
+    }
+  };
+  const onTouchEnd = () => {
+    const dy = dragDeltaY.current;
+    const el = modalRef.current;
+    if (el) {
+      el.style.transition = "";
+      el.style.transform = "";
+    }
+    dragStartY.current = null;
+    dragDeltaY.current = 0;
+    if (dy > 90) setActive(null);
+  };
+
+  const onMediaClick = () => {
+    if (isTouchDevice()) setActive(null);
+  };
 
   useEffect(() => {
     const onScroll = () => {
@@ -183,6 +219,10 @@ function TeamPage() {
             aria-describedby={active.bio ? "tm-modal-bio" : "tm-modal-spec"}
             tabIndex={-1}
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            onTouchCancel={onTouchEnd}
           >
             <button
               ref={closeBtnRef}
@@ -193,7 +233,12 @@ function TeamPage() {
             >
               <span aria-hidden="true">×</span>
             </button>
-            <div className="tm-modal-media">
+            <div
+              className="tm-modal-media"
+              onClick={onMediaClick}
+              role={isTouchDevice() ? "button" : undefined}
+              aria-label={isTouchDevice() ? "Cerrar" : undefined}
+            >
               <img
                 src={active.img}
                 srcSet={active.srcSet}
