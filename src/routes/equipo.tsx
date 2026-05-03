@@ -162,14 +162,16 @@ function TeamPage() {
       {active && (
         <div
           className="tm-modal-backdrop"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="tm-modal-name"
           onClick={() => setActive(null)}
         >
           <div
             className="tm-modal"
             ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="tm-modal-name"
+            aria-describedby={active.bio ? "tm-modal-bio" : "tm-modal-spec"}
+            tabIndex={-1}
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -195,11 +197,11 @@ function TeamPage() {
             <div className="tm-modal-body">
               <span className="eyebrow">{active.role}</span>
               <h2 id="tm-modal-name" className="tm-modal-name">{active.name}</h2>
-              <p className="tm-modal-spec" style={{ whiteSpace: "pre-line" }}>
+              <p id="tm-modal-spec" className="tm-modal-spec" style={{ whiteSpace: "pre-line" }}>
                 {active.spec}
               </p>
               {active.bio && (
-                <p className="tm-modal-bio">{active.bio}</p>
+                <p id="tm-modal-bio" className="tm-modal-bio">{active.bio}</p>
               )}
             </div>
           </div>
