@@ -18,8 +18,10 @@ import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ResidencialIndexRouteImport } from './routes/residencial.index'
 import { Route as HotelesIndexRouteImport } from './routes/hoteles.index'
+import { Route as EquipoIndexRouteImport } from './routes/equipo.index'
 import { Route as ResidencialSlugRouteImport } from './routes/residencial.$slug'
 import { Route as HotelesSlugRouteImport } from './routes/hoteles.$slug'
+import { Route as EquipoSlugRouteImport } from './routes/equipo.$slug'
 
 const ResidencialRoute = ResidencialRouteImport.update({
   id: '/residencial',
@@ -66,6 +68,11 @@ const HotelesIndexRoute = HotelesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => HotelesRoute,
 } as any)
+const EquipoIndexRoute = EquipoIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EquipoRoute,
+} as any)
 const ResidencialSlugRoute = ResidencialSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -76,17 +83,24 @@ const HotelesSlugRoute = HotelesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => HotelesRoute,
 } as any)
+const EquipoSlugRoute = EquipoSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => EquipoRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/cookies': typeof CookiesRoute
-  '/equipo': typeof EquipoRoute
+  '/equipo': typeof EquipoRouteWithChildren
   '/hoteles': typeof HotelesRouteWithChildren
   '/privacidad': typeof PrivacidadRoute
   '/residencial': typeof ResidencialRouteWithChildren
+  '/equipo/$slug': typeof EquipoSlugRoute
   '/hoteles/$slug': typeof HotelesSlugRoute
   '/residencial/$slug': typeof ResidencialSlugRoute
+  '/equipo/': typeof EquipoIndexRoute
   '/hoteles/': typeof HotelesIndexRoute
   '/residencial/': typeof ResidencialIndexRoute
 }
@@ -94,10 +108,11 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/cookies': typeof CookiesRoute
-  '/equipo': typeof EquipoRoute
   '/privacidad': typeof PrivacidadRoute
+  '/equipo/$slug': typeof EquipoSlugRoute
   '/hoteles/$slug': typeof HotelesSlugRoute
   '/residencial/$slug': typeof ResidencialSlugRoute
+  '/equipo': typeof EquipoIndexRoute
   '/hoteles': typeof HotelesIndexRoute
   '/residencial': typeof ResidencialIndexRoute
 }
@@ -106,12 +121,14 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/cookies': typeof CookiesRoute
-  '/equipo': typeof EquipoRoute
+  '/equipo': typeof EquipoRouteWithChildren
   '/hoteles': typeof HotelesRouteWithChildren
   '/privacidad': typeof PrivacidadRoute
   '/residencial': typeof ResidencialRouteWithChildren
+  '/equipo/$slug': typeof EquipoSlugRoute
   '/hoteles/$slug': typeof HotelesSlugRoute
   '/residencial/$slug': typeof ResidencialSlugRoute
+  '/equipo/': typeof EquipoIndexRoute
   '/hoteles/': typeof HotelesIndexRoute
   '/residencial/': typeof ResidencialIndexRoute
 }
@@ -125,8 +142,10 @@ export interface FileRouteTypes {
     | '/hoteles'
     | '/privacidad'
     | '/residencial'
+    | '/equipo/$slug'
     | '/hoteles/$slug'
     | '/residencial/$slug'
+    | '/equipo/'
     | '/hoteles/'
     | '/residencial/'
   fileRoutesByTo: FileRoutesByTo
@@ -134,10 +153,11 @@ export interface FileRouteTypes {
     | '/'
     | '/aviso-legal'
     | '/cookies'
-    | '/equipo'
     | '/privacidad'
+    | '/equipo/$slug'
     | '/hoteles/$slug'
     | '/residencial/$slug'
+    | '/equipo'
     | '/hoteles'
     | '/residencial'
   id:
@@ -149,8 +169,10 @@ export interface FileRouteTypes {
     | '/hoteles'
     | '/privacidad'
     | '/residencial'
+    | '/equipo/$slug'
     | '/hoteles/$slug'
     | '/residencial/$slug'
+    | '/equipo/'
     | '/hoteles/'
     | '/residencial/'
   fileRoutesById: FileRoutesById
@@ -159,7 +181,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AvisoLegalRoute: typeof AvisoLegalRoute
   CookiesRoute: typeof CookiesRoute
-  EquipoRoute: typeof EquipoRoute
+  EquipoRoute: typeof EquipoRouteWithChildren
   HotelesRoute: typeof HotelesRouteWithChildren
   PrivacidadRoute: typeof PrivacidadRoute
   ResidencialRoute: typeof ResidencialRouteWithChildren
@@ -230,6 +252,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HotelesIndexRouteImport
       parentRoute: typeof HotelesRoute
     }
+    '/equipo/': {
+      id: '/equipo/'
+      path: '/'
+      fullPath: '/equipo/'
+      preLoaderRoute: typeof EquipoIndexRouteImport
+      parentRoute: typeof EquipoRoute
+    }
     '/residencial/$slug': {
       id: '/residencial/$slug'
       path: '/$slug'
@@ -244,8 +273,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HotelesSlugRouteImport
       parentRoute: typeof HotelesRoute
     }
+    '/equipo/$slug': {
+      id: '/equipo/$slug'
+      path: '/$slug'
+      fullPath: '/equipo/$slug'
+      preLoaderRoute: typeof EquipoSlugRouteImport
+      parentRoute: typeof EquipoRoute
+    }
   }
 }
+
+interface EquipoRouteChildren {
+  EquipoSlugRoute: typeof EquipoSlugRoute
+  EquipoIndexRoute: typeof EquipoIndexRoute
+}
+
+const EquipoRouteChildren: EquipoRouteChildren = {
+  EquipoSlugRoute: EquipoSlugRoute,
+  EquipoIndexRoute: EquipoIndexRoute,
+}
+
+const EquipoRouteWithChildren =
+  EquipoRoute._addFileChildren(EquipoRouteChildren)
 
 interface HotelesRouteChildren {
   HotelesSlugRoute: typeof HotelesSlugRoute
@@ -278,7 +327,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AvisoLegalRoute: AvisoLegalRoute,
   CookiesRoute: CookiesRoute,
-  EquipoRoute: EquipoRoute,
+  EquipoRoute: EquipoRouteWithChildren,
   HotelesRoute: HotelesRouteWithChildren,
   PrivacidadRoute: PrivacidadRoute,
   ResidencialRoute: ResidencialRouteWithChildren,
