@@ -31,6 +31,19 @@ function TeamPage() {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const dragStartY = useRef<number | null>(null);
   const dragDeltaY = useRef<number>(0);
+  const [dragY, setDragY] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const closeWithAnimation = () => {
+    setIsClosing(true);
+    // Let the CSS transition play before unmounting
+    window.setTimeout(() => {
+      setIsClosing(false);
+      setDragY(0);
+      setActive(null);
+    }, 220);
+  };
 
   const isTouchDevice = () =>
     typeof window !== "undefined" &&
@@ -40,30 +53,35 @@ function TeamPage() {
     if (e.touches.length !== 1) return;
     dragStartY.current = e.touches[0].clientY;
     dragDeltaY.current = 0;
+    setIsDragging(true);
   };
   const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (dragStartY.current == null) return;
     const dy = e.touches[0].clientY - dragStartY.current;
     dragDeltaY.current = dy;
-    if (dy > 0 && modalRef.current) {
-      modalRef.current.style.transform = `translateY(${dy}px)`;
-      modalRef.current.style.transition = "none";
+    // Only react to downward drag; apply mild rubber-banding
+    if (dy > 0) {
+      const eased = dy < 200 ? dy : 200 + (dy - 200) * 0.35;
+      setDragY(eased);
+    } else {
+      setDragY(0);
     }
   };
   const onTouchEnd = () => {
     const dy = dragDeltaY.current;
-    const el = modalRef.current;
-    if (el) {
-      el.style.transition = "";
-      el.style.transform = "";
-    }
     dragStartY.current = null;
     dragDeltaY.current = 0;
-    if (dy > 90) setActive(null);
+    setIsDragging(false);
+    if (dy > 90) {
+      closeWithAnimation();
+    } else {
+      // Snap back smoothly
+      setDragY(0);
+    }
   };
 
   const onMediaClick = () => {
-    if (isTouchDevice()) setActive(null);
+    if (isTouchDevice()) closeWithAnimation();
   };
 
   useEffect(() => {
@@ -221,11 +239,28 @@ function TeamPage() {
       {active && (
         <div
           className="tm-modal-backdrop"
-          onClick={() => setActive(null)}
+          data-closing={isClosing ? "true" : undefined}
+          style={{
+            // Fade backdrop with the drag distance
+            opacity: isClosing ? 0 : Math.max(0, 1 - dragY / 400),
+            transition: isDragging ? "none" : "opacity 220ms ease",
+          }}
+          onClick={() => closeWithAnimation()}
         >
           <div
             className="tm-modal"
             ref={modalRef}
+            data-closing={isClosing ? "true" : undefined}
+            style={{
+              transform: isClosing
+                ? "translateY(100vh)"
+                : dragY > 0
+                  ? `translateY(${dragY}px)`
+                  : undefined,
+              transition: isDragging
+                ? "none"
+                : "transform 220ms cubic-bezier(0.22, 1, 0.36, 1)",
+            }}
             role="dialog"
             aria-modal="true"
             aria-labelledby="tm-modal-name"
