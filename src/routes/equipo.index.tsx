@@ -35,6 +35,19 @@ function TeamPage() {
   const lastMoveY = useRef<number>(0);
   const lastMoveTime = useRef<number>(0);
   const dragVelocity = useRef<number>(0); // px/ms, positive = downward
+  const hasCrossedThreshold = useRef<boolean>(false);
+
+  const triggerHaptic = (pattern: number | number[] = 12) => {
+    if (typeof navigator === "undefined") return;
+    const vibrate = navigator.vibrate?.bind(navigator);
+    if (typeof vibrate === "function") {
+      try {
+        vibrate(pattern);
+      } catch {
+        // no-op: some browsers throw if called without a user gesture
+      }
+    }
+  };
   const [dragY, setDragY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -63,6 +76,7 @@ function TeamPage() {
     lastMoveY.current = y;
     lastMoveTime.current = t;
     dragVelocity.current = 0;
+    hasCrossedThreshold.current = false;
     setIsDragging(true);
   };
   const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
@@ -86,6 +100,17 @@ function TeamPage() {
     } else {
       setDragY(0);
     }
+    // Haptic cue when we cross the close threshold during the drag
+    const vh =
+      typeof window !== "undefined" ? window.innerHeight || 800 : 800;
+    const liveThreshold = Math.max(80, Math.min(180, vh * 0.18));
+    if (!hasCrossedThreshold.current && dy > liveThreshold) {
+      hasCrossedThreshold.current = true;
+      triggerHaptic(12);
+    } else if (hasCrossedThreshold.current && dy < liveThreshold - 16) {
+      // Allow re-triggering if the user pulls back up past the threshold
+      hasCrossedThreshold.current = false;
+    }
   };
   const onTouchEnd = () => {
     const dy = dragDeltaY.current;
@@ -102,12 +127,16 @@ function TeamPage() {
     // A flick: fast downward motion (>0.6 px/ms ≈ 600 px/s) with at least a small drag.
     const isFlick = v > 0.6 && dy > 24;
     if (dy > distanceThreshold || isFlick) {
+      // Confirm close with a slightly stronger pulse if we hadn't crossed
+      // the live threshold yet (e.g. closing via flick with small drag).
+      if (!hasCrossedThreshold.current) triggerHaptic(18);
       closeWithAnimation();
     } else {
       // Snap back smoothly
       setDragY(0);
     }
     dragVelocity.current = 0;
+    hasCrossedThreshold.current = false;
   };
 
   const onMediaClick = () => {
