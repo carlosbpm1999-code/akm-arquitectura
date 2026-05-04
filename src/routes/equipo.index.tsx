@@ -30,12 +30,16 @@ function TeamPage() {
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
   const modalRef = useRef<HTMLDivElement | null>(null);
   const dragStartY = useRef<number | null>(null);
+  const dragStartX = useRef<number>(0);
+  const maxAbsDeltaX = useRef<number>(0);
   const dragDeltaY = useRef<number>(0);
   const dragStartTime = useRef<number>(0);
   const lastMoveY = useRef<number>(0);
   const lastMoveTime = useRef<number>(0);
   const dragVelocity = useRef<number>(0); // px/ms, positive = downward
   const hasCrossedThreshold = useRef<boolean>(false);
+  const dragCancelled = useRef<boolean>(false);
+  const dragAxisLocked = useRef<"vertical" | "horizontal" | null>(null);
 
   const triggerHaptic = (pattern: number | number[] = 12) => {
     if (typeof navigator === "undefined") return;
@@ -69,21 +73,51 @@ function TeamPage() {
   const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     if (e.touches.length !== 1) return;
     const y = e.touches[0].clientY;
+    const x = e.touches[0].clientX;
     const t = performance.now();
     dragStartY.current = y;
+    dragStartX.current = x;
+    maxAbsDeltaX.current = 0;
     dragDeltaY.current = 0;
     dragStartTime.current = t;
     lastMoveY.current = y;
     lastMoveTime.current = t;
     dragVelocity.current = 0;
     hasCrossedThreshold.current = false;
+    dragCancelled.current = false;
+    dragAxisLocked.current = null;
     setIsDragging(true);
   };
   const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (dragStartY.current == null) return;
+    if (dragCancelled.current) return;
     const y = e.touches[0].clientY;
+    const x = e.touches[0].clientX;
     const t = performance.now();
     const dy = y - dragStartY.current;
+    const dx = x - dragStartX.current;
+    const absDx = Math.abs(dx);
+    const absDy = Math.abs(dy);
+    if (absDx > maxAbsDeltaX.current) maxAbsDeltaX.current = absDx;
+
+    // Lock the gesture axis once the finger has moved a meaningful amount.
+    // Use a small dead-zone (10px) so taps/jitter don't lock the axis.
+    if (dragAxisLocked.current === null && (absDx > 10 || absDy > 10)) {
+      dragAxisLocked.current = absDy >= absDx ? "vertical" : "horizontal";
+    }
+
+    // Cancel the drag if the gesture is mostly horizontal: either it locked
+    // horizontal, or horizontal travel clearly outpaces vertical mid-drag.
+    const horizontalDominates =
+      absDx > 24 && absDx > absDy * 1.5;
+    if (dragAxisLocked.current === "horizontal" || horizontalDominates) {
+      dragCancelled.current = true;
+      // Snap back any visual offset that may have been applied
+      setDragY(0);
+      hasCrossedThreshold.current = false;
+      return;
+    }
+
     dragDeltaY.current = dy;
     const dt = t - lastMoveTime.current;
     if (dt > 0) {
@@ -115,9 +149,18 @@ function TeamPage() {
   const onTouchEnd = () => {
     const dy = dragDeltaY.current;
     const v = dragVelocity.current; // px/ms
+    const cancelled = dragCancelled.current;
     dragStartY.current = null;
     dragDeltaY.current = 0;
     setIsDragging(false);
+    if (cancelled) {
+      setDragY(0);
+      dragVelocity.current = 0;
+      hasCrossedThreshold.current = false;
+      dragCancelled.current = false;
+      dragAxisLocked.current = null;
+      return;
+    }
     // Thresholds relative to viewport so it feels consistent on phones/tablets/desktop.
     const vh =
       typeof window !== "undefined"
@@ -126,7 +169,10 @@ function TeamPage() {
     const distanceThreshold = Math.max(80, Math.min(180, vh * 0.18));
     // A flick: fast downward motion (>0.6 px/ms ≈ 600 px/s) with at least a small drag.
     const isFlick = v > 0.6 && dy > 24;
-    if (dy > distanceThreshold || isFlick) {
+    // Require the gesture to be mostly vertical overall (final ratio check),
+    // not just at the moment we cross the threshold.
+    const isMostlyVertical = dy > 0 && dy >= maxAbsDeltaX.current * 1.2;
+    if (isMostlyVertical && (dy > distanceThreshold || isFlick)) {
       // Confirm close with a slightly stronger pulse if we hadn't crossed
       // the live threshold yet (e.g. closing via flick with small drag).
       if (!hasCrossedThreshold.current) triggerHaptic(18);
@@ -137,6 +183,7 @@ function TeamPage() {
     }
     dragVelocity.current = 0;
     hasCrossedThreshold.current = false;
+    dragAxisLocked.current = null;
   };
 
   const onMediaClick = () => {
