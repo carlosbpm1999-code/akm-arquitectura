@@ -260,6 +260,8 @@ function TeamPage() {
                 width={640}
                 height={960}
                 decoding="async"
+                loading="eager"
+                fetchPriority="high"
               />
             </div>
             <div className="tm-modal-body">
