@@ -31,6 +31,10 @@ function TeamPage() {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const dragStartY = useRef<number | null>(null);
   const dragDeltaY = useRef<number>(0);
+  const dragStartTime = useRef<number>(0);
+  const lastMoveY = useRef<number>(0);
+  const lastMoveTime = useRef<number>(0);
+  const dragVelocity = useRef<number>(0); // px/ms, positive = downward
   const [dragY, setDragY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -51,14 +55,30 @@ function TeamPage() {
 
   const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     if (e.touches.length !== 1) return;
-    dragStartY.current = e.touches[0].clientY;
+    const y = e.touches[0].clientY;
+    const t = performance.now();
+    dragStartY.current = y;
     dragDeltaY.current = 0;
+    dragStartTime.current = t;
+    lastMoveY.current = y;
+    lastMoveTime.current = t;
+    dragVelocity.current = 0;
     setIsDragging(true);
   };
   const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (dragStartY.current == null) return;
-    const dy = e.touches[0].clientY - dragStartY.current;
+    const y = e.touches[0].clientY;
+    const t = performance.now();
+    const dy = y - dragStartY.current;
     dragDeltaY.current = dy;
+    const dt = t - lastMoveTime.current;
+    if (dt > 0) {
+      // Smooth velocity with a simple low-pass filter
+      const instant = (y - lastMoveY.current) / dt;
+      dragVelocity.current = dragVelocity.current * 0.6 + instant * 0.4;
+    }
+    lastMoveY.current = y;
+    lastMoveTime.current = t;
     // Only react to downward drag; apply mild rubber-banding
     if (dy > 0) {
       const eased = dy < 200 ? dy : 200 + (dy - 200) * 0.35;
@@ -69,15 +89,25 @@ function TeamPage() {
   };
   const onTouchEnd = () => {
     const dy = dragDeltaY.current;
+    const v = dragVelocity.current; // px/ms
     dragStartY.current = null;
     dragDeltaY.current = 0;
     setIsDragging(false);
-    if (dy > 90) {
+    // Thresholds relative to viewport so it feels consistent on phones/tablets/desktop.
+    const vh =
+      typeof window !== "undefined"
+        ? window.innerHeight || 800
+        : 800;
+    const distanceThreshold = Math.max(80, Math.min(180, vh * 0.18));
+    // A flick: fast downward motion (>0.6 px/ms ≈ 600 px/s) with at least a small drag.
+    const isFlick = v > 0.6 && dy > 24;
+    if (dy > distanceThreshold || isFlick) {
       closeWithAnimation();
     } else {
       // Snap back smoothly
       setDragY(0);
     }
+    dragVelocity.current = 0;
   };
 
   const onMediaClick = () => {
