@@ -203,7 +203,13 @@ function TeamPage() {
     // Haptic cue when we cross the close threshold during the drag
     const vh =
       typeof window !== "undefined" ? window.innerHeight || 800 : 800;
-    const liveThreshold = Math.max(80, Math.min(180, vh * 0.18));
+    const liveThreshold = Math.max(
+      SWIPE_TUNING.closeDistanceMinPx,
+      Math.min(
+        SWIPE_TUNING.closeDistanceMaxPx,
+        vh * SWIPE_TUNING.closeDistanceVhRatio,
+      ),
+    );
     if (!hasCrossedThreshold.current && dy > liveThreshold) {
       hasCrossedThreshold.current = true;
       triggerHaptic(SWIPE_TUNING.hapticThresholdMs);
