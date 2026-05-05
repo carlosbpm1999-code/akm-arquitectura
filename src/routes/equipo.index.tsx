@@ -40,6 +40,28 @@ function TeamPage() {
   const hasCrossedThreshold = useRef<boolean>(false);
   const dragCancelled = useRef<boolean>(false);
   const dragAxisLocked = useRef<"vertical" | "horizontal" | null>(null);
+  const rafId = useRef<number | null>(null);
+  const pendingDragY = useRef<number | null>(null);
+
+  const scheduleDragY = (value: number) => {
+    pendingDragY.current = value;
+    if (rafId.current != null) return;
+    rafId.current = requestAnimationFrame(() => {
+      rafId.current = null;
+      if (pendingDragY.current != null) {
+        setDragY(pendingDragY.current);
+        pendingDragY.current = null;
+      }
+    });
+  };
+
+  const cancelScheduledDragY = () => {
+    if (rafId.current != null) {
+      cancelAnimationFrame(rafId.current);
+      rafId.current = null;
+    }
+    pendingDragY.current = null;
+  };
 
   const triggerHaptic = (pattern: number | number[] = 12) => {
     if (typeof navigator === "undefined") return;
@@ -57,6 +79,7 @@ function TeamPage() {
   const [isClosing, setIsClosing] = useState(false);
 
   const closeWithAnimation = () => {
+    cancelScheduledDragY();
     setIsClosing(true);
     // Let the CSS transition play before unmounting
     window.setTimeout(() => {
@@ -86,6 +109,7 @@ function TeamPage() {
     hasCrossedThreshold.current = false;
     dragCancelled.current = false;
     dragAxisLocked.current = null;
+    cancelScheduledDragY();
     setIsDragging(true);
   };
   const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
@@ -113,6 +137,7 @@ function TeamPage() {
     if (dragAxisLocked.current === "horizontal" || horizontalDominates) {
       dragCancelled.current = true;
       // Snap back any visual offset that may have been applied
+      cancelScheduledDragY();
       setDragY(0);
       hasCrossedThreshold.current = false;
       return;
@@ -130,9 +155,9 @@ function TeamPage() {
     // Only react to downward drag; apply mild rubber-banding
     if (dy > 0) {
       const eased = dy < 200 ? dy : 200 + (dy - 200) * 0.35;
-      setDragY(eased);
+      scheduleDragY(eased);
     } else {
-      setDragY(0);
+      scheduleDragY(0);
     }
     // Haptic cue when we cross the close threshold during the drag
     const vh =
@@ -154,6 +179,7 @@ function TeamPage() {
     dragDeltaY.current = 0;
     setIsDragging(false);
     if (cancelled) {
+      cancelScheduledDragY();
       setDragY(0);
       dragVelocity.current = 0;
       hasCrossedThreshold.current = false;
@@ -179,6 +205,7 @@ function TeamPage() {
       closeWithAnimation();
     } else {
       // Snap back smoothly
+      cancelScheduledDragY();
       setDragY(0);
     }
     dragVelocity.current = 0;
