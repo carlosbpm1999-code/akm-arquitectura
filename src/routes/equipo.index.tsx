@@ -4,6 +4,37 @@ import logo from "@/assets/akm-logo.png";
 import { MobileNavToggle } from "@/components/MobileNavToggle";
 import { teamMembers, type TeamMember } from "@/data/team";
 
+/**
+ * Tunable thresholds for the swipe-down close gesture on the team modal.
+ * Tweak these values to refine the feel based on user feedback.
+ */
+const SWIPE_TUNING = {
+  /** Movement (px) required before locking the gesture axis. Avoids tap jitter. */
+  axisLockDeadZonePx: 10,
+  /** Minimum horizontal travel (px) to consider the gesture as "horizontal-dominant". */
+  horizontalCancelMinPx: 24,
+  /** Horizontal must exceed vertical by this factor to cancel the swipe. */
+  horizontalDominanceRatio: 1.5,
+  /** Vertical must exceed max horizontal by this factor at release to confirm close. */
+  verticalConfirmRatio: 1.2,
+  /** Rubber-banding starts after this many px of downward drag. */
+  rubberBandStartPx: 200,
+  /** Resistance applied beyond rubberBandStartPx (0 = locked, 1 = no resistance). */
+  rubberBandResistance: 0.35,
+  /** Distance threshold (px) is clamped between min and max, scaled to viewport. */
+  closeDistanceMinPx: 80,
+  closeDistanceMaxPx: 180,
+  closeDistanceVhRatio: 0.18,
+  /** Flick velocity (px/ms) and minimum drag (px) to close via fast swipe. */
+  flickVelocityPxPerMs: 0.6,
+  flickMinDragPx: 24,
+  /** Hysteresis (px) below the live threshold needed to re-arm the haptic cue. */
+  hapticRearmHysteresisPx: 16,
+  /** Haptic vibration patterns (ms). */
+  hapticThresholdMs: 12,
+  hapticConfirmMs: 18,
+} as const;
+
 export const Route = createFileRoute("/equipo/")({
   component: TeamPage,
   head: () => ({
