@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import logo from "@/assets/akm-logo.png";
 import { MobileNavToggle } from "@/components/MobileNavToggle";
 import { teamMembers, type TeamMember } from "@/data/team";
@@ -74,7 +74,11 @@ function TeamPage() {
   const rafId = useRef<number | null>(null);
   const pendingDragY = useRef<number | null>(null);
 
-  const scheduleDragY = (value: number) => {
+  const [dragY, setDragY] = useState(0);
+  const [, setIsDragging] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const scheduleDragY = useCallback((value: number) => {
     pendingDragY.current = value;
     if (rafId.current != null) return;
     rafId.current = requestAnimationFrame(() => {
@@ -84,17 +88,17 @@ function TeamPage() {
         pendingDragY.current = null;
       }
     });
-  };
+  }, []);
 
-  const cancelScheduledDragY = () => {
+  const cancelScheduledDragY = useCallback(() => {
     if (rafId.current != null) {
       cancelAnimationFrame(rafId.current);
       rafId.current = null;
     }
     pendingDragY.current = null;
-  };
+  }, []);
 
-  const triggerHaptic = (pattern: number | number[] = 12) => {
+  const triggerHaptic = useCallback((pattern: number | number[] = 12) => {
     if (typeof navigator === "undefined") return;
     const vibrate = navigator.vibrate?.bind(navigator);
     if (typeof vibrate === "function") {
@@ -104,12 +108,9 @@ function TeamPage() {
         // no-op: some browsers throw if called without a user gesture
       }
     }
-  };
-  const [dragY, setDragY] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
+  }, []);
 
-  const closeWithAnimation = () => {
+  const closeWithAnimation = useCallback(() => {
     cancelScheduledDragY();
     setIsClosing(true);
     // Let the CSS transition play before unmounting
@@ -118,13 +119,16 @@ function TeamPage() {
       setDragY(0);
       setActive(null);
     }, 220);
-  };
+  }, [cancelScheduledDragY]);
 
-  const isTouchDevice = () =>
-    typeof window !== "undefined" &&
-    window.matchMedia?.("(hover: none), (pointer: coarse)").matches;
+  const isTouchDevice = useCallback(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(hover: none), (pointer: coarse)").matches,
+    [],
+  );
 
-  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+  const onTouchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
     if (e.touches.length !== 1) return;
     const y = e.touches[0].clientY;
     const x = e.touches[0].clientX;
@@ -142,8 +146,8 @@ function TeamPage() {
     dragAxisLocked.current = null;
     cancelScheduledDragY();
     setIsDragging(true);
-  };
-  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+  }, [cancelScheduledDragY]);
+  const onTouchMove = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
     if (dragStartY.current == null) return;
     if (dragCancelled.current) return;
     const y = e.touches[0].clientY;
@@ -220,8 +224,8 @@ function TeamPage() {
       // Allow re-triggering if the user pulls back up past the threshold
       hasCrossedThreshold.current = false;
     }
-  };
-  const onTouchEnd = () => {
+  }, [cancelScheduledDragY, scheduleDragY, triggerHaptic]);
+  const onTouchEnd = useCallback(() => {
     const dy = dragDeltaY.current;
     const v = dragVelocity.current; // px/ms
     const cancelled = dragCancelled.current;
@@ -271,11 +275,11 @@ function TeamPage() {
     dragVelocity.current = 0;
     hasCrossedThreshold.current = false;
     dragAxisLocked.current = null;
-  };
+  }, [cancelScheduledDragY, closeWithAnimation, triggerHaptic]);
 
-  const onMediaClick = () => {
+  const onMediaClick = useCallback(() => {
     if (isTouchDevice()) closeWithAnimation();
-  };
+  }, [isTouchDevice, closeWithAnimation]);
 
   useEffect(() => {
     const onScroll = () => {
