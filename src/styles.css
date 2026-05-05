@@ -1117,10 +1117,8 @@
   .nav-links { display:none; }
   .nav-burger { display: block; }
   .tgrid { grid-template-columns:repeat(2,1fr); }
-  /* 5 miembros en 2 cols: el último quedaría huérfano a la izquierda.
-     Lo hacemos ocupar las dos columnas para cerrar la fila con elegancia. */
-  .tgrid .tm:last-child:nth-child(odd) { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
-  .tgrid .tm:last-child:nth-child(odd) img { object-position: center 25%; }
+  /* En móvil mantenemos todas las fotos con el mismo tamaño y proporción (2/3),
+     incluso si el último miembro queda huérfano en su fila. */
   .pc:nth-child(3),.pc:nth-child(4),.pc:nth-child(5){ grid-column:span 12; }
   .pc:nth-child(8),.pc:nth-child(9){ grid-column:span 12; }
   .hotels-hero-copy { padding:64px 24px; }
