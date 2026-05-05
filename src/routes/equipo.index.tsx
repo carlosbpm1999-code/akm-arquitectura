@@ -75,7 +75,7 @@ function TeamPage() {
   const pendingDragY = useRef<number | null>(null);
 
   const [dragY, setDragY] = useState(0);
-  const [, setIsDragging] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
   const scheduleDragY = useCallback((value: number) => {
