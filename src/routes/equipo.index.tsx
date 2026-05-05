@@ -226,6 +226,10 @@ function TeamPage() {
   }, []);
 
   useEffect(() => {
+    return () => cancelScheduledDragY();
+  }, []);
+
+  useEffect(() => {
     if (!active) return;
     // Shallow URL sync so the modal state is shareable / back-button friendly
     const prevUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
