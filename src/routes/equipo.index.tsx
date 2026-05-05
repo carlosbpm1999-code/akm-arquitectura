@@ -4,6 +4,37 @@ import logo from "@/assets/akm-logo.png";
 import { MobileNavToggle } from "@/components/MobileNavToggle";
 import { teamMembers, type TeamMember } from "@/data/team";
 
+/**
+ * Tunable thresholds for the swipe-down close gesture on the team modal.
+ * Tweak these values to refine the feel based on user feedback.
+ */
+const SWIPE_TUNING = {
+  /** Movement (px) required before locking the gesture axis. Avoids tap jitter. */
+  axisLockDeadZonePx: 10,
+  /** Minimum horizontal travel (px) to consider the gesture as "horizontal-dominant". */
+  horizontalCancelMinPx: 24,
+  /** Horizontal must exceed vertical by this factor to cancel the swipe. */
+  horizontalDominanceRatio: 1.5,
+  /** Vertical must exceed max horizontal by this factor at release to confirm close. */
+  verticalConfirmRatio: 1.2,
+  /** Rubber-banding starts after this many px of downward drag. */
+  rubberBandStartPx: 200,
+  /** Resistance applied beyond rubberBandStartPx (0 = locked, 1 = no resistance). */
+  rubberBandResistance: 0.35,
+  /** Distance threshold (px) is clamped between min and max, scaled to viewport. */
+  closeDistanceMinPx: 80,
+  closeDistanceMaxPx: 180,
+  closeDistanceVhRatio: 0.18,
+  /** Flick velocity (px/ms) and minimum drag (px) to close via fast swipe. */
+  flickVelocityPxPerMs: 0.6,
+  flickMinDragPx: 24,
+  /** Hysteresis (px) below the live threshold needed to re-arm the haptic cue. */
+  hapticRearmHysteresisPx: 16,
+  /** Haptic vibration patterns (ms). */
+  hapticThresholdMs: 12,
+  hapticConfirmMs: 18,
+} as const;
+
 export const Route = createFileRoute("/equipo/")({
   component: TeamPage,
   head: () => ({
@@ -126,14 +157,19 @@ function TeamPage() {
 
     // Lock the gesture axis once the finger has moved a meaningful amount.
     // Use a small dead-zone (10px) so taps/jitter don't lock the axis.
-    if (dragAxisLocked.current === null && (absDx > 10 || absDy > 10)) {
+    if (
+      dragAxisLocked.current === null &&
+      (absDx > SWIPE_TUNING.axisLockDeadZonePx ||
+        absDy > SWIPE_TUNING.axisLockDeadZonePx)
+    ) {
       dragAxisLocked.current = absDy >= absDx ? "vertical" : "horizontal";
     }
 
     // Cancel the drag if the gesture is mostly horizontal: either it locked
     // horizontal, or horizontal travel clearly outpaces vertical mid-drag.
     const horizontalDominates =
-      absDx > 24 && absDx > absDy * 1.5;
+      absDx > SWIPE_TUNING.horizontalCancelMinPx &&
+      absDx > absDy * SWIPE_TUNING.horizontalDominanceRatio;
     if (dragAxisLocked.current === "horizontal" || horizontalDominates) {
       dragCancelled.current = true;
       // Snap back any visual offset that may have been applied
@@ -154,7 +190,12 @@ function TeamPage() {
     lastMoveTime.current = t;
     // Only react to downward drag; apply mild rubber-banding
     if (dy > 0) {
-      const eased = dy < 200 ? dy : 200 + (dy - 200) * 0.35;
+      const eased =
+        dy < SWIPE_TUNING.rubberBandStartPx
+          ? dy
+          : SWIPE_TUNING.rubberBandStartPx +
+            (dy - SWIPE_TUNING.rubberBandStartPx) *
+              SWIPE_TUNING.rubberBandResistance;
       scheduleDragY(eased);
     } else {
       scheduleDragY(0);
@@ -162,11 +203,20 @@ function TeamPage() {
     // Haptic cue when we cross the close threshold during the drag
     const vh =
       typeof window !== "undefined" ? window.innerHeight || 800 : 800;
-    const liveThreshold = Math.max(80, Math.min(180, vh * 0.18));
+    const liveThreshold = Math.max(
+      SWIPE_TUNING.closeDistanceMinPx,
+      Math.min(
+        SWIPE_TUNING.closeDistanceMaxPx,
+        vh * SWIPE_TUNING.closeDistanceVhRatio,
+      ),
+    );
     if (!hasCrossedThreshold.current && dy > liveThreshold) {
       hasCrossedThreshold.current = true;
-      triggerHaptic(12);
-    } else if (hasCrossedThreshold.current && dy < liveThreshold - 16) {
+      triggerHaptic(SWIPE_TUNING.hapticThresholdMs);
+    } else if (
+      hasCrossedThreshold.current &&
+      dy < liveThreshold - SWIPE_TUNING.hapticRearmHysteresisPx
+    ) {
       // Allow re-triggering if the user pulls back up past the threshold
       hasCrossedThreshold.current = false;
     }
@@ -192,16 +242,26 @@ function TeamPage() {
       typeof window !== "undefined"
         ? window.innerHeight || 800
         : 800;
-    const distanceThreshold = Math.max(80, Math.min(180, vh * 0.18));
+    const distanceThreshold = Math.max(
+      SWIPE_TUNING.closeDistanceMinPx,
+      Math.min(
+        SWIPE_TUNING.closeDistanceMaxPx,
+        vh * SWIPE_TUNING.closeDistanceVhRatio,
+      ),
+    );
     // A flick: fast downward motion (>0.6 px/ms ≈ 600 px/s) with at least a small drag.
-    const isFlick = v > 0.6 && dy > 24;
+    const isFlick =
+      v > SWIPE_TUNING.flickVelocityPxPerMs &&
+      dy > SWIPE_TUNING.flickMinDragPx;
     // Require the gesture to be mostly vertical overall (final ratio check),
     // not just at the moment we cross the threshold.
-    const isMostlyVertical = dy > 0 && dy >= maxAbsDeltaX.current * 1.2;
+    const isMostlyVertical =
+      dy > 0 && dy >= maxAbsDeltaX.current * SWIPE_TUNING.verticalConfirmRatio;
     if (isMostlyVertical && (dy > distanceThreshold || isFlick)) {
       // Confirm close with a slightly stronger pulse if we hadn't crossed
       // the live threshold yet (e.g. closing via flick with small drag).
-      if (!hasCrossedThreshold.current) triggerHaptic(18);
+      if (!hasCrossedThreshold.current)
+        triggerHaptic(SWIPE_TUNING.hapticConfirmMs);
       closeWithAnimation();
     } else {
       // Snap back smoothly
