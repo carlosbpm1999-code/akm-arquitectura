@@ -176,9 +176,9 @@ function TeamPage() {
       absDx > absDy * SWIPE_TUNING.horizontalDominanceRatio;
     if (dragAxisLocked.current === "horizontal" || horizontalDominates) {
       dragCancelled.current = true;
-      // Snap back any visual offset that may have been applied
-      cancelScheduledDragY();
-      setDragY(0);
+      // Snap back any visual offset; route through rAF so we still emit at most
+      // one render per frame even on the cancellation path.
+      scheduleDragY(0);
       hasCrossedThreshold.current = false;
       return;
     }
