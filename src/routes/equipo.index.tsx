@@ -73,10 +73,44 @@ function TeamPage() {
   const dragAxisLocked = useRef<"vertical" | "horizontal" | null>(null);
   const rafId = useRef<number | null>(null);
   const pendingDragY = useRef<number | null>(null);
+  const backdropRef = useRef<HTMLDivElement | null>(null);
+  // isDragging / isClosing kept in refs to avoid re-renders during the gesture.
+  // Visuals are applied imperatively to the DOM via applyDragVisuals().
+  const isDraggingRef = useRef(false);
+  const isClosingRef = useRef(false);
 
-  const [dragY, setDragY] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
+  // dragY tracked as ref + applied imperatively to avoid re-renders mid-drag.
+  const dragYRef = useRef(0);
+  const setDragY = (v: number) => {
+    dragYRef.current = v;
+  };
+
+  const applyDragVisuals = useCallback((y: number) => {
+    const modal = modalRef.current;
+    const backdrop = backdropRef.current;
+    const dragging = isDraggingRef.current;
+    const closing = isClosingRef.current;
+    if (modal) {
+      modal.style.transform = closing
+        ? "translateY(100vh)"
+        : y > 0
+          ? `translateY(${y}px)`
+          : "";
+      modal.style.transition = dragging
+        ? "none"
+        : "transform 220ms cubic-bezier(0.22, 1, 0.36, 1)";
+      if (closing) modal.dataset.closing = "true";
+      else delete modal.dataset.closing;
+    }
+    if (backdrop) {
+      backdrop.style.opacity = closing
+        ? "0"
+        : String(Math.max(0, 1 - y / 400));
+      backdrop.style.transition = dragging ? "none" : "opacity 220ms ease";
+      if (closing) backdrop.dataset.closing = "true";
+      else delete backdrop.dataset.closing;
+    }
+  }, []);
 
   const scheduleDragY = useCallback((value: number) => {
     pendingDragY.current = value;
@@ -84,11 +118,13 @@ function TeamPage() {
     rafId.current = requestAnimationFrame(() => {
       rafId.current = null;
       if (pendingDragY.current != null) {
-        setDragY(pendingDragY.current);
+        const v = pendingDragY.current;
+        setDragY(v);
+        applyDragVisuals(v);
         pendingDragY.current = null;
       }
     });
-  }, []);
+  }, [applyDragVisuals]);
 
   const cancelScheduledDragY = useCallback(() => {
     if (rafId.current != null) {
@@ -112,14 +148,16 @@ function TeamPage() {
 
   const closeWithAnimation = useCallback(() => {
     cancelScheduledDragY();
-    setIsClosing(true);
+    isClosingRef.current = true;
+    isDraggingRef.current = false;
+    applyDragVisuals(0);
     // Let the CSS transition play before unmounting
     window.setTimeout(() => {
-      setIsClosing(false);
+      isClosingRef.current = false;
       setDragY(0);
       setActive(null);
     }, 220);
-  }, [cancelScheduledDragY]);
+  }, [cancelScheduledDragY, applyDragVisuals]);
 
   const isTouchDevice = useCallback(
     () =>
@@ -145,8 +183,9 @@ function TeamPage() {
     dragCancelled.current = false;
     dragAxisLocked.current = null;
     cancelScheduledDragY();
-    setIsDragging(true);
-  }, [cancelScheduledDragY]);
+    isDraggingRef.current = true;
+    applyDragVisuals(0);
+  }, [cancelScheduledDragY, applyDragVisuals]);
   const onTouchMove = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
     if (dragStartY.current == null) return;
     if (dragCancelled.current) return;
@@ -231,10 +270,11 @@ function TeamPage() {
     const cancelled = dragCancelled.current;
     dragStartY.current = null;
     dragDeltaY.current = 0;
-    setIsDragging(false);
+    isDraggingRef.current = false;
     if (cancelled) {
       cancelScheduledDragY();
       setDragY(0);
+      applyDragVisuals(0);
       dragVelocity.current = 0;
       hasCrossedThreshold.current = false;
       dragCancelled.current = false;
@@ -271,11 +311,12 @@ function TeamPage() {
       // Snap back smoothly
       cancelScheduledDragY();
       setDragY(0);
+      applyDragVisuals(0);
     }
     dragVelocity.current = 0;
     hasCrossedThreshold.current = false;
     dragAxisLocked.current = null;
-  }, [cancelScheduledDragY, closeWithAnimation, triggerHaptic]);
+  }, [cancelScheduledDragY, closeWithAnimation, triggerHaptic, applyDragVisuals]);
 
   const onMediaClick = useCallback(() => {
     if (isTouchDevice()) closeWithAnimation();
@@ -440,28 +481,12 @@ function TeamPage() {
       {active && (
         <div
           className="tm-modal-backdrop"
-          data-closing={isClosing ? "true" : undefined}
-          style={{
-            // Fade backdrop with the drag distance
-            opacity: isClosing ? 0 : Math.max(0, 1 - dragY / 400),
-            transition: isDragging ? "none" : "opacity 220ms ease",
-          }}
+          ref={backdropRef}
           onClick={() => closeWithAnimation()}
         >
           <div
             className="tm-modal"
             ref={modalRef}
-            data-closing={isClosing ? "true" : undefined}
-            style={{
-              transform: isClosing
-                ? "translateY(100vh)"
-                : dragY > 0
-                  ? `translateY(${dragY}px)`
-                  : undefined,
-              transition: isDragging
-                ? "none"
-                : "transform 220ms cubic-bezier(0.22, 1, 0.36, 1)",
-            }}
             role="dialog"
             aria-modal="true"
             aria-labelledby="tm-modal-name"
