@@ -79,7 +79,11 @@ function TeamPage() {
   const isDraggingRef = useRef(false);
   const isClosingRef = useRef(false);
 
-  const [dragY, setDragY] = useState(0);
+  // dragY tracked as ref + applied imperatively to avoid re-renders mid-drag.
+  const dragYRef = useRef(0);
+  const setDragY = (v: number) => {
+    dragYRef.current = v;
+  };
 
   const applyDragVisuals = useCallback((y: number) => {
     const modal = modalRef.current;
