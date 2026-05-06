@@ -312,7 +312,7 @@ function TeamPage() {
     dragVelocity.current = 0;
     hasCrossedThreshold.current = false;
     dragAxisLocked.current = null;
-  }, [cancelScheduledDragY, closeWithAnimation, triggerHaptic]);
+  }, [cancelScheduledDragY, closeWithAnimation, triggerHaptic, applyDragVisuals]);
 
   const onMediaClick = useCallback(() => {
     if (isTouchDevice()) closeWithAnimation();
@@ -477,28 +477,12 @@ function TeamPage() {
       {active && (
         <div
           className="tm-modal-backdrop"
-          data-closing={isClosing ? "true" : undefined}
-          style={{
-            // Fade backdrop with the drag distance
-            opacity: isClosing ? 0 : Math.max(0, 1 - dragY / 400),
-            transition: isDragging ? "none" : "opacity 220ms ease",
-          }}
+          ref={backdropRef}
           onClick={() => closeWithAnimation()}
         >
           <div
             className="tm-modal"
             ref={modalRef}
-            data-closing={isClosing ? "true" : undefined}
-            style={{
-              transform: isClosing
-                ? "translateY(100vh)"
-                : dragY > 0
-                  ? `translateY(${dragY}px)`
-                  : undefined,
-              transition: isDragging
-                ? "none"
-                : "transform 220ms cubic-bezier(0.22, 1, 0.36, 1)",
-            }}
             role="dialog"
             aria-modal="true"
             aria-labelledby="tm-modal-name"
