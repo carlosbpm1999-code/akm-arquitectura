@@ -305,13 +305,10 @@ function TeamPage() {
     dragDeltaY.current = 0;
     isDraggingRef.current = false;
     if (cancelled) {
-      cancelScheduledDragY();
-      setDragY(0);
+      // Hard reset: cancel pending raf, clear timers, and zero gesture refs
+      // so the next gesture starts from a known-clean state.
+      resetGestureRefs();
       applyDragVisuals(0);
-      dragVelocity.current = 0;
-      hasCrossedThreshold.current = false;
-      dragCancelled.current = false;
-      dragAxisLocked.current = null;
       return;
     }
     // Thresholds relative to viewport so it feels consistent on phones/tablets/desktop.
@@ -349,7 +346,7 @@ function TeamPage() {
     dragVelocity.current = 0;
     hasCrossedThreshold.current = false;
     dragAxisLocked.current = null;
-  }, [cancelScheduledDragY, closeWithAnimation, triggerHaptic, applyDragVisuals]);
+  }, [resetGestureRefs, cancelScheduledDragY, closeWithAnimation, triggerHaptic, applyDragVisuals]);
 
   const onMediaClick = useCallback(() => {
     if (isTouchDevice()) closeWithAnimation();
@@ -363,9 +360,20 @@ function TeamPage() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // On unmount, fully tear down any pending raf, close timeout, and gesture
+  // state so we never leave callbacks scheduled against a dead component.
   useEffect(() => {
-    return () => cancelScheduledDragY();
-  }, []);
+    return () => {
+      resetGestureRefs();
+    };
+  }, [resetGestureRefs]);
+
+  // When the modal closes (active becomes null), also reset gesture state so
+  // a stale dragY/closing flag can't bleed into the next opened member.
+  useEffect(() => {
+    if (active) return;
+    resetGestureRefs();
+  }, [active, resetGestureRefs]);
 
   useEffect(() => {
     if (!active) return;
