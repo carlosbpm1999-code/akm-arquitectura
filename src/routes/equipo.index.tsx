@@ -73,6 +73,7 @@ function TeamPage() {
   const dragAxisLocked = useRef<"vertical" | "horizontal" | null>(null);
   const rafId = useRef<number | null>(null);
   const pendingDragY = useRef<number | null>(null);
+  const closeTimeoutId = useRef<number | null>(null);
   const backdropRef = useRef<HTMLDivElement | null>(null);
   // isDragging / isClosing kept in refs to avoid re-renders during the gesture.
   // Visuals are applied imperatively to the DOM via applyDragVisuals().
@@ -134,6 +135,33 @@ function TeamPage() {
     pendingDragY.current = null;
   }, []);
 
+  /**
+   * Reset all gesture-related refs to a clean slate. Used on cancel, on modal
+   * close, and on unmount to prevent leaking pending raf/timeout work or
+   * stale gesture state into the next interaction.
+   */
+  const resetGestureRefs = useCallback(() => {
+    cancelScheduledDragY();
+    if (closeTimeoutId.current != null) {
+      window.clearTimeout(closeTimeoutId.current);
+      closeTimeoutId.current = null;
+    }
+    dragStartY.current = null;
+    dragStartX.current = 0;
+    maxAbsDeltaX.current = 0;
+    dragDeltaY.current = 0;
+    dragStartTime.current = 0;
+    lastMoveY.current = 0;
+    lastMoveTime.current = 0;
+    dragVelocity.current = 0;
+    hasCrossedThreshold.current = false;
+    dragCancelled.current = false;
+    dragAxisLocked.current = null;
+    isDraggingRef.current = false;
+    isClosingRef.current = false;
+    dragYRef.current = 0;
+  }, [cancelScheduledDragY]);
+
   const triggerHaptic = useCallback((pattern: number | number[] = 12) => {
     if (typeof navigator === "undefined") return;
     const vibrate = navigator.vibrate?.bind(navigator);
@@ -148,11 +176,16 @@ function TeamPage() {
 
   const closeWithAnimation = useCallback(() => {
     cancelScheduledDragY();
+    if (closeTimeoutId.current != null) {
+      window.clearTimeout(closeTimeoutId.current);
+      closeTimeoutId.current = null;
+    }
     isClosingRef.current = true;
     isDraggingRef.current = false;
     applyDragVisuals(0);
     // Let the CSS transition play before unmounting
-    window.setTimeout(() => {
+    closeTimeoutId.current = window.setTimeout(() => {
+      closeTimeoutId.current = null;
       isClosingRef.current = false;
       setDragY(0);
       setActive(null);
