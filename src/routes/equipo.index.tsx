@@ -307,6 +307,7 @@ function TeamPage() {
       // Snap back smoothly
       cancelScheduledDragY();
       setDragY(0);
+      applyDragVisuals(0);
     }
     dragVelocity.current = 0;
     hasCrossedThreshold.current = false;
