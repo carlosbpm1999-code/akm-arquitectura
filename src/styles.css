@@ -1117,6 +1117,10 @@
   .nav-links { display:none; }
   .nav-burger { display: block; }
   .tgrid { grid-template-columns:repeat(2,1fr); }
+  /* Reset the 3-col special spans inherited from the (max-width:1100px) block
+     so that on 2-col mobile every tile occupies its natural cell. */
+  .tgrid .tm:nth-last-child(2):nth-child(3n+1),
+  .tgrid .tm:last-child:nth-child(3n+2) { grid-column: auto; }
   .pc:nth-child(3),.pc:nth-child(4),.pc:nth-child(5){ grid-column:span 12; }
   .pc:nth-child(8),.pc:nth-child(9){ grid-column:span 12; }
   .hotels-hero-copy { padding:64px 24px; }
