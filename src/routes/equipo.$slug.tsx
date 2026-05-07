@@ -67,7 +67,7 @@ function TeamMemberPage() {
           <li><Link to="/hoteles">Hoteles</Link></li>
           <li><Link to="/residencial">Residencial</Link></li>
           <li><Link to="/equipo">Equipo</Link></li>
-          <li><a href="/#contacto">Contacto</a></li>
+          <li><a href="/contacto">Contacto</a></li>
         </ul>
         <MobileNavToggle />
       </nav>

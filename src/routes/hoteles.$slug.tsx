@@ -81,7 +81,7 @@ function HotelDetailPage() {
           <li><Link to="/hoteles">Hoteles</Link></li>
           <li><Link to="/residencial">Residencial</Link></li>
           <li><Link to="/equipo">Equipo</Link></li>
-          <li><a href="/#contacto">Contacto</a></li>
+          <li><a href="/contacto">Contacto</a></li>
         </ul>
       </nav>
 
@@ -176,7 +176,7 @@ function HotelDetailPage() {
               <Link to="/hoteles">Hoteles</Link>
               <Link to="/residencial">Residencial</Link>
               <Link to="/equipo">Equipo</Link>
-              <a href="/#contacto">Contacto</a>
+              <a href="/contacto">Contacto</a>
               <Link to="/privacidad">Privacidad</Link>
               <Link to="/cookies">Cookies</Link>
               <Link to="/aviso-legal">Aviso Legal</Link>
