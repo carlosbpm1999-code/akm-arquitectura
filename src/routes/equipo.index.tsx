@@ -470,14 +470,14 @@ function TeamPage() {
 
       <main className="team-page">
         <section className="team-hero">
-          <span className="eyebrow">Nuestros socios</span>
+          <span className="eyebrow">Un solo estudio</span>
           <h1 className="hotels-title">
-            El equipo <em>detrás</em>
+            Trabajamos <em>juntos</em>
             <br />
-            de cada proyecto
+            en cada proyecto
           </h1>
           <p className="hotels-intro">
-            Cinco arquitectos socios lideran el estudio desde Barcelona, sumando una trayectoria que arranca en 1980. Compartimos una misma manera de entender el oficio: rigor técnico, escucha al cliente y respeto por el lugar.
+            Somos un equipo. Cada encargo se piensa, se discute y se construye de forma colectiva, sumando la experiencia y la mirada de todos los socios. Lo que firma el estudio nunca es obra de una sola persona, sino el resultado de una manera compartida de entender la arquitectura desde 1980.
           </p>
         </section>
 
