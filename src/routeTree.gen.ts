@@ -14,6 +14,7 @@ import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as HotelesRouteImport } from './routes/hoteles'
 import { Route as EquipoRouteImport } from './routes/equipo'
 import { Route as CookiesRouteImport } from './routes/cookies'
+import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ResidencialIndexRouteImport } from './routes/residencial.index'
@@ -46,6 +47,11 @@ const EquipoRoute = EquipoRouteImport.update({
 const CookiesRoute = CookiesRouteImport.update({
   id: '/cookies',
   path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AvisoLegalRoute = AvisoLegalRouteImport.update({
@@ -92,6 +98,7 @@ const EquipoSlugRoute = EquipoSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
+  '/contacto': typeof ContactoRoute
   '/cookies': typeof CookiesRoute
   '/equipo': typeof EquipoRouteWithChildren
   '/hoteles': typeof HotelesRouteWithChildren
@@ -107,6 +114,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
+  '/contacto': typeof ContactoRoute
   '/cookies': typeof CookiesRoute
   '/privacidad': typeof PrivacidadRoute
   '/equipo/$slug': typeof EquipoSlugRoute
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
+  '/contacto': typeof ContactoRoute
   '/cookies': typeof CookiesRoute
   '/equipo': typeof EquipoRouteWithChildren
   '/hoteles': typeof HotelesRouteWithChildren
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/aviso-legal'
+    | '/contacto'
     | '/cookies'
     | '/equipo'
     | '/hoteles'
@@ -152,6 +162,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/aviso-legal'
+    | '/contacto'
     | '/cookies'
     | '/privacidad'
     | '/equipo/$slug'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/aviso-legal'
+    | '/contacto'
     | '/cookies'
     | '/equipo'
     | '/hoteles'
@@ -180,6 +192,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AvisoLegalRoute: typeof AvisoLegalRoute
+  ContactoRoute: typeof ContactoRoute
   CookiesRoute: typeof CookiesRoute
   EquipoRoute: typeof EquipoRouteWithChildren
   HotelesRoute: typeof HotelesRouteWithChildren
@@ -222,6 +235,13 @@ declare module '@tanstack/react-router' {
       path: '/cookies'
       fullPath: '/cookies'
       preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacto': {
+      id: '/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof ContactoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/aviso-legal': {
@@ -326,6 +346,7 @@ const ResidencialRouteWithChildren = ResidencialRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AvisoLegalRoute: AvisoLegalRoute,
+  ContactoRoute: ContactoRoute,
   CookiesRoute: CookiesRoute,
   EquipoRoute: EquipoRouteWithChildren,
   HotelesRoute: HotelesRouteWithChildren,
@@ -335,3 +356,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
