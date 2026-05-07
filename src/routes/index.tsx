@@ -237,7 +237,7 @@ function Index() {
           <li><Link to="/hoteles">Hoteles</Link></li>
           <li><Link to="/residencial">Residencial</Link></li>
           <li><Link to="/equipo">Equipo</Link></li>
-          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="/contacto">Contacto</a></li>
         </ul>
         <MobileNavToggle />
       </nav>
@@ -252,10 +252,6 @@ function Index() {
           <p className="hero-p">
             Más de cuatro décadas transformando edificios, espacios y ciudades con rigor técnico, memoria histórica y visión contemporánea.
           </p>
-          <div className="hero-scroll">
-            <div className="hero-scroll-line"></div>
-            <span>Desplazar</span>
-          </div>
         </div>
         <div className="hero-r">
           <div className="hero-slider" aria-roledescription="carrusel">
@@ -538,7 +534,7 @@ function Index() {
               <Link to="/hoteles">Hoteles</Link>
               <Link to="/residencial">Residencial</Link>
               <Link to="/equipo">Equipo</Link>
-              <a href="#contacto">Contacto</a>
+              <a href="/contacto">Contacto</a>
               <Link to="/privacidad">Privacidad</Link>
               <Link to="/cookies">Cookies</Link>
               <Link to="/aviso-legal">Aviso Legal</Link>
