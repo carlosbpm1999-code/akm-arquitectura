@@ -252,10 +252,6 @@ function Index() {
           <p className="hero-p">
             Más de cuatro décadas transformando edificios, espacios y ciudades con rigor técnico, memoria histórica y visión contemporánea.
           </p>
-          <div className="hero-scroll">
-            <div className="hero-scroll-line"></div>
-            <span>Desplazar</span>
-          </div>
         </div>
         <div className="hero-r">
           <div className="hero-slider" aria-roledescription="carrusel">
