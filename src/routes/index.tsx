@@ -382,7 +382,6 @@ function Index() {
               <em>seleccionados</em>
             </h2>
           </div>
-          <span className="port-count rv">09</span>
         </div>
         <div className="pgrid">
           {projects.map((p) => (
