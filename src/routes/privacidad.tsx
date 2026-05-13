@@ -24,10 +24,6 @@ export const Route = createFileRoute("/privacidad")({
 
 function PrivacyPage() {
 
-  useEffect(() => {
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <>
       <Nav />

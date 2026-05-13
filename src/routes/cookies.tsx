@@ -24,10 +24,6 @@ export const Route = createFileRoute("/cookies")({
 
 function CookiesPage() {
 
-  useEffect(() => {
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   const resetConsent = () => {
     try {
       localStorage.removeItem("akm-cookies-consent");

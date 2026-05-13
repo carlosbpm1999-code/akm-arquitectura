@@ -14,7 +14,9 @@
       "Bash(grep -n \"f-center\\\\|f-stamp\" \"/c/Users/Formar-te/Desktop/Agentes IA/KAM/akm-arquitectura/src/routes/equipo.\\\\$slug.tsx\")",
       "Bash(grep -n \"footer\\\\|f-top\\\\|f-nav\" \"/c/Users/Formar-te/Desktop/Agentes IA/KAM/akm-arquitectura/src/routes/equipo.\\\\$slug.tsx\")",
       "Bash(npx tsc *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(python3 -c ' *)",
+      "Bash(python3)"
     ]
   }
 }

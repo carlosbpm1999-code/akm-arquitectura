@@ -1,6 +1,8 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { getTeamMember, teamMembers } from "@/data/team";
+import { Footer } from "@/components/Footer";
+import { Nav } from "@/components/Nav";
 
 export const Route = createFileRoute("/equipo/$slug")({
   loader: ({ params }) => {
@@ -43,10 +45,6 @@ function TeamMemberPage() {
   const total = teamMembers.length;
   const prev = teamMembers[(idx - 1 + total) % total];
   const next = teamMembers[(idx + 1) % total];
-
-  useEffect(() => {
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   return (
     <>

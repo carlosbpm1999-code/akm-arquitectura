@@ -24,10 +24,6 @@ export const Route = createFileRoute("/aviso-legal")({
 
 function LegalPage() {
 
-  useEffect(() => {
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <>
       <Nav />

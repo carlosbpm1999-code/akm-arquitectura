@@ -351,10 +351,6 @@ function TeamPage() {
     if (isTouchDevice()) closeWithAnimation();
   }, [isTouchDevice, closeWithAnimation]);
 
-  useEffect(() => {
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   // On unmount, fully tear down any pending raf, close timeout, and gesture
   // state so we never leave callbacks scheduled against a dead component.
   useEffect(() => {

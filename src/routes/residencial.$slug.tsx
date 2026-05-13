@@ -56,7 +56,6 @@ function ResidentialDetailPage() {
     document.querySelectorAll(".rv").forEach((el) => ob.observe(el));
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
       ob.disconnect();
     };
   }, []);
