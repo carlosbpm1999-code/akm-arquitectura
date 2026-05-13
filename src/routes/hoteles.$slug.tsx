@@ -1,7 +1,8 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
-import logo from "@/assets/akm-logo.png";
+import { useEffect } from "react";
 import { getHotelProject, hotelProjects } from "@/data/hotelProjects";
+import { Footer } from "@/components/Footer";
+import { Nav } from "@/components/Nav";
 
 export const Route = createFileRoute("/hoteles/$slug")({
   loader: ({ params }) => {
@@ -37,7 +38,6 @@ export const Route = createFileRoute("/hoteles/$slug")({
 
 function HotelDetailPage() {
   const project = Route.useLoaderData();
-  const navRef = useRef<HTMLElement | null>(null);
   const currentIndex = hotelProjects.findIndex((item) => item.slug === project.slug);
   const total = hotelProjects.length;
   const prevProject = hotelProjects[(currentIndex - 1 + total) % total];
@@ -45,10 +45,6 @@ function HotelDetailPage() {
   const related = hotelProjects.filter((item) => item.slug !== project.slug).slice(0, 3);
 
   useEffect(() => {
-    const onScroll = () => {
-      navRef.current?.classList.toggle("up", window.scrollY > 60);
-    };
-    window.addEventListener("scroll", onScroll);
 
     const ob = new IntersectionObserver(
       (entries) => {
@@ -71,19 +67,7 @@ function HotelDetailPage() {
 
   return (
     <>
-      <nav className="akm-nav" ref={navRef}>
-        <Link to="/" className="nav-logo">
-          <img src={logo} alt="AKM Kassem & Molinero Arquitectura" />
-        </Link>
-        <ul className="nav-links">
-          <li><a href="/#estudio">Estudio</a></li>
-          <li><a href="/#portfolio">Portfolio</a></li>
-          <li><Link to="/hoteles">Hoteles</Link></li>
-          <li><Link to="/residencial">Residencial</Link></li>
-          <li><Link to="/equipo">Equipo</Link></li>
-          <li><a href="/contacto">Contacto</a></li>
-        </ul>
-      </nav>
+      <Nav />
 
       <main className="hotels-page project-page">
         <section className="project-hero">
@@ -127,7 +111,7 @@ function HotelDetailPage() {
             <span className="project-pager-arrow">←</span>
             <span className="project-pager-meta">
               <span className="project-pager-label">Anterior</span>
-              <span className="project-pager-name">{prevProject.name}</span>
+              <span className="project-pager-name">{prevProject.name.replace("Catalonia ", "")}</span>
             </span>
           </Link>
           <Link to="/hoteles" className="project-pager-all">Ver todos</Link>
@@ -138,7 +122,7 @@ function HotelDetailPage() {
           >
             <span className="project-pager-meta">
               <span className="project-pager-label">Siguiente</span>
-              <span className="project-pager-name">{nextProject.name}</span>
+              <span className="project-pager-name">{nextProject.name.replace("Catalonia ", "")}</span>
             </span>
             <span className="project-pager-arrow">→</span>
           </Link>
@@ -156,45 +140,14 @@ function HotelDetailPage() {
                   <img src={item.images[0]} alt={item.name} loading="lazy" />
                 </div>
                 <span className="hotel-case-number">{String(index + 1).padStart(2, "0")}</span>
-                <h3>{item.name}</h3>
+                <h3>{item.name.replace("Catalonia ", "")}</h3>
                 <span className="hotel-case-type">Caso de éxito</span>
               </Link>
             ))}
           </div>
         </section>
       </main>
-
-      <footer className="akm-footer">
-        <div className="f-top">
-          <Link to="/" className="f-logo">
-            <img src={logo} alt="AKM Kassem & Molinero Arquitectura" />
-          </Link>
-          <div className="f-center">
-            <nav className="f-nav">
-              <a href="/#estudio">Estudio</a>
-              <a href="/#portfolio">Portfolio</a>
-              <Link to="/hoteles">Hoteles</Link>
-              <Link to="/residencial">Residencial</Link>
-              <Link to="/equipo">Equipo</Link>
-              <a href="/contacto">Contacto</a>
-              <Link to="/privacidad">Privacidad</Link>
-              <Link to="/cookies">Cookies</Link>
-              <Link to="/aviso-legal">Aviso Legal</Link>
-            </nav>
-          </div>
-          <div className="f-right">
-            <div className="f-social">
-              <a href="https://www.instagram.com/akm_arquitectura/" target="_blank" rel="noreferrer">Instagram</a>
-              <a href="https://www.linkedin.com/company/akm-arquitectura/" target="_blank" rel="noreferrer">LinkedIn</a>
-            </div>
-          </div>
-        </div>
-        <div className="f-bottom">
-          <span className="f-copy">
-            © 2025 Arqués–Kassem–Molinero Associats, SLP &nbsp;·&nbsp; C/ Bailén 176, entresuelo 2a, 08037 Barcelona &nbsp;·&nbsp; info@akmarquitectura.com
-          </span>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

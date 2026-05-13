@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"C:\\\\Users\\\\Formar-te\\\\Desktop\\\\Agentes IA\\\\KAM\\\\\" 2>/dev/null || dir \"C:\\\\Users\\\\Formar-te\\\\Desktop\\\\Agentes IA\\\\KAM\\\\\")",
+      "Read(//c/Users/Formar-te/Desktop/Agentes IA/KAM\" 2>/dev/**)",
+      "Bash(cp '/c/Users/Formar-te/Downloads/2026-05-04 CARLOS/2026-05-04 CARLOS/IDENTIDAD COPRPORATIVA/SVG/Recuros AKM-01.svg' '/c/Users/Formar-te/Desktop/Agentes IA/KAM/akm-arquitectura/src/assets/brand/akm-wordmark-dark.svg')",
+      "Bash(cp '/c/Users/Formar-te/Downloads/2026-05-04 CARLOS/2026-05-04 CARLOS/IDENTIDAD COPRPORATIVA/SVG/Recuros AKM-10.svg' '/c/Users/Formar-te/Desktop/Agentes IA/KAM/akm-arquitectura/src/assets/brand/akm-wordmark-light.svg')",
+      "Bash(cp '/c/Users/Formar-te/Downloads/2026-05-04 CARLOS/2026-05-04 CARLOS/IDENTIDAD COPRPORATIVA/SVG/Recuros AKM-15.svg' '/c/Users/Formar-te/Desktop/Agentes IA/KAM/akm-arquitectura/src/assets/brand/akm-monogram-dark.svg')",
+      "Bash(cp '/c/Users/Formar-te/Downloads/2026-05-04 CARLOS/2026-05-04 CARLOS/IDENTIDAD COPRPORATIVA/SVG/Recuros AKM-48.svg' '/c/Users/Formar-te/Desktop/Agentes IA/KAM/akm-arquitectura/src/assets/brand/akm-stamp-dark.svg')",
+      "Bash(cp '/c/Users/Formar-te/Downloads/2026-05-04 CARLOS/2026-05-04 CARLOS/IDENTIDAD COPRPORATIVA/SVG/Recuros AKM-58.svg' '/c/Users/Formar-te/Desktop/Agentes IA/KAM/akm-arquitectura/src/assets/brand/akm-pattern-dark.svg')",
+      "Bash(python3 -)",
+      "Bash(grep -n \"f-center\\\\|f-nav\\\\|f-stamp\" \"/c/Users/Formar-te/Desktop/Agentes IA/KAM/akm-arquitectura/src/routes/equipo.\\\\$slug.tsx\" | head -5 && grep -n \"f-center\\\\|f-nav\\\\|f-stamp\" \"/c/Users/Formar-te/Desktop/Agentes IA/KAM/akm-arquitectura/src/routes/contacto.tsx\" | head -5)",
+      "Read(//c/Users/Formar-te/Desktop/Agentes IA/KAM/akm-arquitectura/src/routes/**)",
+      "Bash(grep -n \"f-center\\\\|f-stamp\" \"/c/Users/Formar-te/Desktop/Agentes IA/KAM/akm-arquitectura/src/routes/equipo.\\\\$slug.tsx\")",
+      "Bash(grep -n \"footer\\\\|f-top\\\\|f-nav\" \"/c/Users/Formar-te/Desktop/Agentes IA/KAM/akm-arquitectura/src/routes/equipo.\\\\$slug.tsx\")",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)"
+    ]
+  }
+}

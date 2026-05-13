@@ -1,7 +1,5 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
-import logo from "@/assets/akm-logo.png";
-import { MobileNavToggle } from "@/components/MobileNavToggle";
+import { useEffect } from "react";
 import { getTeamMember, teamMembers } from "@/data/team";
 
 export const Route = createFileRoute("/equipo/$slug")({
@@ -41,36 +39,18 @@ export const Route = createFileRoute("/equipo/$slug")({
 
 function TeamMemberPage() {
   const m = Route.useLoaderData();
-  const navRef = useRef<HTMLElement | null>(null);
   const idx = teamMembers.findIndex((x) => x.slug === m.slug);
   const total = teamMembers.length;
   const prev = teamMembers[(idx - 1 + total) % total];
   const next = teamMembers[(idx + 1) % total];
 
   useEffect(() => {
-    const onScroll = () => {
-      navRef.current?.classList.toggle("up", window.scrollY > 60);
-    };
-    window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <>
-      <nav className="akm-nav" ref={navRef}>
-        <Link to="/" className="nav-logo">
-          <img src={logo} alt="AKM Kassem & Molinero Arquitectura" />
-        </Link>
-        <ul className="nav-links">
-          <li><a href="/#estudio">Estudio</a></li>
-          <li><a href="/#portfolio">Portfolio</a></li>
-          <li><Link to="/hoteles">Hoteles</Link></li>
-          <li><Link to="/residencial">Residencial</Link></li>
-          <li><Link to="/equipo">Equipo</Link></li>
-          <li><a href="/contacto">Contacto</a></li>
-        </ul>
-        <MobileNavToggle />
-      </nav>
+      <Nav />
 
       <main className="team-page team-detail">
         <section className="team-hero">

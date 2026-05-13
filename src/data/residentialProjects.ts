@@ -1,10 +1,56 @@
+import ausias00 from "@/assets/residencial/ausias-march-35/00.webp";
+import ausias01 from "@/assets/residencial/ausias-march-35/01.webp";
+import ausias03 from "@/assets/residencial/ausias-march-35/03.webp";
+import ausias04 from "@/assets/residencial/ausias-march-35/04.webp";
+import ausias05 from "@/assets/residencial/ausias-march-35/05.webp";
+
+import c104_1 from "@/assets/residencial/c104/1.jpg";
+import c104_2 from "@/assets/residencial/c104/2.jpg";
+import c104_3 from "@/assets/residencial/c104/3.jpg";
+import c104_4 from "@/assets/residencial/c104/4.jpg";
+import c104_5 from "@/assets/residencial/c104/5.jpg";
+
+import ronda01 from "@/assets/residencial/ronda-universidad-35/01.webp";
+import ronda02 from "@/assets/residencial/ronda-universidad-35/02.webp";
+import ronda03 from "@/assets/residencial/ronda-universidad-35/03.jpg";
+import ronda04 from "@/assets/residencial/ronda-universidad-35/04.jpg";
+import ronda05 from "@/assets/residencial/ronda-universidad-35/05.jpg";
+
+import vallcorba01 from "@/assets/residencial/vallcorba-6/01.jpg";
+import vallcorba02 from "@/assets/residencial/vallcorba-6/02.jpg";
+import vallcorba03 from "@/assets/residencial/vallcorba-6/03.jpg";
+
+import cristo01 from "@/assets/residencial/casa-cristo/01.webp";
+import cristo02 from "@/assets/residencial/casa-cristo/02.jpg";
+import cristo03 from "@/assets/residencial/casa-cristo/03.jpg";
+
+import olmeda1 from "@/assets/residencial/casa-olmeda/1.jpg";
+import olmeda2 from "@/assets/residencial/casa-olmeda/2.jpg";
+import olmeda3 from "@/assets/residencial/casa-olmeda/3.jpg";
+
+import cc2a1 from "@/assets/residencial/unifamiliar-cc2a/1.jpg";
+import cc2a2 from "@/assets/residencial/unifamiliar-cc2a/2.jpg";
+import cc2a3 from "@/assets/residencial/unifamiliar-cc2a/3.jpg";
+import cc2a4 from "@/assets/residencial/unifamiliar-cc2a/4.jpg";
+import cc2a5 from "@/assets/residencial/unifamiliar-cc2a/5.jpg";
+import cc2a6 from "@/assets/residencial/unifamiliar-cc2a/6.jpg";
+
+import granja1 from "@/assets/residencial/granja-del-pas/vista 1.webp";
+import granja2 from "@/assets/residencial/granja-del-pas/vista 2.webp";
+import granja3 from "@/assets/residencial/granja-del-pas/vista 3.webp";
+import granja4 from "@/assets/residencial/granja-del-pas/vista 4.webp";
+
+import ocana01 from "@/assets/residencial/casa-ocana/01.jpg";
+import ocana02 from "@/assets/residencial/casa-ocana/02.jpg";
+import ocana03 from "@/assets/residencial/casa-ocana/03.jpg";
+
 export type ResidentialProject = {
   slug: string;
   name: string;
   meta: string;
   summary: string;
   description: string[];
-  image: string;
+  images: string[];
 };
 
 export const residentialProjects: ResidentialProject[] = [
@@ -18,8 +64,7 @@ export const residentialProjects: ResidentialProject[] = [
       "Rehabilitación integral de un edificio plurifamiliar del Eixample barcelonés, levantado entre 1888 y 1890. La intervención recupera la fachada protegida, refuerza la estructura original y reordena las viviendas para adaptarlas a estándares actuales de habitabilidad.",
       "El proyecto combina la conservación de elementos patrimoniales —pavimentos hidráulicos, carpinterías y molduras— con la actualización completa de instalaciones, accesibilidad y eficiencia energética.",
     ],
-    image:
-      "https://www.akmarquitectura.com/wp-content/uploads/2023/07/Barcelona-2004-Superficie-3.410m2-1024x1024.jpg",
+    images: [ausias00, ausias01, ausias03, ausias04, ausias05],
   },
   {
     slug: "reforma-interior-c104",
@@ -31,8 +76,7 @@ export const residentialProjects: ResidentialProject[] = [
       "Reforma integral de una vivienda situada en una finca clásica del Eixample. El proyecto reorganiza el programa para liberar la zona de día hacia la fachada principal y agrupar las estancias privadas en un núcleo compacto.",
       "Materiales naturales, carpinterías a medida y una iluminación cuidada definen un interior contemporáneo respetuoso con la arquitectura original del edificio.",
     ],
-    image:
-      "https://www.akmarquitectura.com/wp-content/uploads/2023/07/C-104-1024x1024.jpg",
+    images: [c104_1, c104_2, c104_3, c104_4, c104_5],
   },
   {
     slug: "ronda-universitat-35",
@@ -44,8 +88,7 @@ export const residentialProjects: ResidentialProject[] = [
       "Rehabilitación de un edificio histórico en una de las arterias más representativas de Barcelona. La intervención restaura la fachada protegida y los elementos comunes —escalera, vestíbulo y patios— recuperando su valor original.",
       "En las viviendas se actualizan instalaciones, distribución y acabados, manteniendo techos, carpinterías y pavimentos singulares allí donde resulta posible.",
     ],
-    image:
-      "https://www.akmarquitectura.com/wp-content/uploads/2023/07/RU-35-1024x1024.jpg",
+    images: [ronda01, ronda02, ronda03, ronda04, ronda05],
   },
   {
     slug: "vallcorba-6",
@@ -57,8 +100,7 @@ export const residentialProjects: ResidentialProject[] = [
       "Reforma integral de una vivienda unifamiliar que reorganiza la planta baja en torno a un gran espacio de día abierto al jardín. La intervención prioriza la luz natural y la continuidad visual entre estancias.",
       "El proyecto introduce una paleta sobria de materiales —madera, piedra y blancos cálidos— y carpinterías de gran formato que difuminan el límite entre interior y exterior.",
     ],
-    image:
-      "https://www.akmarquitectura.com/wp-content/uploads/2023/06/08_Vallcorba-6-3.jpg",
+    images: [vallcorba01, vallcorba02, vallcorba03],
   },
   {
     slug: "casa-cristo",
@@ -70,8 +112,7 @@ export const residentialProjects: ResidentialProject[] = [
       "Casa Cristo se organiza en torno a un patio central que actúa como corazón de la vivienda, distribuyendo luz y conectando visualmente las distintas estancias.",
       "Volúmenes contenidos, materiales nobles y una relación cuidadosa con el entorno definen una arquitectura doméstica calmada, pensada para la vida cotidiana.",
     ],
-    image:
-      "https://www.akmarquitectura.com/wp-content/uploads/2023/06/04_Casa-Cristo-1-1024x1024.jpg",
+    images: [cristo01, cristo02, cristo03],
   },
   {
     slug: "casa-olmeda",
@@ -83,8 +124,7 @@ export const residentialProjects: ResidentialProject[] = [
       "Casa Olmeda se asienta en su parcela buscando vistas y orientación óptima. El programa se desarrolla en una composición horizontal de volúmenes que se abren al exterior mediante ventanales de gran formato.",
       "El interior despliega una paleta cálida y materiales naturales que refuerzan el carácter doméstico y la integración con el entorno.",
     ],
-    image:
-      "https://www.akmarquitectura.com/wp-content/uploads/2023/07/00-PORTADA-8-1024x1024.jpg",
+    images: [olmeda1, olmeda2, olmeda3],
   },
   {
     slug: "casa-cc2a",
@@ -96,8 +136,7 @@ export const residentialProjects: ResidentialProject[] = [
       "Vivienda unifamiliar de obra nueva desarrollada en cinco plantas. El programa incluye cinco dormitorios, gimnasio, sauna y piscina, distribuidos para optimizar la luz natural y las vistas al mar.",
       "La organización vertical permite separar zonas de servicio, día y descanso, mientras que la cubierta se concibe como una terraza panorámica abierta al horizonte.",
     ],
-    image:
-      "https://www.akmarquitectura.com/wp-content/uploads/2026/01/CC2A_1-1024x689.webp",
+    images: [cc2a1, cc2a2, cc2a3, cc2a4, cc2a5, cc2a6],
   },
   {
     slug: "granja-del-pas",
@@ -109,8 +148,7 @@ export const residentialProjects: ResidentialProject[] = [
       "Rehabilitación de una antigua construcción rural reconvertida en vivienda. El proyecto preserva los muros de piedra, las cubiertas de madera y la geometría original de la edificación.",
       "En el interior se introduce un programa doméstico contemporáneo con instalaciones nuevas, aislamiento y carpinterías eficientes, respetando la atmósfera del edificio preexistente.",
     ],
-    image:
-      "https://www.akmarquitectura.com/wp-content/uploads/2023/07/04-16-1024x746.jpg",
+    images: [granja1, granja2, granja3, granja4],
   },
   {
     slug: "casa-ocana",
@@ -122,8 +160,7 @@ export const residentialProjects: ResidentialProject[] = [
       "Casa Ocaña se plantea como una secuencia de volúmenes sencillos articulados por patios y aperturas estratégicas, garantizando luz natural y ventilación cruzada en todas las estancias.",
       "El uso de materiales locales, una envolvente eficiente y un interior de paleta neutra construyen un hogar atemporal pensado para durar.",
     ],
-    image:
-      "https://www.akmarquitectura.com/wp-content/uploads/2023/07/00-PORTADA-11-1024x1024.jpg",
+    images: [ocana01, ocana02, ocana03],
   },
 ];
 

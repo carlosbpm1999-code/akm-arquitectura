@@ -1,7 +1,9 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import logo from "@/assets/akm-logo.png";
-import { MobileNavToggle } from "@/components/MobileNavToggle";
+import wordmarkDark from "@/assets/brand/akm-wordmark-dark.svg";
+import patternDark from "@/assets/brand/akm-pattern-dark.svg";
+import { Footer } from "@/components/Footer";
+import { Nav } from "@/components/Nav";
 import { teamMembers as team } from "@/data/team";
 
 export const Route = createFileRoute("/")({
@@ -152,7 +154,6 @@ const heroSlides = [
 ];
 
 function Index() {
-  const navRef = useRef<HTMLElement | null>(null);
   const [slideIndex, setSlideIndex] = useState(0);
   const slideTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -171,13 +172,6 @@ function Index() {
   }, [slideIndex]);
 
   useEffect(() => {
-    const onScroll = () => {
-      if (navRef.current) {
-        navRef.current.classList.toggle("up", window.scrollY > 60);
-      }
-    };
-    window.addEventListener("scroll", onScroll);
-
     // Reveal on scroll
     const ob = new IntersectionObserver(
       (entries) => {
@@ -219,7 +213,6 @@ function Index() {
     counters.forEach((c) => counterObserver.observe(c));
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
       ob.disconnect();
       counterObserver.disconnect();
     };
@@ -227,20 +220,7 @@ function Index() {
 
   return (
     <>
-      <nav className="akm-nav" ref={navRef}>
-        <a href="#inicio" className="nav-logo">
-          <img src={logo} alt="AKM Kassem & Molinero Arquitectura" />
-        </a>
-        <ul className="nav-links">
-          <li><a href="#estudio">Estudio</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><Link to="/hoteles">Hoteles</Link></li>
-          <li><Link to="/residencial">Residencial</Link></li>
-          <li><Link to="/equipo">Equipo</Link></li>
-          <li><a href="/contacto">Contacto</a></li>
-        </ul>
-        <MobileNavToggle />
-      </nav>
+      <Nav />
 
       {/* HERO */}
       <section className="hero" id="inicio">
@@ -356,11 +336,8 @@ function Index() {
             </p>
           </div>
         </div>
-        <div className="about-r rv">
-          <img
-            src="https://www.akmarquitectura.com/wp-content/uploads/2023/07/00Logoprincipal-1024x796.jpg"
-            alt="AKM Arquitectura"
-          />
+        <div className="about-r about-brand rv">
+          <img src={wordmarkDark} alt="Arqués – Kassem & Molinero Arquitectura" />
           <div className="about-year">
             <span className="y">1980</span>
             <span className="s">Fundación</span>
@@ -401,6 +378,7 @@ function Index() {
 
       {/* QUOTE */}
       <div className="quote-strip">
+        <div className="quote-pattern" style={{ backgroundImage: `url(${patternDark})` }} />
         <div className="rv">
           <blockquote>
             "Cada edificio es una conversación entre el pasado y el futuro"
@@ -521,42 +499,7 @@ function Index() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="akm-footer">
-        <div className="f-top">
-          <a href="#inicio" className="f-logo">
-            <img src={logo} alt="AKM Kassem & Molinero Arquitectura" />
-          </a>
-          <div className="f-center">
-            <nav className="f-nav">
-              <a href="#estudio">Estudio</a>
-              <a href="#portfolio">Portfolio</a>
-              <Link to="/hoteles">Hoteles</Link>
-              <Link to="/residencial">Residencial</Link>
-              <Link to="/equipo">Equipo</Link>
-              <a href="/contacto">Contacto</a>
-              <Link to="/privacidad">Privacidad</Link>
-              <Link to="/cookies">Cookies</Link>
-              <Link to="/aviso-legal">Aviso Legal</Link>
-            </nav>
-          </div>
-          <div className="f-right">
-            <div className="f-social">
-              <a href="https://www.instagram.com/akm_arquitectura/" target="_blank" rel="noreferrer">
-                Instagram
-              </a>
-              <a href="https://www.linkedin.com/company/akm-arquitectura/" target="_blank" rel="noreferrer">
-                LinkedIn
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="f-bottom">
-          <span className="f-copy">
-            © 2025 Arqués–Kassem–Molinero Associats, SLP &nbsp;·&nbsp; C/ Bailén 176, entresuelo 2a, 08037 Barcelona &nbsp;·&nbsp; info@akmarquitectura.com
-          </span>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }
