@@ -59,58 +59,58 @@ export const residentialProjects: ResidentialProject[] = [
     name: "Ausiàs March 35",
     meta: "Barcelona · 2004 · 3.410 m²",
     summary:
-      "Rehabilitación integral de un edificio plurifamiliar del Eixample barcelonés (1888–1890), recuperando elementos originales y modernizando viviendas e instalaciones.",
+      "Reforma y ampliación de un edificio ecléctico de inspiración modernista de los años 1888-90, adaptado para uso residencial conservando sus valores patrimoniales.",
     description: [
-      "Rehabilitación integral de un edificio plurifamiliar del Eixample barcelonés, levantado entre 1888 y 1890. La intervención recupera la fachada protegida, refuerza la estructura original y reordena las viviendas para adaptarlas a estándares actuales de habitabilidad.",
-      "El proyecto combina la conservación de elementos patrimoniales —pavimentos hidráulicos, carpinterías y molduras— con la actualización completa de instalaciones, accesibilidad y eficiencia energética.",
+      "Reforma y ampliación de un edificio ecléctico de inspiración modernista de los años 1888-90.",
+      "El inmueble fue adaptado para su nuevo uso de viviendas, conservando sus valores patrimoniales característicos. Se proyectó una remonta con el consiguiente aumento de superficie, así como la rehabilitación integral de todo el inmueble.",
     ],
     images: [ausias00, ausias01, ausias03, ausias04, ausias05],
   },
   {
     slug: "reforma-interior-c104",
     name: "Reforma Interior C104",
-    meta: "Eixample, Barcelona · Reforma integral",
+    meta: "Barcelona · 2021–2022",
     summary:
-      "Reforma integral de una vivienda en el Eixample con una nueva organización espacial diáfana, materiales nobles y máxima entrada de luz natural.",
+      "Reforma integral de un conjunto de viviendas en un edificio plurifamiliar del Eixample, con foco en funcionalidad, luminosidad y conservación del carácter original.",
     description: [
-      "Reforma integral de una vivienda situada en una finca clásica del Eixample. El proyecto reorganiza el programa para liberar la zona de día hacia la fachada principal y agrupar las estancias privadas en un núcleo compacto.",
-      "Materiales naturales, carpinterías a medida y una iluminación cuidada definen un interior contemporáneo respetuoso con la arquitectura original del edificio.",
+      "El proyecto consiste en la reforma integral de un conjunto de viviendas de un edificio plurifamiliar situado en el Eixample de Barcelona. La propuesta busca actualizar esta tipología residencial clásica, dotándola de mayor funcionalidad, luminosidad y confort para responder a las necesidades contemporáneas.",
+      "La intervención se centra en optimizar las distribuciones, mejorar la relación entre estancias y potenciar la entrada de luz natural, sin perder el carácter singular de la arquitectura original, reutilizando materiales originales como la baldosa del suelo hidráulico.",
     ],
     images: [c104_1, c104_2, c104_3, c104_4, c104_5],
   },
   {
     slug: "ronda-universitat-35",
     name: "Ronda Universitat 35",
-    meta: "Barcelona · Rehabilitación",
+    meta: "Barcelona · 1999 · 2.240 m²",
     summary:
-      "Rehabilitación de un edificio histórico en Ronda Universitat: restauración de fachada y zonas comunes, y modernización de viviendas conservando el carácter del inmueble.",
+      "Rehabilitación integral y cambio de uso a viviendas de alto standing de un edificio histórico en Ronda Universitat, anteriormente sede bancaria.",
     description: [
-      "Rehabilitación de un edificio histórico en una de las arterias más representativas de Barcelona. La intervención restaura la fachada protegida y los elementos comunes —escalera, vestíbulo y patios— recuperando su valor original.",
-      "En las viviendas se actualizan instalaciones, distribución y acabados, manteniendo techos, carpinterías y pavimentos singulares allí donde resulta posible.",
+      "El edificio, que antiguamente albergaba la sede del Banco Occidental hasta 1970 y luego fue ocupado por la Banca Catalana para oficinas, fue objeto de una propuesta de rehabilitación integral y cambio de uso a viviendas de alto standing.",
+      "Se tuvieron que reconstruir las tribunas reproduciendo las del edificio gemelo existente. Todo esto hizo que su rehabilitación y ampliación de la planta ático resultase de una complejidad técnica y estructural considerable.",
     ],
-    images: [ronda01, ronda02, ronda03, ronda04, ronda05],
+    images: [ronda04, ronda01, ronda02, ronda03, ronda05],
   },
   {
     slug: "vallcorba-6",
     name: "Vallcorba 6",
-    meta: "Vivienda unifamiliar · Reforma",
+    meta: "Sabadell · 2010 · 1.600 m²",
     summary:
-      "Reforma de una vivienda unifamiliar centrada en la conexión interior–exterior, con espacios fluidos, paleta neutra y una nueva relación con el jardín.",
+      "Rehabilitación integral de un edificio industrial en Sabadell reconvertido en edificio plurifamiliar, con anexión de la finca vecina.",
     description: [
-      "Reforma integral de una vivienda unifamiliar que reorganiza la planta baja en torno a un gran espacio de día abierto al jardín. La intervención prioriza la luz natural y la continuidad visual entre estancias.",
-      "El proyecto introduce una paleta sobria de materiales —madera, piedra y blancos cálidos— y carpinterías de gran formato que difuminan el límite entre interior y exterior.",
+      "Proyecto de rehabilitación integral de edificio existente de uso industrial para destinarlo a edificio plurifamiliar de viviendas. Se anexionó a la finca vecina, manteniendo de un lado la volumetría actual y resolviendo la comunicación vertical y horizontal necesaria para acceder a la distribución de los espacios interiores.",
+      "Para afectar a las dos fincas fue necesaria la tramitación de una modificación puntual del Plan General, MPG-28, del Ayuntamiento de Sabadell.",
     ],
     images: [vallcorba01, vallcorba02, vallcorba03],
   },
   {
     slug: "casa-cristo",
     name: "Casa Cristo",
-    meta: "Vivienda unifamiliar",
+    meta: "Corbera de Llobregat · 2005 · 258 m²",
     summary:
-      "Vivienda unifamiliar concebida como una sucesión de espacios serenos, articulados por un patio central que organiza la vida doméstica.",
+      "Vivienda unifamiliar aislada articulada a partir de un muro de contención de geometría circular que integra el volumen en la pendiente suroeste.",
     description: [
-      "Casa Cristo se organiza en torno a un patio central que actúa como corazón de la vivienda, distribuyendo luz y conectando visualmente las distintas estancias.",
-      "Volúmenes contenidos, materiales nobles y una relación cuidadosa con el entorno definen una arquitectura doméstica calmada, pensada para la vida cotidiana.",
+      "Proyecto de obra nueva para vivienda unifamiliar aislada. El concepto de distribución se desarrolla a partir de un muro de contención de geometría circular que encara el edificio a la vertiente de la pendiente suroeste, integrando el volumen en el terreno existente.",
+      "Los exteriores toman protagonismo al establecer un diálogo a través de los retranqueos de fachada conectado con los espacios interiores.",
     ],
     images: [cristo01, cristo02, cristo03],
   },
@@ -129,24 +129,23 @@ export const residentialProjects: ResidentialProject[] = [
   {
     slug: "casa-cc2a",
     name: "Casa CC2A",
-    meta: "Obra nueva · 5 plantas · Vistas al mar",
+    meta: "Barcelona · 2024 · 715 m²",
     summary:
-      "Vivienda unifamiliar de obra nueva en cinco plantas, con piscina, gimnasio y sauna, diseñada para maximizar las vistas al mar.",
+      "Obra nueva de vivienda unifamiliar en 5 plantas diseñada para aprovechar al máximo la luz natural y las vistas panorámicas sobre la ciudad y el mar.",
     description: [
-      "Vivienda unifamiliar de obra nueva desarrollada en cinco plantas. El programa incluye cinco dormitorios, gimnasio, sauna y piscina, distribuidos para optimizar la luz natural y las vistas al mar.",
-      "La organización vertical permite separar zonas de servicio, día y descanso, mientras que la cubierta se concibe como una terraza panorámica abierta al horizonte.",
+      "Obra nueva de vivienda unifamiliar construida en 5 plantas, diseñada para aprovechar al máximo la luz natural y las vistas panorámicas sobre la ciudad y el mar.",
+      "La vivienda se organiza en diferentes niveles según uso: un amplio aparcamiento con capacidad para 4 vehículos; una planta dedicada al bienestar y al encuentro social con gimnasio, bar y sauna; una generosa zona de día que integra salón, comedor y cocina en un único espacio abierto hacia el exterior donde se encuentra la espectacular piscina desbordante que se funde visualmente con el horizonte. Por último, en las dos plantas superiores, la zona de noche, con cinco dormitorios dobles con baño propio y unas vistas privilegiadas.",
     ],
     images: [cc2a1, cc2a2, cc2a3, cc2a4, cc2a5, cc2a6],
   },
   {
     slug: "granja-del-pas",
     name: "Granja del Pas",
-    meta: "Rehabilitación rural",
+    meta: "Sabadell · 2001 · 32.839 m²",
     summary:
-      "Rehabilitación de una antigua granja transformada en vivienda, manteniendo la esencia constructiva original y adaptándola a un uso contemporáneo.",
+      "Gran conjunto residencial en Sabadell con 32.839 m² de edificación, 10.093 m² de zona ajardinada y 6.300 m² de locales comerciales.",
     description: [
-      "Rehabilitación de una antigua construcción rural reconvertida en vivienda. El proyecto preserva los muros de piedra, las cubiertas de madera y la geometría original de la edificación.",
-      "En el interior se introduce un programa doméstico contemporáneo con instalaciones nuevas, aislamiento y carpinterías eficientes, respetando la atmósfera del edificio preexistente.",
+      "Gran conjunto residencial en Sabadell compuesto por edificación de 32.839,80 m², zona ajardinada de 10.092,90 m² y 6.300 m² de locales comerciales.",
     ],
     images: [granja1, granja2, granja3, granja4],
   },

@@ -6,6 +6,17 @@ import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { teamMembers as team } from "@/data/team";
 
+import imgPlazaEspana from "@/assets/hoteles/plaza-espana/01.jpg";
+import imgAusiasMarch from "@/assets/residencial/ausias-march-35/00.webp";
+import imgMiradorDesPort from "@/assets/hoteles/mirador-des-port/00.webp";
+import imgCasaCC2A from "@/assets/residencial/unifamiliar-cc2a/1.jpg";
+import imgDonosti from "@/assets/hoteles/donosti/00.webp";
+import imgReinaVictoria from "@/assets/hoteles/reina-victoria/03.webp";
+import imgEspolin from "@/assets/hoteles/restaurante-espolin/1.jpg";
+import imgPuertaDelMar from "@/assets/hoteles/puerta-del-mar/1.jpg";
+import imgC104 from "@/assets/residencial/c104/1.jpg";
+import imgCasaOlmeda from "@/assets/residencial/casa-olmeda/1.jpg";
+
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
@@ -24,16 +35,8 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "Arquitectura que perdura. Estudio en Barcelona desde 1980.",
       },
-      {
-        property: "og:image",
-        content:
-          "https://www.akmarquitectura.com/wp-content/uploads/2025/10/01.webp",
-      },
-      {
-        name: "twitter:image",
-        content:
-          "https://www.akmarquitectura.com/wp-content/uploads/2025/10/01.webp",
-      },
+      { property: "og:image", content: imgPlazaEspana },
+      { name: "twitter:image", content: imgPlazaEspana },
     ],
   }),
 });
@@ -41,75 +44,93 @@ export const Route = createFileRoute("/")({
 const projects = [
   {
     idx: "01",
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2025/10/01.webp",
+    img: imgPlazaEspana,
     cat: "Hotel 4★ · Madrid",
     name: "Hotel Catalonia Plaza España",
     overCat: "Rehabilitación · 165 hab. · 1947",
     loc: "Gran Vía, Madrid · 9.651 m²",
+    section: "hoteles" as const,
+    slug: "hotel-catalonia-plaza-espana",
   },
   {
     idx: "02",
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2023/07/Barcelona-2004-Superficie-3.410m2.jpg",
+    img: imgAusiasMarch,
     cat: "Residencial · Barcelona",
     name: "Ausiàs March, 35",
     overCat: "Rehabilitación · 1888–1890",
     loc: "Barcelona · 3.410 m²",
+    section: "residencial" as const,
+    slug: "ausias-march-35",
   },
   {
     idx: "03",
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2024/03/00-scaled.jpg",
+    img: imgMiradorDesPort,
     cat: "Hotel · Menorca",
     name: "Hotel Catalonia Mirador des Port",
     overCat: "Rehab. & Ampliación · 54 hab.",
     loc: "Mahón, Menorca · 4.259 m²",
+    section: "hoteles" as const,
+    slug: "hotel-catalonia-mirador-des-port",
   },
   {
     idx: "04",
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2026/01/CC2A_1.webp",
+    img: imgCasaCC2A,
     cat: "Vivienda · Obra Nueva",
     name: "Casa CC2A",
     overCat: "5 Plantas · Piscina · Vistas al mar",
     loc: "5 dormitorios · Gimnasio · Sauna",
+    section: "residencial" as const,
+    slug: "casa-cc2a",
   },
   {
     idx: "05",
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2024/03/000-1.jpg",
+    img: imgDonosti,
     cat: "Hotel 4★ · San Sebastián",
     name: "Hotel Catalonia Donosti",
     overCat: "Obra Nueva · 122 hab.",
     loc: "Donostia · Iglesia San Bartolomé",
+    section: "hoteles" as const,
+    slug: "hotel-catalonia-domenicus",
   },
   {
     idx: "06",
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2023/06/comerical2-1.jpg",
+    img: imgReinaVictoria,
     cat: "Hotel 4★ · Ronda",
     name: "Hotel Catalonia Reina Victoria",
     overCat: "Reforma Interior · 88 hab. · 1906",
     loc: "Ronda, Málaga · Vistas al Tajo",
+    section: "hoteles" as const,
+    slug: "hotel-reina-victoria",
   },
   {
     idx: "07",
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2025/10/1.webp",
+    img: imgEspolin,
     cat: "Restauración · Valencia",
     name: "Restaurante Espolín",
     overCat: "Reforma Interior · Bar · Comedor",
     loc: "Valencia",
+    section: "hoteles" as const,
+    slug: "restaurante-espolin",
   },
   {
     idx: "08",
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2025/10/1.jpg",
+    img: imgPuertaDelMar,
     cat: "Hotel 4★ · Málaga",
     name: "Hotel Catalonia Puerta del Mar",
     overCat: "Rehabilitación · 74 hab. · s. XIX",
     loc: "Málaga · Edificios históricos",
+    section: "hoteles" as const,
+    slug: "hotel-catalonia-puerta-del-mar",
   },
   {
     idx: "09",
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2023/07/C-104.jpg",
+    img: imgC104,
     cat: "Residencial · Eixample Barcelona",
     name: "Reforma Interior C104",
     overCat: "Reforma Integral · Plurifamiliar",
     loc: "Eixample, Barcelona",
+    section: "residencial" as const,
+    slug: "reforma-interior-c104",
   },
 ];
 
@@ -122,32 +143,32 @@ const stats = [
 
 const heroSlides = [
   {
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2025/10/01.webp",
+    img: imgPlazaEspana,
     name: "Hotel Catalonia Plaza España",
     cat: "Hotel · Madrid",
   },
   {
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2026/01/CC2A_1.webp",
+    img: imgCasaCC2A,
     name: "Casa CC2A",
     cat: "Residencial · Obra Nueva",
   },
   {
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2024/03/00-scaled.jpg",
+    img: imgMiradorDesPort,
     name: "Hotel Catalonia Mirador des Port",
     cat: "Hotel · Menorca",
   },
   {
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2023/07/Barcelona-2004-Superficie-3.410m2.jpg",
+    img: imgAusiasMarch,
     name: "Ausiàs March, 35",
     cat: "Residencial · Barcelona",
   },
   {
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2023/06/comerical2-1.jpg",
+    img: imgReinaVictoria,
     name: "Hotel Catalonia Reina Victoria",
     cat: "Hotel · Ronda",
   },
   {
-    img: "https://www.akmarquitectura.com/wp-content/uploads/2023/07/00-PORTADA-8-1024x1024.jpg",
+    img: imgCasaOlmeda,
     name: "Casa Olmeda",
     cat: "Residencial",
   },
@@ -358,20 +379,25 @@ function Index() {
         </div>
         <div className="pgrid">
           {projects.map((p) => (
-            <div className="pc rv" key={p.idx}>
+            <Link
+              className="pc rv"
+              key={p.idx}
+              to={p.section === "hoteles" ? "/hoteles/$slug" : "/residencial/$slug"}
+              params={{ slug: p.slug }}
+            >
               <span className="pc-idx">{p.idx}</span>
               <img src={p.img} alt={p.name} loading="lazy" />
               <div className="pc-label">
                 <p className="pc-cat">{p.cat}</p>
-                <h3 className="pc-name">{p.name}</h3>
+                <h3 className="pc-name">{p.name.replace("Catalonia ", "")}</h3>
               </div>
               <div className="pc-over">
                 <div className="pc-over-bar"></div>
                 <p className="pc-over-cat">{p.overCat}</p>
-                <h3 className="pc-over-name">{p.name}</h3>
+                <h3 className="pc-over-name">{p.name.replace("Catalonia ", "")}</h3>
                 <p className="pc-over-loc">{p.loc}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

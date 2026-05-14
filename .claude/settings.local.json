@@ -16,7 +16,13 @@
       "Bash(npx tsc *)",
       "Bash(npm run *)",
       "Bash(python3 -c ' *)",
-      "Bash(python3)"
+      "Bash(python3)",
+      "Bash(cmd /c \"dir /b /ad \\\\\"C:\\\\Users\\\\Formar-te\\\\Downloads\\\\2026-05-04 CARLOS\\\\2026-05-04 CARLOS\\\\PROYECTOS\\\\HOTELES\\\\\"\")",
+      "Bash(cmd /c \"dir \\\\\"C:\\\\Users\\\\Formar-te\\\\Downloads\\\\2026-05-04 CARLOS\\\\2026-05-04 CARLOS\\\\PROYECTOS\\\\HOTELES\\\\\"\")",
+      "Bash(python3 gen_hotels.py)",
+      "Bash(del \"C:\\\\Users\\\\Formar-te\\\\Desktop\\\\Agentes IA\\\\KAM\\\\akm-arquitectura\\\\gen_hotels.py\")",
+      "Bash(pip install *)",
+      "Bash(python -c ' *)"
     ]
   }
 }

@@ -45,6 +45,8 @@ function HotelDetailPage() {
   const related = hotelProjects.filter((item) => item.slug !== project.slug).slice(0, 3);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+    document.querySelectorAll<HTMLElement>(".rv").forEach((el) => el.classList.remove("on"));
 
     const ob = new IntersectionObserver(
       (entries) => {
@@ -59,10 +61,8 @@ function HotelDetailPage() {
     );
     document.querySelectorAll(".rv").forEach((el) => ob.observe(el));
 
-    return () => {
-      ob.disconnect();
-    };
-  }, []);
+    return () => { ob.disconnect(); };
+  }, [project.slug]);
 
   return (
     <>
@@ -133,14 +133,12 @@ function HotelDetailPage() {
             <h2 className="heading rv">Otros <em>casos</em></h2>
           </div>
           <div className="hotels-list">
-            {related.map((item, index) => (
+            {related.map((item) => (
               <Link className="hotel-case rv" to="/hoteles/$slug" params={{ slug: item.slug }} key={item.slug}>
                 <div className="hotel-case-media">
                   <img src={item.images[0]} alt={item.name} loading="lazy" />
                 </div>
-                <span className="hotel-case-number">{String(index + 1).padStart(2, "0")}</span>
                 <h3>{item.name.replace("Catalonia ", "")}</h3>
-                <span className="hotel-case-type">Caso de éxito</span>
               </Link>
             ))}
           </div>

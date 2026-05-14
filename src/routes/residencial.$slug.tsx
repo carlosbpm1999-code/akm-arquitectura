@@ -41,6 +41,8 @@ function ResidentialDetailPage() {
   const related = residentialProjects.filter((item) => item.slug !== project.slug).slice(0, 3);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+    document.querySelectorAll<HTMLElement>(".rv").forEach((el) => el.classList.remove("on"));
 
     const ob = new IntersectionObserver(
       (entries) => {
@@ -55,10 +57,8 @@ function ResidentialDetailPage() {
     );
     document.querySelectorAll(".rv").forEach((el) => ob.observe(el));
 
-    return () => {
-      ob.disconnect();
-    };
-  }, []);
+    return () => { ob.disconnect(); };
+  }, [project.slug]);
 
   return (
     <>
