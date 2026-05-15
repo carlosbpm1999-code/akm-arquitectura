@@ -459,6 +459,25 @@ function TeamPage() {
           </p>
         </section>
 
+        <section className="team-stats" aria-hidden="true">
+          <div className="team-stat">
+            <span className="team-stat-num">5</span>
+            <span className="team-stat-label">Socios arquitectos</span>
+          </div>
+          <div className="team-stat">
+            <span className="team-stat-num">1980</span>
+            <span className="team-stat-label">Año de fundación</span>
+          </div>
+          <div className="team-stat">
+            <span className="team-stat-num">+400</span>
+            <span className="team-stat-label">Proyectos realizados</span>
+          </div>
+          <div className="team-stat">
+            <span className="team-stat-num">BCN</span>
+            <span className="team-stat-label">Sede en Barcelona</span>
+          </div>
+        </section>
+
         <section className="team-grid-section">
           <div className="tgrid">
             {teamMembers.map((m) => (

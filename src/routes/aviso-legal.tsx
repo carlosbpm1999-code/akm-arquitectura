@@ -1,5 +1,4 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { createFileRoute } from "@tanstack/react-router";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 

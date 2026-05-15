@@ -67,16 +67,16 @@ export const residentialProjects: ResidentialProject[] = [
     images: [ausias00, ausias01, ausias03, ausias04, ausias05],
   },
   {
-    slug: "reforma-interior-c104",
-    name: "Reforma Interior C104",
-    meta: "Barcelona · 2021–2022",
+    slug: "casa-cc2a",
+    name: "Casa CC2A",
+    meta: "Barcelona · 2024 · 715 m²",
     summary:
-      "Reforma integral de un conjunto de viviendas en un edificio plurifamiliar del Eixample, con foco en funcionalidad, luminosidad y conservación del carácter original.",
+      "Obra nueva de vivienda unifamiliar en 5 plantas diseñada para aprovechar al máximo la luz natural y las vistas panorámicas sobre la ciudad y el mar.",
     description: [
-      "El proyecto consiste en la reforma integral de un conjunto de viviendas de un edificio plurifamiliar situado en el Eixample de Barcelona. La propuesta busca actualizar esta tipología residencial clásica, dotándola de mayor funcionalidad, luminosidad y confort para responder a las necesidades contemporáneas.",
-      "La intervención se centra en optimizar las distribuciones, mejorar la relación entre estancias y potenciar la entrada de luz natural, sin perder el carácter singular de la arquitectura original, reutilizando materiales originales como la baldosa del suelo hidráulico.",
+      "Obra nueva de vivienda unifamiliar construida en 5 plantas, diseñada para aprovechar al máximo la luz natural y las vistas panorámicas sobre la ciudad y el mar.",
+      "La vivienda se organiza en diferentes niveles según uso: un amplio aparcamiento con capacidad para 4 vehículos; una planta dedicada al bienestar y al encuentro social con gimnasio, bar y sauna; una generosa zona de día que integra salón, comedor y cocina en un único espacio abierto hacia el exterior donde se encuentra la espectacular piscina desbordante que se funde visualmente con el horizonte. Por último, en las dos plantas superiores, la zona de noche, con cinco dormitorios dobles con baño propio y unas vistas privilegiadas.",
     ],
-    images: [c104_1, c104_2, c104_3, c104_4, c104_5],
+    images: [cc2a1, cc2a2, cc2a3, cc2a4, cc2a5, cc2a6],
   },
   {
     slug: "ronda-universitat-35",
@@ -115,6 +115,29 @@ export const residentialProjects: ResidentialProject[] = [
     images: [cristo01, cristo02, cristo03],
   },
   {
+    slug: "granja-del-pas",
+    name: "Granja del Pas",
+    meta: "Sabadell · 2001 · 32.839 m²",
+    summary:
+      "Gran conjunto residencial en Sabadell con 32.839 m² de edificación, 10.093 m² de zona ajardinada y 6.300 m² de locales comerciales.",
+    description: [
+      "Gran conjunto residencial en Sabadell compuesto por edificación de 32.839,80 m², zona ajardinada de 10.092,90 m² y 6.300 m² de locales comerciales.",
+    ],
+    images: [granja1, granja2, granja4, granja3],
+  },
+  {
+    slug: "reforma-interior-c104",
+    name: "Reforma Interior C104",
+    meta: "Barcelona · 2021–2022",
+    summary:
+      "Reforma integral de un conjunto de viviendas en un edificio plurifamiliar del Eixample, con foco en funcionalidad, luminosidad y conservación del carácter original.",
+    description: [
+      "El proyecto consiste en la reforma integral de un conjunto de viviendas de un edificio plurifamiliar situado en el Eixample de Barcelona. La propuesta busca actualizar esta tipología residencial clásica, dotándola de mayor funcionalidad, luminosidad y confort para responder a las necesidades contemporáneas.",
+      "La intervención se centra en optimizar las distribuciones, mejorar la relación entre estancias y potenciar la entrada de luz natural, sin perder el carácter singular de la arquitectura original, reutilizando materiales originales como la baldosa del suelo hidráulico.",
+    ],
+    images: [c104_1, c104_2, c104_3, c104_4, c104_5],
+  },
+  {
     slug: "casa-olmeda",
     name: "Casa Olmeda",
     meta: "Vivienda unifamiliar",
@@ -125,29 +148,6 @@ export const residentialProjects: ResidentialProject[] = [
       "El interior despliega una paleta cálida y materiales naturales que refuerzan el carácter doméstico y la integración con el entorno.",
     ],
     images: [olmeda1, olmeda2, olmeda3],
-  },
-  {
-    slug: "casa-cc2a",
-    name: "Casa CC2A",
-    meta: "Barcelona · 2024 · 715 m²",
-    summary:
-      "Obra nueva de vivienda unifamiliar en 5 plantas diseñada para aprovechar al máximo la luz natural y las vistas panorámicas sobre la ciudad y el mar.",
-    description: [
-      "Obra nueva de vivienda unifamiliar construida en 5 plantas, diseñada para aprovechar al máximo la luz natural y las vistas panorámicas sobre la ciudad y el mar.",
-      "La vivienda se organiza en diferentes niveles según uso: un amplio aparcamiento con capacidad para 4 vehículos; una planta dedicada al bienestar y al encuentro social con gimnasio, bar y sauna; una generosa zona de día que integra salón, comedor y cocina en un único espacio abierto hacia el exterior donde se encuentra la espectacular piscina desbordante que se funde visualmente con el horizonte. Por último, en las dos plantas superiores, la zona de noche, con cinco dormitorios dobles con baño propio y unas vistas privilegiadas.",
-    ],
-    images: [cc2a1, cc2a2, cc2a3, cc2a4, cc2a5, cc2a6],
-  },
-  {
-    slug: "granja-del-pas",
-    name: "Granja del Pas",
-    meta: "Sabadell · 2001 · 32.839 m²",
-    summary:
-      "Gran conjunto residencial en Sabadell con 32.839 m² de edificación, 10.093 m² de zona ajardinada y 6.300 m² de locales comerciales.",
-    description: [
-      "Gran conjunto residencial en Sabadell compuesto por edificación de 32.839,80 m², zona ajardinada de 10.092,90 m² y 6.300 m² de locales comerciales.",
-    ],
-    images: [granja1, granja2, granja3, granja4],
   },
   {
     slug: "casa-ocana",

@@ -1,5 +1,4 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 
@@ -28,7 +27,7 @@ function PrivacyPage() {
     <>
       <Nav />
 
-      <main className="cookies-page legal-long">
+      <main className="cookies-page">
         <section className="cookies-hero">
           <span className="eyebrow">Información legal</span>
           <h1 className="hotels-title">Política de Privacidad</h1>

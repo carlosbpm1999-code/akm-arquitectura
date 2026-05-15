@@ -22,7 +22,8 @@
       "Bash(python3 gen_hotels.py)",
       "Bash(del \"C:\\\\Users\\\\Formar-te\\\\Desktop\\\\Agentes IA\\\\KAM\\\\akm-arquitectura\\\\gen_hotels.py\")",
       "Bash(pip install *)",
-      "Bash(python -c ' *)"
+      "Bash(python -c ' *)",
+      "Bash(grep -n \"oklch\\\\|#[0-9a-fA-F]\\\\{3,6\\\\}\\\\|rgba\\\\|rgb\\(\" \"c:/Users/Formar-te/Desktop/Agentes IA/KAM/akm-arquitectura/src/styles.css\")"
     ]
   }
 }
