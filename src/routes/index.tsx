@@ -265,7 +265,7 @@ function Index() {
                 <img src={s.img} alt={s.name} loading={i === 0 ? "eager" : "lazy"} />
                 <div className="hero-slide-caption">
                   <span className="hero-slide-cat">{s.cat}</span>
-                  <span className="hero-slide-name">{s.name}</span>
+                  <span className="hero-slide-name">{s.name.replace("Catalonia ", "")}</span>
                 </div>
               </div>
             ))}
