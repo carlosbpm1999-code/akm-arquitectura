@@ -65,7 +65,7 @@ function ResidentialDetailPage() {
       <Nav />
 
       <main className="hotels-page project-page">
-        <section className="project-hero">
+        <section className={"project-hero" + (project.wideCover ? " project-hero--wide-cover" : "")}>
           <div className="project-hero-copy">
             <Link to="/residencial" className="project-back rv">← Residencial</Link>
             <span className="eyebrow rv">Proyecto residencial</span>

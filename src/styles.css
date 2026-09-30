@@ -825,7 +825,7 @@ a.cp-item:hover .cp-item-value { color: rgb(255 255 255 / 0.7); }
 .hotels-hero-copy { display:flex; flex-direction:column; justify-content:center; padding:80px 72px; border-right:1px solid var(--rule); }
 .hotels-title { font-family:var(--font-display); font-weight:300; font-size:clamp(56px,8vw,132px); line-height:.9; text-transform:uppercase; }
 .hotels-intro { margin-top:36px; max-width:480px; font-size:15px; line-height:2; color:var(--mid); font-weight:400; }
-.hotels-hero-media { min-height:520px; overflow:hidden; }
+.hotels-hero-media { position:relative; min-height:520px; overflow:hidden; }
 .hotels-hero-media img { width:100%; height:100%; object-fit:cover; display:block; filter:saturate(.78); }
 .hotels-cases { background:var(--white); }
 .hotels-cases-head { padding:100px 72px 44px; border-bottom:1px solid var(--rule); }
@@ -838,14 +838,19 @@ a.cp-item:hover .cp-item-value { color: rgb(255 255 255 / 0.7); }
 .hotel-case h3 { font-family:var(--font-display); font-weight:400; font-size:clamp(22px,2vw,32px); line-height:1.1; color:var(--ink); margin:24px 28px 28px; }
 
 /* PROJECT DETAIL */
-.project-hero { min-height:calc(100vh - 103px); display:grid; grid-template-columns:.9fr 1.1fr; border-bottom:1px solid var(--rule); }
+.project-hero { min-height:640px; display:grid; grid-template-columns:.9fr 1.1fr; border-bottom:1px solid var(--rule); }
 .project-hero-copy { display:flex; flex-direction:column; justify-content:center; padding:80px 72px; border-right:1px solid var(--rule); }
 .project-back { width:max-content; margin-bottom:44px; font-size:10px; letter-spacing:2.5px; text-transform:uppercase; color:var(--mid); text-decoration:none; transition:color .25s; }
 .project-back:hover { color:var(--gold); }
 .project-title { font-family:var(--font-display); font-weight:300; font-size:clamp(42px,6vw,96px); line-height:.95; text-transform:uppercase; }
 .project-meta { margin-top:30px; max-width:520px; font-size:12px; line-height:1.8; color:var(--mid); font-weight:500; text-transform:uppercase; letter-spacing:1px; }
-.project-hero-media { min-height:560px; overflow:hidden; }
+.project-hero-media { min-height:400px; overflow:hidden; }
 .project-hero-media img { width:100%; height:100%; object-fit:cover; display:block; filter:saturate(.82); }
+
+/* Wide, uncropped cover — used when the facade must stay fully visible */
+.project-hero--wide-cover { grid-template-columns:.55fr 1.45fr; }
+.project-hero--wide-cover .project-hero-media { background:var(--ink); }
+.project-hero--wide-cover .project-hero-media img { object-fit:contain; }
 .project-body { display:grid; grid-template-columns:320px 1fr; gap:72px; padding:100px 72px; background:var(--white); border-bottom:1px solid var(--rule); }
 .project-aside { position:sticky; top:120px; align-self:start; }
 .project-aside a { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); text-decoration:none; }
@@ -1370,7 +1375,7 @@ a.cp-item:hover .cp-item-value { color: rgb(255 255 255 / 0.7); }
   .hotel-case:nth-child(2n) { border-right:none; }
   .project-hero { min-height:auto; grid-template-columns:1fr; }
   .project-hero-copy { padding:80px 36px; border-right:none; border-bottom:1px solid var(--rule); }
-  .project-hero-media { min-height:380px; height:58vw; }
+  .project-hero-media { min-height:260px; height:40vw; }
   .project-body { grid-template-columns:1fr; gap:36px; padding:80px 36px; }
   .project-aside { position:static; }
   .project-gallery-item { min-height:320px; }

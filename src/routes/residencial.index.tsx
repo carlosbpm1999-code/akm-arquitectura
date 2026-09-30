@@ -1,8 +1,14 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { residentialProjects } from "@/data/residentialProjects";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
+
+const heroSlides = residentialProjects.map((project) => ({
+  img: project.images[0],
+  name: project.name,
+  slug: project.slug,
+}));
 
 export const Route = createFileRoute("/residencial/")({
   component: ResidencialPage,
@@ -32,6 +38,22 @@ export const Route = createFileRoute("/residencial/")({
 });
 
 function ResidencialPage() {
+  const [slideIndex, setSlideIndex] = useState(0);
+  const slideTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const goTo = (i: number) => setSlideIndex((i + heroSlides.length) % heroSlides.length);
+  const next = () => goTo(slideIndex + 1);
+  const prev = () => goTo(slideIndex - 1);
+
+  useEffect(() => {
+    if (slideTimer.current) clearInterval(slideTimer.current);
+    slideTimer.current = setInterval(() => {
+      setSlideIndex((i) => (i + 1) % heroSlides.length);
+    }, 5500);
+    return () => {
+      if (slideTimer.current) clearInterval(slideTimer.current);
+    };
+  }, [slideIndex]);
 
   useEffect(() => {
 
@@ -67,10 +89,56 @@ function ResidencialPage() {
             </p>
           </div>
           <div className="hotels-hero-media rv">
-            <img
-              src="https://www.akmarquitectura.com/wp-content/uploads/2023/07/Barcelona-2004-Superficie-3.410m2.jpg"
-              alt="Ausiàs March 35"
-            />
+            <div className="hero-slider" aria-roledescription="carrusel">
+              {heroSlides.map((s, i) => (
+                <div
+                  key={s.slug}
+                  className={"hero-slide" + (i === slideIndex ? " is-active" : "")}
+                  aria-hidden={i !== slideIndex}
+                >
+                  <img src={s.img} alt={s.name} loading={i === 0 ? "eager" : "lazy"} />
+                  <div className="hero-slide-caption">
+                    <span className="hero-slide-cat">Residencial</span>
+                    <span className="hero-slide-name">{s.name}</span>
+                  </div>
+                </div>
+              ))}
+
+              <button
+                type="button"
+                className="hero-slide-arrow hero-slide-arrow-prev"
+                onClick={prev}
+                aria-label="Anterior"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+                  <path d="M15 6l-6 6 6 6" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className="hero-slide-arrow hero-slide-arrow-next"
+                onClick={next}
+                aria-label="Siguiente"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+                  <path d="M9 6l6 6-6 6" />
+                </svg>
+              </button>
+
+              <div className="hero-slide-bullets" role="tablist">
+                {heroSlides.map((s, i) => (
+                  <button
+                    key={s.slug}
+                    type="button"
+                    className={"hero-slide-bullet" + (i === slideIndex ? " is-active" : "")}
+                    onClick={() => goTo(i)}
+                    aria-label={`Ir al proyecto ${i + 1}`}
+                    aria-selected={i === slideIndex}
+                    role="tab"
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 

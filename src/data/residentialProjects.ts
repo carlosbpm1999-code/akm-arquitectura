@@ -14,7 +14,6 @@ import ronda01 from "@/assets/residencial/ronda-universidad-35/01.webp";
 import ronda02 from "@/assets/residencial/ronda-universidad-35/02.webp";
 import ronda03 from "@/assets/residencial/ronda-universidad-35/03.jpg";
 import ronda04 from "@/assets/residencial/ronda-universidad-35/04.jpg";
-import ronda05 from "@/assets/residencial/ronda-universidad-35/05.jpg";
 
 import vallcorba01 from "@/assets/residencial/vallcorba-6/01.jpg";
 import vallcorba02 from "@/assets/residencial/vallcorba-6/02.jpg";
@@ -51,6 +50,8 @@ export type ResidentialProject = {
   summary: string;
   description: string[];
   images: string[];
+  /** Shows the full cover photo uncropped on the project page instead of cropping it to fill the panel. */
+  wideCover?: boolean;
 };
 
 export const residentialProjects: ResidentialProject[] = [
@@ -64,7 +65,7 @@ export const residentialProjects: ResidentialProject[] = [
       "Reforma y ampliación de un edificio ecléctico de inspiración modernista de los años 1888-90.",
       "El inmueble fue adaptado para su nuevo uso de viviendas, conservando sus valores patrimoniales característicos. Se proyectó una remonta con el consiguiente aumento de superficie, así como la rehabilitación integral de todo el inmueble.",
     ],
-    images: [ausias00, ausias01, ausias03, ausias04, ausias05],
+    images: [ausias05, ausias01, ausias03, ausias04, ausias00],
   },
   {
     slug: "casa-cc2a",
@@ -88,7 +89,8 @@ export const residentialProjects: ResidentialProject[] = [
       "El edificio, que antiguamente albergaba la sede del Banco Occidental hasta 1970 y luego fue ocupado por la Banca Catalana para oficinas, fue objeto de una propuesta de rehabilitación integral y cambio de uso a viviendas de alto standing.",
       "Se tuvieron que reconstruir las tribunas reproduciendo las del edificio gemelo existente. Todo esto hizo que su rehabilitación y ampliación de la planta ático resultase de una complejidad técnica y estructural considerable.",
     ],
-    images: [ronda04, ronda01, ronda02, ronda03, ronda05],
+    images: [ronda02, ronda04, ronda01, ronda03],
+    wideCover: true,
   },
   {
     slug: "vallcorba-6",
