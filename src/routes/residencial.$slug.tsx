@@ -53,7 +53,7 @@ function ResidentialDetailPage() {
           ob.unobserve(entry.target);
         });
       },
-      { threshold: 0.12 },
+      { threshold: 0.12, rootMargin: "0px 0px 350px 0px" },
     );
     document.querySelectorAll(".rv").forEach((el) => ob.observe(el));
 
@@ -78,9 +78,6 @@ function ResidentialDetailPage() {
         </section>
 
         <section className="project-body">
-          <aside className="project-aside rv">
-            <span className="eyebrow">Descripción</span>
-          </aside>
           <div className="project-text rv">
             {project.description.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
@@ -89,11 +86,17 @@ function ResidentialDetailPage() {
         </section>
 
         <section className="project-gallery" aria-label={`Galería de ${project.name}`}>
-          {project.images.slice(1).map((image, index) => (
-            <figure className="project-gallery-item rv" key={image}>
-              <img src={image} alt={`${project.name} — imagen ${index + 2}`} loading="lazy" />
-            </figure>
-          ))}
+          {project.images.slice(1).map((image, index) => {
+            const noCrop = project.noCropIndexes?.includes(index + 1);
+            return (
+              <figure
+                className={"project-gallery-item rv" + (noCrop ? " project-gallery-item--contain" : "")}
+                key={image}
+              >
+                <img src={image} alt={`${project.name} — imagen ${index + 2}`} loading="lazy" />
+              </figure>
+            );
+          })}
         </section>
 
         <nav className="project-pager rv" aria-label="Navegación entre proyectos">

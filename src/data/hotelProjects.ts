@@ -40,7 +40,6 @@ import reina_victoria_05 from "@/assets/hoteles/reina-victoria/05.webp";
 import reina_victoria_06 from "@/assets/hoteles/reina-victoria/06.webp";
 import reina_victoria_07 from "@/assets/hoteles/reina-victoria/07.webp";
 import reina_victoria_08 from "@/assets/hoteles/reina-victoria/08.webp";
-import reina_victoria_09 from "@/assets/hoteles/reina-victoria/09.webp";
 import plaza_mayor_00_portada from "@/assets/hoteles/plaza-mayor/00-portada.jpg";
 import plaza_mayor_01 from "@/assets/hoteles/plaza-mayor/01.jpg";
 import plaza_mayor_02 from "@/assets/hoteles/plaza-mayor/02.jpg";
@@ -241,8 +240,8 @@ export const hotelProjects: HotelProject[] = [
       "Proyecto de reforma interior de edificio con uso de hotel de 4 estrellas, construido en 1906 y de estilo victoriano. Se reformaron las 88 habitaciones y se mejoraron y ampliaron las zonas comunes y servicios del hotel, potenciando la conexi\u00f3n con espacios exteriores y sus magn\u00edficas vistas sobre el Tajo de Ronda.",
     ],
     images: [
-    reina_victoria_00_portada,
     reina_victoria_01,
+    reina_victoria_00_portada,
     reina_victoria_02,
     reina_victoria_03,
     reina_victoria_04,
@@ -250,7 +249,6 @@ export const hotelProjects: HotelProject[] = [
     reina_victoria_06,
     reina_victoria_07,
     reina_victoria_08,
-    reina_victoria_09,
     ],
     sourceUrl: "https://www.akmarquitectura.com/hotel-reina-victoria/",
   },

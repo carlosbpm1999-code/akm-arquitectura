@@ -4,10 +4,9 @@ import wordmarkDark from "@/assets/brand/akm-wordmark-dark.svg";
 import patternDark from "@/assets/brand/akm-pattern-dark.svg";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
-import { teamMembers as team } from "@/data/team";
 
 import imgPlazaEspana from "@/assets/hoteles/plaza-espana/01.jpg";
-import imgAusiasMarch from "@/assets/residencial/ausias-march-35/00.webp";
+import imgAusiasMarch from "@/assets/residencial/ausias-march-35/05.webp";
 import imgMiradorDesPort from "@/assets/hoteles/mirador-des-port/00.webp";
 import imgCasaCC2A from "@/assets/residencial/unifamiliar-cc2a/1.jpg";
 import imgDonosti from "@/assets/hoteles/donosti/00.webp";
@@ -15,7 +14,7 @@ import imgReinaVictoria from "@/assets/hoteles/reina-victoria/03.webp";
 import imgEspolin from "@/assets/hoteles/restaurante-espolin/1.jpg";
 import imgPuertaDelMar from "@/assets/hoteles/puerta-del-mar/1.jpg";
 import imgC104 from "@/assets/residencial/c104/1.jpg";
-import imgCasaOlmeda from "@/assets/residencial/casa-olmeda/1.jpg";
+import imgCasaOlmeda from "@/assets/residencial/casa-olmeda/2.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -25,7 +24,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Estudio de arquitectura en Barcelona. Más de cuatro décadas en rehabilitación, obra nueva, hoteles y patrimonio. +1500 proyectos completados.",
+          "Estudio de arquitectura en Barcelona. Más de cuatro décadas en rehabilitación, obra nueva, hoteles y patrimonio. +2000 proyectos completados.",
       },
       {
         property: "og:title",
@@ -45,7 +44,7 @@ const projects = [
   {
     idx: "01",
     img: imgPlazaEspana,
-    cat: "Hotel 4★ · Madrid",
+    cat: "Hotel · Madrid",
     name: "Hotel Catalonia Plaza España",
     overCat: "Rehabilitación · 165 hab. · 1947",
     loc: "Gran Vía, Madrid · 9.651 m²",
@@ -85,7 +84,7 @@ const projects = [
   {
     idx: "05",
     img: imgDonosti,
-    cat: "Hotel 4★ · San Sebastián",
+    cat: "Hotel · San Sebastián",
     name: "Hotel Catalonia Donosti",
     overCat: "Obra Nueva · 122 hab.",
     loc: "Donostia · Iglesia San Bartolomé",
@@ -95,7 +94,7 @@ const projects = [
   {
     idx: "06",
     img: imgReinaVictoria,
-    cat: "Hotel 4★ · Ronda",
+    cat: "Hotel · Ronda",
     name: "Hotel Catalonia Reina Victoria",
     overCat: "Reforma Interior · 88 hab. · 1906",
     loc: "Ronda, Málaga · Vistas al Tajo",
@@ -115,7 +114,7 @@ const projects = [
   {
     idx: "08",
     img: imgPuertaDelMar,
-    cat: "Hotel 4★ · Málaga",
+    cat: "Hotel · Málaga",
     name: "Hotel Catalonia Puerta del Mar",
     overCat: "Rehabilitación · 74 hab. · s. XIX",
     loc: "Málaga · Edificios históricos",
@@ -136,7 +135,7 @@ const projects = [
 
 const stats = [
   { val: 44, label: "Años de experiencia" },
-  { val: 1500, label: "Proyectos completados", pre: "+" },
+  { val: 2000, label: "Proyectos completados", pre: "+" },
   { val: 150, label: "Hoteles intervenidos", pre: "+" },
   { val: 1980, label: "Año de fundación" },
 ];
@@ -204,7 +203,7 @@ function Index() {
           }
         });
       },
-      { threshold: 0.1 },
+      { threshold: 0.1, rootMargin: "0px 0px 350px 0px" },
     );
     document.querySelectorAll(".rv").forEach((el) => ob.observe(el));
 
@@ -246,7 +245,6 @@ function Index() {
       {/* HERO */}
       <section className="hero" id="inicio">
         <div className="hero-l">
-          <span className="hero-label">Barcelona · Est. 1980 · +1500 Proyectos</span>
           <h1 className="hero-h1">
             Arquitectura<br />que <em>perdura</em>
           </h1>
@@ -370,8 +368,7 @@ function Index() {
       <section id="portfolio">
         <div className="port-head">
           <div>
-            <span className="eyebrow rv">Casos de éxito</span>
-            <h2 className="heading rv" style={{ marginBottom: 0 }}>
+            <h2 className="heading heading-portfolio rv" style={{ marginBottom: 0 }}>
               Proyectos<br />
               <em>seleccionados</em>
             </h2>
@@ -409,7 +406,6 @@ function Index() {
           <blockquote>
             "Cada edificio es una conversación entre el pasado y el futuro"
           </blockquote>
-          <cite>— AKM Kassem &amp; Molinero Arquitectura</cite>
         </div>
         <div className="quote-r rv">
           <p>
@@ -420,36 +416,6 @@ function Index() {
           </p>
         </div>
       </div>
-
-      {/* TEAM */}
-      <section className="team" id="equipo">
-        <span className="eyebrow rv" style={{ display: "block", textAlign: "center" }}>
-          Nuestros socios
-        </span>
-        <h2 className="heading rv" style={{ textAlign: "center", marginBottom: 0 }}>
-          El equipo <em>detrás</em>
-          <br />
-          de cada proyecto
-        </h2>
-        <div className="tgrid">
-          {team.map((m) => (
-            <div className="tm rv" key={m.name}>
-              <img src={m.img} alt={m.name} loading="lazy" />
-              <div className="tm-label">
-                <span className="tm-label-name">{m.name}</span>
-              </div>
-              <div className="tm-over">
-                <div className="tm-over-bar"></div>
-                <h3 className="tm-name">{m.name}</h3>
-                <p className="tm-role">{m.role}</p>
-                <p className="tm-spec" style={{ whiteSpace: "pre-line" }}>
-                  {m.spec}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* CONTACT */}
       <section className="contact" id="contacto">
@@ -486,12 +452,11 @@ function Index() {
                 href="https://www.instagram.com/akm_arquitectura/"
                 target="_blank"
                 rel="noreferrer"
-                className="soc"
+                className="soc soc--instagram"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <rect x="2" y="2" width="20" height="20" rx="5" />
-                  <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4.2" />
                 </svg>
                 Instagram
               </a>
@@ -499,12 +464,13 @@ function Index() {
                 href="https://www.linkedin.com/company/akm-arquitectura/"
                 target="_blank"
                 rel="noreferrer"
-                className="soc"
+                className="soc soc--linkedin"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" />
-                  <rect x="2" y="9" width="4" height="12" />
-                  <circle cx="4" cy="4" r="2" />
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <line x1="8" y1="10" x2="8" y2="17" />
+                  <circle cx="8" cy="6.6" r="0.6" fill="currentColor" stroke="none" />
+                  <path d="M12 17v-4.3a2.4 2.4 0 014.8 0V17" />
                 </svg>
                 LinkedIn
               </a>

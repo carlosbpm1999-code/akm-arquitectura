@@ -52,6 +52,8 @@ export type ResidentialProject = {
   images: string[];
   /** Shows the full cover photo uncropped on the project page instead of cropping it to fill the panel. */
   wideCover?: boolean;
+  /** 0-based indexes into `images` that should render uncropped (no crop) in the gallery grid. */
+  noCropIndexes?: number[];
 };
 
 export const residentialProjects: ResidentialProject[] = [
@@ -78,6 +80,7 @@ export const residentialProjects: ResidentialProject[] = [
       "La vivienda se organiza en diferentes niveles según uso: un amplio aparcamiento con capacidad para 4 vehículos; una planta dedicada al bienestar y al encuentro social con gimnasio, bar y sauna; una generosa zona de día que integra salón, comedor y cocina en un único espacio abierto hacia el exterior donde se encuentra la espectacular piscina desbordante que se funde visualmente con el horizonte. Por último, en las dos plantas superiores, la zona de noche, con cinco dormitorios dobles con baño propio y unas vistas privilegiadas.",
     ],
     images: [cc2a1, cc2a2, cc2a3, cc2a4, cc2a5, cc2a6],
+    noCropIndexes: [3],
   },
   {
     slug: "ronda-universitat-35",
@@ -149,7 +152,7 @@ export const residentialProjects: ResidentialProject[] = [
       "Casa Olmeda se asienta en su parcela buscando vistas y orientación óptima. El programa se desarrolla en una composición horizontal de volúmenes que se abren al exterior mediante ventanales de gran formato.",
       "El interior despliega una paleta cálida y materiales naturales que refuerzan el carácter doméstico y la integración con el entorno.",
     ],
-    images: [olmeda1, olmeda2, olmeda3],
+    images: [olmeda2, olmeda1, olmeda3],
   },
   {
     slug: "casa-ocana",

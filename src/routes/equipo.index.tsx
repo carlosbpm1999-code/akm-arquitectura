@@ -469,7 +469,7 @@ function TeamPage() {
             <span className="team-stat-label">Año de fundación</span>
           </div>
           <div className="team-stat">
-            <span className="team-stat-num">+400</span>
+            <span className="team-stat-num">+2000</span>
             <span className="team-stat-label">Proyectos realizados</span>
           </div>
           <div className="team-stat">

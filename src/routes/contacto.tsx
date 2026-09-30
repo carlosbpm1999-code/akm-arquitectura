@@ -34,7 +34,7 @@ function ContactoPage() {
           }
         });
       },
-      { threshold: 0.08 },
+      { threshold: 0.08, rootMargin: "0px 0px 350px 0px" },
     );
     document.querySelectorAll(".rv").forEach((el) => ob.observe(el));
     return () => ob.disconnect();
@@ -49,7 +49,7 @@ function ContactoPage() {
 
           {/* ── Left panel ── */}
           <div className="cp-left">
-            <span className="eyebrow rv" style={{ color: "var(--gold)" }}>Contacto</span>
+            <span className="eyebrow rv">Contacto</span>
             <h1 className="cp-title rv">
               Hablemos de tu<br />
               <em>próximo proyecto</em>
@@ -85,13 +85,12 @@ function ContactoPage() {
                 href="https://www.instagram.com/akm_arquitectura/"
                 target="_blank"
                 rel="noreferrer"
-                className="cp-soc"
+                className="cp-soc cp-soc--instagram"
                 aria-label="Instagram"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-                  <rect x="2" y="2" width="20" height="20" rx="5" />
-                  <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4.2" />
                 </svg>
                 Instagram
               </a>
@@ -99,13 +98,14 @@ function ContactoPage() {
                 href="https://www.linkedin.com/company/akm-arquitectura/"
                 target="_blank"
                 rel="noreferrer"
-                className="cp-soc"
+                className="cp-soc cp-soc--linkedin"
                 aria-label="LinkedIn"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-                  <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" />
-                  <rect x="2" y="9" width="4" height="12" />
-                  <circle cx="4" cy="4" r="2" />
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <line x1="8" y1="10" x2="8" y2="17" />
+                  <circle cx="8" cy="6.6" r="0.6" fill="currentColor" stroke="none" />
+                  <path d="M12 17v-4.3a2.4 2.4 0 014.8 0V17" />
                 </svg>
                 LinkedIn
               </a>

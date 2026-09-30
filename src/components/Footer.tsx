@@ -1,12 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import wordmarkDark from "@/assets/brand/akm-wordmark-dark.svg";
+import wordmark from "@/assets/brand/akm-wordmark-ink.svg";
 
 export function Footer() {
   return (
     <footer className="akm-footer">
       <div className="f-inner">
         <Link to="/" className="f-wordmark-link">
-          <img src={wordmarkDark} alt="Arqués – Kassem & Molinero Arquitectura" className="f-wordmark" />
+          <img src={wordmark} alt="Arqués – Kassem & Molinero Arquitectura" className="f-wordmark" />
         </Link>
 
         <nav className="f-nav">
@@ -23,13 +23,12 @@ export function Footer() {
             href="https://www.instagram.com/akm_arquitectura/"
             target="_blank"
             rel="noreferrer"
-            className="f-soc"
+            className="f-soc f-soc--instagram"
             aria-label="Instagram de AKM Arquitectura"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
-              <rect x="2" y="2" width="20" height="20" rx="5" />
-              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4.2" />
             </svg>
             Instagram
           </a>
@@ -37,13 +36,14 @@ export function Footer() {
             href="https://www.linkedin.com/company/akm-arquitectura/"
             target="_blank"
             rel="noreferrer"
-            className="f-soc"
+            className="f-soc f-soc--linkedin"
             aria-label="LinkedIn de AKM Arquitectura"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
-              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" />
-              <rect x="2" y="9" width="4" height="12" />
-              <circle cx="4" cy="4" r="2" />
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <line x1="8" y1="10" x2="8" y2="17" />
+              <circle cx="8" cy="6.6" r="0.6" fill="currentColor" stroke="none" />
+              <path d="M12 17v-4.3a2.4 2.4 0 014.8 0V17" />
             </svg>
             LinkedIn
           </a>
@@ -65,7 +65,6 @@ export function Footer() {
           <Link to="/cookies">Cookies</Link>
           <Link to="/aviso-legal">Aviso Legal</Link>
         </div>
-        <span className="f-est">Barcelona · Est.&nbsp;1980</span>
       </div>
     </footer>
   );

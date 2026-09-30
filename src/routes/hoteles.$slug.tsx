@@ -57,7 +57,7 @@ function HotelDetailPage() {
           ob.unobserve(entry.target);
         });
       },
-      { threshold: 0.12 },
+      { threshold: 0.12, rootMargin: "0px 0px 350px 0px" },
     );
     document.querySelectorAll(".rv").forEach((el) => ob.observe(el));
 
@@ -72,7 +72,6 @@ function HotelDetailPage() {
         <section className="project-hero">
           <div className="project-hero-copy">
             <Link to="/hoteles" className="project-back rv">← Hoteles</Link>
-            <span className="eyebrow rv">Caso de éxito</span>
             <h1 className="project-title rv">{project.name}</h1>
             <p className="project-meta rv">{project.meta}</p>
           </div>
@@ -82,10 +81,6 @@ function HotelDetailPage() {
         </section>
 
         <section className="project-body">
-          <aside className="project-aside rv">
-            <span className="eyebrow">Descripción</span>
-            <a href={project.sourceUrl} target="_blank" rel="noreferrer">Ver fuente original</a>
-          </aside>
           <div className="project-text rv">
             {project.description.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
