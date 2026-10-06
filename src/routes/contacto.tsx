@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
+import { ContactForm } from "@/components/ContactForm";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 
@@ -37,6 +38,9 @@ function ContactoPage() {
       { threshold: 0.08, rootMargin: "0px 0px 350px 0px" },
     );
     document.querySelectorAll(".rv").forEach((el) => ob.observe(el));
+    if (window.location.hash === "#formulario") {
+      document.getElementById("formulario")?.scrollIntoView({ behavior: "smooth" });
+    }
     return () => ob.disconnect();
   }, []);
 
@@ -57,6 +61,13 @@ function ContactoPage() {
             <p className="cp-intro rv">
               Cuéntanos tu idea. Llevamos más de cuatro décadas transformando edificios y ciudades, y cada encargo merece toda nuestra atención, sea cual sea su escala.
             </p>
+
+            <a href="#formulario" className="cp-cta rv">
+              Envíanos un mensaje
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+                <path d="M12 5v14M6 13l6 6 6-6" />
+              </svg>
+            </a>
 
             <div className="cp-items">
               <a href="tel:+34932453032" className="cp-item rv">
@@ -127,6 +138,22 @@ function ContactoPage() {
             </div>
           </div>
 
+        </section>
+
+        {/* ── Formulario ── */}
+        <section className="cp-form" id="formulario">
+          <div className="cp-form-head">
+            <span className="eyebrow rv">Escríbenos</span>
+            <h2 className="heading rv">
+              Envíanos un <em>mensaje</em>
+            </h2>
+            <p className="cp-form-intro rv">
+              Cuéntanos qué necesitas y te responderemos por correo lo antes posible.
+            </p>
+          </div>
+          <div className="cp-form-card rv">
+            <ContactForm />
+          </div>
         </section>
       </main>
 

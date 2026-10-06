@@ -137,7 +137,7 @@ const stats = [
   { val: 44, label: "Años de experiencia" },
   { val: 2000, label: "Proyectos completados", pre: "+" },
   { val: 150, label: "Hoteles intervenidos", pre: "+" },
-  { val: 1980, label: "Año de fundación" },
+  { text: "Sede en Barcelona" },
 ];
 
 const heroSlides = [
@@ -208,7 +208,7 @@ function Index() {
     document.querySelectorAll(".rv").forEach((el) => ob.observe(el));
 
     // Count up
-    const counters = document.querySelectorAll<HTMLElement>(".stat-n");
+    const counters = document.querySelectorAll<HTMLElement>(".stat-n[data-val]");
     const counterObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -306,30 +306,20 @@ function Index() {
         </div>
       </section>
 
-      {/* MARQUEE */}
-      <div className="mq-wrap">
-        <div className="mq-track">
-          {Array.from({ length: 2 }).flatMap((_, k) =>
-            ["Rehabilitación", "Obra Nueva", "Hoteles", "Residencial", "Patrimonio", "Estructuras", "Interiorismo", "Restauración"].map(
-              (t, i) => (
-                <span className="mq-item" key={`${k}-${i}`}>
-                  {t}
-                  <b>·</b>
-                </span>
-              ),
-            ),
-          )}
-        </div>
-      </div>
-
       {/* STATS */}
       <div className="stats">
         {stats.map((s) => (
-          <div className="stat rv" key={s.label}>
-            <span className="stat-n" data-val={s.val} data-pre={s.pre || ""}>
-              0
-            </span>
-            <span className="stat-l">{s.label}</span>
+          <div className="stat rv" key={s.label ?? s.text}>
+            {s.text ? (
+              <span className="stat-n">{s.text}</span>
+            ) : (
+              <>
+                <span className="stat-n" data-val={s.val} data-pre={s.pre || ""}>
+                  0
+                </span>
+                <span className="stat-l">{s.label}</span>
+              </>
+            )}
           </div>
         ))}
       </div>
@@ -357,10 +347,6 @@ function Index() {
         </div>
         <div className="about-r about-brand rv">
           <img src={wordmarkDark} alt="Arqués – Kassem & Molinero Arquitectura" />
-          <div className="about-year">
-            <span className="y">1980</span>
-            <span className="s">Fundación</span>
-          </div>
         </div>
       </section>
 
@@ -447,6 +433,12 @@ function Index() {
                 </span>
               </div>
             </div>
+            <Link to="/contacto" hash="formulario" className="contact-cta rv">
+              Envíanos un mensaje
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </Link>
             <div className="socials rv">
               <a
                 href="https://www.instagram.com/akm_arquitectura/"

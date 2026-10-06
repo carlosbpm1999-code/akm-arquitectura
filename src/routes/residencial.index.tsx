@@ -2,7 +2,9 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { residentialProjects } from "@/data/residentialProjects";
 import { Footer } from "@/components/Footer";
+import { ProjectCta } from "@/components/ProjectCta";
 import { Nav } from "@/components/Nav";
+import { formatProjectMeta } from "@/lib/projectMeta";
 
 const heroSlides = residentialProjects.map((project) => ({
   img: project.images[0],
@@ -143,29 +145,41 @@ function ResidencialPage() {
         </section>
 
         <section className="hotels-cases" aria-labelledby="residencial-casos">
-          <div className="hotels-cases-head">
-            <span className="eyebrow rv">Portfolio residencial</span>
-            <h2 className="heading rv" id="residencial-casos">
-              Selección de <em>proyectos</em>
+          <div className="port-head">
+            <h2 className="heading heading-portfolio rv" id="residencial-casos" style={{ marginBottom: 0 }}>
+              Selección de<br />
+              <em>proyectos</em>
             </h2>
           </div>
-          <div className="hotels-list">
-            {residentialProjects.map((project) => (
-              <Link
-                className="hotel-case rv"
-                to="/residencial/$slug"
-                params={{ slug: project.slug }}
-                key={project.slug}
-              >
-                <div className="hotel-case-media">
+          <div className="pgrid pgrid-list">
+            {residentialProjects.map((project, i) => {
+              const cat = `Residencial · ${project.meta.split(" · ")[0]}`;
+              return (
+                <Link
+                  className="pc rv"
+                  to="/residencial/$slug"
+                  params={{ slug: project.slug }}
+                  key={project.slug}
+                >
+                  <span className="pc-idx">{String(i + 1).padStart(2, "0")}</span>
                   <img src={project.images[0]} alt={project.name} loading="lazy" />
-                </div>
-                <h3>{project.name}</h3>
-              </Link>
-            ))}
+                  <div className="pc-label">
+                    <p className="pc-cat">{cat}</p>
+                    <h3 className="pc-name">{project.name}</h3>
+                  </div>
+                  <div className="pc-over">
+                    <div className="pc-over-bar"></div>
+                    <p className="pc-over-cat">{cat}</p>
+                    <h3 className="pc-over-name">{project.name}</h3>
+                    <p className="pc-over-loc">{formatProjectMeta(project.meta)}</p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </section>
       </main>
+      <ProjectCta />
       <Footer />
     </>
   );

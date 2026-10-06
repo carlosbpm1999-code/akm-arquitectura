@@ -2,6 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { teamMembers, type TeamMember } from "@/data/team";
 import { Footer } from "@/components/Footer";
+import { ProjectCta } from "@/components/ProjectCta";
 import { Nav } from "@/components/Nav";
 
 /**
@@ -585,6 +586,7 @@ function TeamPage() {
           </div>
         </div>
       )}
+      <ProjectCta />
       <Footer />
     </>
   );

@@ -2,7 +2,9 @@ import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { getHotelProject, hotelProjects } from "@/data/hotelProjects";
 import { Footer } from "@/components/Footer";
+import { ProjectCta } from "@/components/ProjectCta";
 import { Nav } from "@/components/Nav";
+import { ProjectStatsBar } from "@/components/ProjectStatsBar";
 
 export const Route = createFileRoute("/hoteles/$slug")({
   loader: ({ params }) => {
@@ -73,7 +75,7 @@ function HotelDetailPage() {
           <div className="project-hero-copy">
             <Link to="/hoteles" className="project-back rv">← Hoteles</Link>
             <h1 className="project-title rv">{project.name}</h1>
-            <p className="project-meta rv">{project.meta}</p>
+            <ProjectStatsBar meta={project.meta} />
           </div>
           <div className="project-hero-media rv">
             <img src={project.images[0]} alt={project.name} />
@@ -139,6 +141,7 @@ function HotelDetailPage() {
           </div>
         </section>
       </main>
+      <ProjectCta />
       <Footer />
     </>
   );
