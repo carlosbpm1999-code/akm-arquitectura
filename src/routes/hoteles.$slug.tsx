@@ -1,6 +1,7 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { getHotelProject, hotelProjects } from "@/data/hotelProjects";
+import { CoverImage } from "@/components/CoverImage";
+import { applyOverride, baseProjectByKey, configFromMatches, useProjects } from "@/data/projects";
 import { Footer } from "@/components/Footer";
 import { ProjectCta } from "@/components/ProjectCta";
 import { Nav } from "@/components/Nav";
@@ -8,12 +9,13 @@ import { ProjectStatsBar } from "@/components/ProjectStatsBar";
 
 export const Route = createFileRoute("/hoteles/$slug")({
   loader: ({ params }) => {
-    const project = getHotelProject(params.slug);
-    if (!project) throw notFound();
-    return project;
+    const base = baseProjectByKey.get(`hoteles/${params.slug}`);
+    if (!base) throw notFound();
+    return base;
   },
-  head: ({ loaderData }) => {
-    const project = loaderData ?? hotelProjects[0];
+  head: ({ loaderData, matches }) => {
+    if (!loaderData) return {};
+    const project = applyOverride(loaderData, configFromMatches(matches));
 
     return {
       meta: [
@@ -24,8 +26,8 @@ export const Route = createFileRoute("/hoteles/$slug")({
       },
         { property: "og:title", content: `${project.name} — AKM Arquitectura` },
         { property: "og:description", content: project.summary.slice(0, 155) },
-        { property: "og:image", content: project.images[0] },
-        { name: "twitter:image", content: project.images[0] },
+        { property: "og:image", content: project.cover },
+        { name: "twitter:image", content: project.cover },
       ],
     };
   },
@@ -39,12 +41,14 @@ export const Route = createFileRoute("/hoteles/$slug")({
 });
 
 function HotelDetailPage() {
-  const project = Route.useLoaderData();
-  const currentIndex = hotelProjects.findIndex((item) => item.slug === project.slug);
-  const total = hotelProjects.length;
-  const prevProject = hotelProjects[(currentIndex - 1 + total) % total];
-  const nextProject = hotelProjects[(currentIndex + 1) % total];
-  const related = hotelProjects.filter((item) => item.slug !== project.slug).slice(0, 3);
+  const base = Route.useLoaderData();
+  const { hoteles: list, byKey } = useProjects();
+  const project = byKey.get(base.key)!;
+  const currentIndex = list.findIndex((item) => item.slug === project.slug);
+  const total = list.length;
+  const prevProject = list[(currentIndex - 1 + total) % total];
+  const nextProject = list[(currentIndex + 1) % total];
+  const related = list.filter((item) => item.slug !== project.slug).slice(0, 3);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -78,7 +82,7 @@ function HotelDetailPage() {
             <ProjectStatsBar meta={project.meta} />
           </div>
           <div className="project-hero-media rv">
-            <img src={project.images[0]} alt={project.name} />
+            <CoverImage src={project.cover} alt={project.name} look={project.look} />
           </div>
         </section>
 
@@ -91,9 +95,9 @@ function HotelDetailPage() {
         </section>
 
         <section className="project-gallery" aria-label={`Galería de ${project.name}`}>
-          {project.images.slice(1).map((image, index) => (
-            <figure className="project-gallery-item rv" key={image}>
-              <img src={image} alt={`${project.name} — imagen ${index + 2}`} loading="lazy" />
+          {project.gallery.map(({ src, index }) => (
+            <figure className="project-gallery-item rv" key={src}>
+              <img src={src} alt={`${project.name} — imagen ${index + 1}`} loading="lazy" />
             </figure>
           ))}
         </section>
@@ -107,7 +111,7 @@ function HotelDetailPage() {
             <span className="project-pager-arrow">←</span>
             <span className="project-pager-meta">
               <span className="project-pager-label">Anterior</span>
-              <span className="project-pager-name">{prevProject.name.replace("Catalonia ", "")}</span>
+              <span className="project-pager-name">{prevProject.card.name}</span>
             </span>
           </Link>
           <Link to="/hoteles" className="project-pager-all">Ver todos</Link>
@@ -118,7 +122,7 @@ function HotelDetailPage() {
           >
             <span className="project-pager-meta">
               <span className="project-pager-label">Siguiente</span>
-              <span className="project-pager-name">{nextProject.name.replace("Catalonia ", "")}</span>
+              <span className="project-pager-name">{nextProject.card.name}</span>
             </span>
             <span className="project-pager-arrow">→</span>
           </Link>
@@ -133,9 +137,9 @@ function HotelDetailPage() {
             {related.map((item) => (
               <Link className="hotel-case rv" to="/hoteles/$slug" params={{ slug: item.slug }} key={item.slug}>
                 <div className="hotel-case-media">
-                  <img src={item.images[0]} alt={item.name} loading="lazy" />
+                  <CoverImage src={item.cover} alt={item.name} look={item.look} loading="lazy" />
                 </div>
-                <h3>{item.name.replace("Catalonia ", "")}</h3>
+                <h3>{item.card.name}</h3>
               </Link>
             ))}
           </div>

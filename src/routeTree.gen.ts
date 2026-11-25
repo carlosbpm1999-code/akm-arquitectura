@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ToolRouteImport } from './routes/tool'
 import { Route as ResidencialRouteImport } from './routes/residencial'
 import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as HotelesRouteImport } from './routes/hoteles'
@@ -24,6 +25,11 @@ import { Route as ResidencialSlugRouteImport } from './routes/residencial.$slug'
 import { Route as HotelesSlugRouteImport } from './routes/hoteles.$slug'
 import { Route as EquipoSlugRouteImport } from './routes/equipo.$slug'
 
+const ToolRoute = ToolRouteImport.update({
+  id: '/tool',
+  path: '/tool',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResidencialRoute = ResidencialRouteImport.update({
   id: '/residencial',
   path: '/residencial',
@@ -104,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/hoteles': typeof HotelesRouteWithChildren
   '/privacidad': typeof PrivacidadRoute
   '/residencial': typeof ResidencialRouteWithChildren
+  '/tool': typeof ToolRoute
   '/equipo/$slug': typeof EquipoSlugRoute
   '/hoteles/$slug': typeof HotelesSlugRoute
   '/residencial/$slug': typeof ResidencialSlugRoute
@@ -117,6 +124,7 @@ export interface FileRoutesByTo {
   '/contacto': typeof ContactoRoute
   '/cookies': typeof CookiesRoute
   '/privacidad': typeof PrivacidadRoute
+  '/tool': typeof ToolRoute
   '/equipo/$slug': typeof EquipoSlugRoute
   '/hoteles/$slug': typeof HotelesSlugRoute
   '/residencial/$slug': typeof ResidencialSlugRoute
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/hoteles': typeof HotelesRouteWithChildren
   '/privacidad': typeof PrivacidadRoute
   '/residencial': typeof ResidencialRouteWithChildren
+  '/tool': typeof ToolRoute
   '/equipo/$slug': typeof EquipoSlugRoute
   '/hoteles/$slug': typeof HotelesSlugRoute
   '/residencial/$slug': typeof ResidencialSlugRoute
@@ -152,6 +161,7 @@ export interface FileRouteTypes {
     | '/hoteles'
     | '/privacidad'
     | '/residencial'
+    | '/tool'
     | '/equipo/$slug'
     | '/hoteles/$slug'
     | '/residencial/$slug'
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
     | '/contacto'
     | '/cookies'
     | '/privacidad'
+    | '/tool'
     | '/equipo/$slug'
     | '/hoteles/$slug'
     | '/residencial/$slug'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/hoteles'
     | '/privacidad'
     | '/residencial'
+    | '/tool'
     | '/equipo/$slug'
     | '/hoteles/$slug'
     | '/residencial/$slug'
@@ -198,10 +210,18 @@ export interface RootRouteChildren {
   HotelesRoute: typeof HotelesRouteWithChildren
   PrivacidadRoute: typeof PrivacidadRoute
   ResidencialRoute: typeof ResidencialRouteWithChildren
+  ToolRoute: typeof ToolRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tool': {
+      id: '/tool'
+      path: '/tool'
+      fullPath: '/tool'
+      preLoaderRoute: typeof ToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/residencial': {
       id: '/residencial'
       path: '/residencial'
@@ -352,6 +372,7 @@ const rootRouteChildren: RootRouteChildren = {
   HotelesRoute: HotelesRouteWithChildren,
   PrivacidadRoute: PrivacidadRoute,
   ResidencialRoute: ResidencialRouteWithChildren,
+  ToolRoute: ToolRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

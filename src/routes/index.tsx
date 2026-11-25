@@ -6,15 +6,8 @@ import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 
 import imgPlazaEspana from "@/assets/hoteles/plaza-espana/01.jpg";
-import imgAusiasMarch from "@/assets/residencial/ausias-march-35/05.webp";
-import imgMiradorDesPort from "@/assets/hoteles/mirador-des-port/00.webp";
-import imgCasaCC2A from "@/assets/residencial/unifamiliar-cc2a/1.jpg";
-import imgDonosti from "@/assets/hoteles/donosti/00.webp";
-import imgReinaVictoria from "@/assets/hoteles/reina-victoria/03.webp";
-import imgEspolin from "@/assets/hoteles/restaurante-espolin/1.jpg";
-import imgPuertaDelMar from "@/assets/hoteles/puerta-del-mar/1.jpg";
-import imgC104 from "@/assets/residencial/c104/1.jpg";
-import imgCasaOlmeda from "@/assets/residencial/casa-olmeda/2.jpg";
+import { CoverImage } from "@/components/CoverImage";
+import { useProjects } from "@/data/projects";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -40,99 +33,6 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const projects = [
-  {
-    idx: "01",
-    img: imgPlazaEspana,
-    cat: "Hotel · Madrid",
-    name: "Hotel Catalonia Plaza España",
-    overCat: "Rehabilitación · 165 hab. · 1947",
-    loc: "Gran Vía, Madrid · 9.651 m²",
-    section: "hoteles" as const,
-    slug: "hotel-catalonia-plaza-espana",
-  },
-  {
-    idx: "02",
-    img: imgAusiasMarch,
-    cat: "Residencial · Barcelona",
-    name: "Ausiàs March, 35",
-    overCat: "Rehabilitación · 1888–1890",
-    loc: "Barcelona · 3.410 m²",
-    section: "residencial" as const,
-    slug: "ausias-march-35",
-  },
-  {
-    idx: "03",
-    img: imgMiradorDesPort,
-    cat: "Hotel · Menorca",
-    name: "Hotel Catalonia Mirador des Port",
-    overCat: "Rehab. & Ampliación · 54 hab.",
-    loc: "Mahón, Menorca · 4.259 m²",
-    section: "hoteles" as const,
-    slug: "hotel-catalonia-mirador-des-port",
-  },
-  {
-    idx: "04",
-    img: imgCasaCC2A,
-    cat: "Vivienda · Obra Nueva",
-    name: "Casa CC2A",
-    overCat: "5 Plantas · Piscina · Vistas al mar",
-    loc: "5 dormitorios · Gimnasio · Sauna",
-    section: "residencial" as const,
-    slug: "casa-cc2a",
-  },
-  {
-    idx: "05",
-    img: imgDonosti,
-    cat: "Hotel · San Sebastián",
-    name: "Hotel Catalonia Donosti",
-    overCat: "Obra Nueva · 122 hab.",
-    loc: "Donostia · Iglesia San Bartolomé",
-    section: "hoteles" as const,
-    slug: "hotel-catalonia-domenicus",
-  },
-  {
-    idx: "06",
-    img: imgReinaVictoria,
-    cat: "Hotel · Ronda",
-    name: "Hotel Catalonia Reina Victoria",
-    overCat: "Reforma Interior · 88 hab. · 1906",
-    loc: "Ronda, Málaga · Vistas al Tajo",
-    section: "hoteles" as const,
-    slug: "hotel-reina-victoria",
-  },
-  {
-    idx: "07",
-    img: imgEspolin,
-    cat: "Restauración · Valencia",
-    name: "Restaurante Espolín",
-    overCat: "Reforma Interior · Bar · Comedor",
-    loc: "Valencia",
-    section: "hoteles" as const,
-    slug: "restaurante-espolin",
-  },
-  {
-    idx: "08",
-    img: imgPuertaDelMar,
-    cat: "Hotel · Málaga",
-    name: "Hotel Catalonia Puerta del Mar",
-    overCat: "Rehabilitación · 74 hab. · s. XIX",
-    loc: "Málaga · Edificios históricos",
-    section: "hoteles" as const,
-    slug: "hotel-catalonia-puerta-del-mar",
-  },
-  {
-    idx: "09",
-    img: imgC104,
-    cat: "Residencial · Eixample Barcelona",
-    name: "Reforma Interior C104",
-    overCat: "Reforma Integral · Plurifamiliar",
-    loc: "Eixample, Barcelona",
-    section: "residencial" as const,
-    slug: "reforma-interior-c104",
-  },
-];
-
 const stats = [
   { val: 44, label: "Años de experiencia" },
   { val: 2000, label: "Proyectos completados", pre: "+" },
@@ -140,56 +40,30 @@ const stats = [
   { text: "Sede en Barcelona" },
 ];
 
-const heroSlides = [
-  {
-    img: imgPlazaEspana,
-    name: "Hotel Catalonia Plaza España",
-    cat: "Hotel · Madrid",
-  },
-  {
-    img: imgCasaCC2A,
-    name: "Casa CC2A",
-    cat: "Residencial · Obra Nueva",
-  },
-  {
-    img: imgMiradorDesPort,
-    name: "Hotel Catalonia Mirador des Port",
-    cat: "Hotel · Menorca",
-  },
-  {
-    img: imgAusiasMarch,
-    name: "Ausiàs March, 35",
-    cat: "Residencial · Barcelona",
-  },
-  {
-    img: imgReinaVictoria,
-    name: "Hotel Catalonia Reina Victoria",
-    cat: "Hotel · Ronda",
-  },
-  {
-    img: imgCasaOlmeda,
-    name: "Casa Olmeda",
-    cat: "Residencial",
-  },
-];
-
 function Index() {
+  // Carrusel y "Proyectos seleccionados" se eligen en /tool → Portada
+  const { hero: heroSlides, featured: projects } = useProjects();
   const [slideIndex, setSlideIndex] = useState(0);
   const slideTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const goTo = (i: number) => setSlideIndex((i + heroSlides.length) % heroSlides.length);
+  const slideCount = heroSlides.length;
+  const goTo = (i: number) => slideCount && setSlideIndex((i + slideCount) % slideCount);
   const next = () => goTo(slideIndex + 1);
   const prev = () => goTo(slideIndex - 1);
 
   useEffect(() => {
     if (slideTimer.current) clearInterval(slideTimer.current);
+    if (slideCount < 2) return;
     slideTimer.current = setInterval(() => {
-      setSlideIndex((i) => (i + 1) % heroSlides.length);
+      setSlideIndex((i) => (i + 1) % slideCount);
     }, 5500);
     return () => {
       if (slideTimer.current) clearInterval(slideTimer.current);
     };
-  }, [slideIndex]);
+  }, [slideIndex, slideCount]);
+
+  // Si cambia el número de diapositivas, que el índice no se quede fuera de rango
+  const activeSlide = slideCount ? slideIndex % slideCount : 0;
 
   useEffect(() => {
     // Reveal on scroll
@@ -256,14 +130,14 @@ function Index() {
           <div className="hero-slider" aria-roledescription="carrusel">
             {heroSlides.map((s, i) => (
               <div
-                key={s.img}
-                className={"hero-slide" + (i === slideIndex ? " is-active" : "")}
-                aria-hidden={i !== slideIndex}
+                key={s.key}
+                className={"hero-slide" + (i === activeSlide ? " is-active" : "")}
+                aria-hidden={i !== activeSlide}
               >
-                <img src={s.img} alt={s.name} loading={i === 0 ? "eager" : "lazy"} />
+                <CoverImage src={s.cover} alt={s.name} look={s.look} loading={i === 0 ? "eager" : "lazy"} />
                 <div className="hero-slide-caption">
-                  <span className="hero-slide-cat">{s.cat}</span>
-                  <span className="hero-slide-name">{s.name.replace("Catalonia ", "")}</span>
+                  <span className="hero-slide-cat">{s.card.cat}</span>
+                  <span className="hero-slide-name">{s.card.name}</span>
                 </div>
               </div>
             ))}
@@ -292,12 +166,12 @@ function Index() {
             <div className="hero-slide-bullets" role="tablist">
               {heroSlides.map((s, i) => (
                 <button
-                  key={s.img}
+                  key={s.key}
                   type="button"
-                  className={"hero-slide-bullet" + (i === slideIndex ? " is-active" : "")}
+                  className={"hero-slide-bullet" + (i === activeSlide ? " is-active" : "")}
                   onClick={() => goTo(i)}
                   aria-label={`Ir al proyecto ${i + 1}`}
-                  aria-selected={i === slideIndex}
+                  aria-selected={i === activeSlide}
                   role="tab"
                 />
               ))}
@@ -361,24 +235,24 @@ function Index() {
           </div>
         </div>
         <div className="pgrid">
-          {projects.map((p) => (
+          {projects.map((p, i) => (
             <Link
               className="pc rv"
-              key={p.idx}
+              key={p.key}
               to={p.section === "hoteles" ? "/hoteles/$slug" : "/residencial/$slug"}
               params={{ slug: p.slug }}
             >
-              <span className="pc-idx">{p.idx}</span>
-              <img src={p.img} alt={p.name} loading="lazy" />
+              <span className="pc-idx">{String(i + 1).padStart(2, "0")}</span>
+              <CoverImage src={p.cover} alt={p.name} look={p.look} loading="lazy" />
               <div className="pc-label">
-                <p className="pc-cat">{p.cat}</p>
-                <h3 className="pc-name">{p.name.replace("Catalonia ", "")}</h3>
+                <p className="pc-cat">{p.card.cat}</p>
+                <h3 className="pc-name">{p.card.name}</h3>
               </div>
               <div className="pc-over">
                 <div className="pc-over-bar"></div>
-                <p className="pc-over-cat">{p.overCat}</p>
-                <h3 className="pc-over-name">{p.name.replace("Catalonia ", "")}</h3>
-                <p className="pc-over-loc">{p.loc}</p>
+                <p className="pc-over-cat">{p.card.overCat}</p>
+                <h3 className="pc-over-name">{p.card.name}</h3>
+                <p className="pc-over-loc">{p.card.loc}</p>
               </div>
             </Link>
           ))}

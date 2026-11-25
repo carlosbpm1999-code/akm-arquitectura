@@ -1,16 +1,11 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { residentialProjects } from "@/data/residentialProjects";
+import { CoverImage } from "@/components/CoverImage";
+import { useProjects } from "@/data/projects";
 import { Footer } from "@/components/Footer";
 import { ProjectCta } from "@/components/ProjectCta";
 import { Nav } from "@/components/Nav";
 import { formatProjectMeta } from "@/lib/projectMeta";
-
-const heroSlides = residentialProjects.map((project) => ({
-  img: project.images[0],
-  name: project.name,
-  slug: project.slug,
-}));
 
 export const Route = createFileRoute("/residencial/")({
   component: ResidencialPage,
@@ -40,6 +35,7 @@ export const Route = createFileRoute("/residencial/")({
 });
 
 function ResidencialPage() {
+  const heroSlides = useProjects().residencial;
   const [slideIndex, setSlideIndex] = useState(0);
   const slideTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -94,14 +90,14 @@ function ResidencialPage() {
             <div className="hero-slider" aria-roledescription="carrusel">
               {heroSlides.map((s, i) => (
                 <div
-                  key={s.slug}
+                  key={s.key}
                   className={"hero-slide" + (i === slideIndex ? " is-active" : "")}
                   aria-hidden={i !== slideIndex}
                 >
-                  <img src={s.img} alt={s.name} loading={i === 0 ? "eager" : "lazy"} />
+                  <CoverImage src={s.cover} alt={s.name} look={s.look} loading={i === 0 ? "eager" : "lazy"} />
                   <div className="hero-slide-caption">
                     <span className="hero-slide-cat">Residencial</span>
-                    <span className="hero-slide-name">{s.name}</span>
+                    <span className="hero-slide-name">{s.card.name}</span>
                   </div>
                 </div>
               ))}
@@ -130,7 +126,7 @@ function ResidencialPage() {
               <div className="hero-slide-bullets" role="tablist">
                 {heroSlides.map((s, i) => (
                   <button
-                    key={s.slug}
+                    key={s.key}
                     type="button"
                     className={"hero-slide-bullet" + (i === slideIndex ? " is-active" : "")}
                     onClick={() => goTo(i)}
@@ -152,8 +148,8 @@ function ResidencialPage() {
             </h2>
           </div>
           <div className="pgrid pgrid-list">
-            {residentialProjects.map((project, i) => {
-              const cat = `Residencial · ${project.meta.split(" · ")[0]}`;
+            {heroSlides.map((project, i) => {
+              const { name, cat } = project.card;
               return (
                 <Link
                   className="pc rv"
@@ -162,15 +158,15 @@ function ResidencialPage() {
                   key={project.slug}
                 >
                   <span className="pc-idx">{String(i + 1).padStart(2, "0")}</span>
-                  <img src={project.images[0]} alt={project.name} loading="lazy" />
+                  <CoverImage src={project.cover} alt={project.name} look={project.look} loading="lazy" />
                   <div className="pc-label">
                     <p className="pc-cat">{cat}</p>
-                    <h3 className="pc-name">{project.name}</h3>
+                    <h3 className="pc-name">{name}</h3>
                   </div>
                   <div className="pc-over">
                     <div className="pc-over-bar"></div>
                     <p className="pc-over-cat">{cat}</p>
-                    <h3 className="pc-over-name">{project.name}</h3>
+                    <h3 className="pc-over-name">{name}</h3>
                     <p className="pc-over-loc">{formatProjectMeta(project.meta)}</p>
                   </div>
                 </Link>

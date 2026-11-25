@@ -1,7 +1,8 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useLocation } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 import { CookieBanner } from "@/components/CookieBanner";
+import { getSiteConfig } from "@/lib/server-fns";
 
 function NotFoundComponent() {
   return (
@@ -26,6 +27,9 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
+  // Ajustes de /tool (portadas, textos, destacados). Se refrescan como mucho cada 30 s al navegar.
+  loader: () => getSiteConfig(),
+  staleTime: 30_000,
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -62,7 +66,7 @@ export const Route = createRootRoute({
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <HeadContent />
       </head>
@@ -75,10 +79,12 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  const { pathname } = useLocation();
+  const isTool = pathname === "/tool" || pathname.startsWith("/tool/");
   return (
     <>
       <Outlet />
-      <CookieBanner />
+      {!isTool && <CookieBanner />}
     </>
   );
 }

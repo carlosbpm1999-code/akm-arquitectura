@@ -1,7 +1,10 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "tanstack-start-app",
+  "name": "akm-arquitectura",
   "compatibility_date": "2025-09-24",
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
+  // Panel /tool: ajustes de la web, usuarios y clave de sesión.
+  // Namespace de Cloudflare KV ya creado en la cuenta (nombre: tanstack-start-app-akm-kv).
+  "kv_namespaces": [{ "binding": "AKM_KV", "id": "b772727b9a404714abcf9337690e5042" }],
 }

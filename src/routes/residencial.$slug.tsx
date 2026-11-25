@@ -1,6 +1,7 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { getResidentialProject, residentialProjects } from "@/data/residentialProjects";
+import { CoverImage } from "@/components/CoverImage";
+import { applyOverride, baseProjectByKey, configFromMatches, useProjects } from "@/data/projects";
 import { Footer } from "@/components/Footer";
 import { ProjectCta } from "@/components/ProjectCta";
 import { Nav } from "@/components/Nav";
@@ -8,20 +9,21 @@ import { ProjectStatsBar } from "@/components/ProjectStatsBar";
 
 export const Route = createFileRoute("/residencial/$slug")({
   loader: ({ params }) => {
-    const project = getResidentialProject(params.slug);
-    if (!project) throw notFound();
-    return project;
+    const base = baseProjectByKey.get(`residencial/${params.slug}`);
+    if (!base) throw notFound();
+    return base;
   },
-  head: ({ loaderData }) => {
-    const project = loaderData ?? residentialProjects[0];
+  head: ({ loaderData, matches }) => {
+    if (!loaderData) return {};
+    const project = applyOverride(loaderData, configFromMatches(matches));
     return {
       meta: [
         { title: `${project.name} — AKM Arquitectura` },
         { name: "description", content: project.summary.slice(0, 155) },
         { property: "og:title", content: `${project.name} — AKM Arquitectura` },
         { property: "og:description", content: project.summary.slice(0, 155) },
-        { property: "og:image", content: project.images[0] },
-        { name: "twitter:image", content: project.images[0] },
+        { property: "og:image", content: project.cover },
+        { name: "twitter:image", content: project.cover },
       ],
     };
   },
@@ -35,12 +37,14 @@ export const Route = createFileRoute("/residencial/$slug")({
 });
 
 function ResidentialDetailPage() {
-  const project = Route.useLoaderData();
-  const currentIndex = residentialProjects.findIndex((item) => item.slug === project.slug);
-  const total = residentialProjects.length;
-  const prevProject = residentialProjects[(currentIndex - 1 + total) % total];
-  const nextProject = residentialProjects[(currentIndex + 1) % total];
-  const related = residentialProjects.filter((item) => item.slug !== project.slug).slice(0, 3);
+  const base = Route.useLoaderData();
+  const { residencial: list, byKey } = useProjects();
+  const project = byKey.get(base.key)!;
+  const currentIndex = list.findIndex((item) => item.slug === project.slug);
+  const total = list.length;
+  const prevProject = list[(currentIndex - 1 + total) % total];
+  const nextProject = list[(currentIndex + 1) % total];
+  const related = list.filter((item) => item.slug !== project.slug).slice(0, 3);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -75,7 +79,7 @@ function ResidentialDetailPage() {
             <ProjectStatsBar meta={project.meta} />
           </div>
           <div className="project-hero-media rv">
-            <img src={project.images[0]} alt={project.name} />
+            <CoverImage src={project.cover} alt={project.name} look={project.look} />
           </div>
         </section>
 
@@ -88,14 +92,14 @@ function ResidentialDetailPage() {
         </section>
 
         <section className="project-gallery" aria-label={`Galería de ${project.name}`}>
-          {project.images.slice(1).map((image, index) => {
-            const noCrop = project.noCropIndexes?.includes(index + 1);
+          {project.gallery.map(({ src, index }) => {
+            const noCrop = project.noCropIndexes?.includes(index);
             return (
               <figure
                 className={"project-gallery-item rv" + (noCrop ? " project-gallery-item--contain" : "")}
-                key={image}
+                key={src}
               >
-                <img src={image} alt={`${project.name} — imagen ${index + 2}`} loading="lazy" />
+                <img src={src} alt={`${project.name} — imagen ${index + 1}`} loading="lazy" />
               </figure>
             );
           })}
@@ -141,7 +145,7 @@ function ResidentialDetailPage() {
                 key={item.slug}
               >
                 <div className="hotel-case-media">
-                  <img src={item.images[0]} alt={item.name} loading="lazy" />
+                  <CoverImage src={item.cover} alt={item.name} look={item.look} loading="lazy" />
                 </div>
                 <h3>{item.name}</h3>
               </Link>
