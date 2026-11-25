@@ -11,7 +11,7 @@ const LINKS: LinkItem[] = [
   { type: "route", to: "/hoteles", label: "Hoteles" },
   { type: "route", to: "/residencial", label: "Residencial" },
   { type: "route", to: "/equipo", label: "Equipo" },
-  { type: "anchor", href: "/#contacto", label: "Contacto" },
+  { type: "route", to: "/contacto", label: "Contacto" },
 ];
 
 export function MobileNavToggle() {
